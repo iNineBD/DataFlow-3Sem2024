@@ -63,3 +63,13 @@ head {
 #menu-x ul li a:hover {
     background-color: #00B4F0; /* Muda a cor do fundo ao passar o mouse por cima do link  */
 }
+
+#menu-x ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    vertical-align: middle; /* Alinha o ícone e o texto verticalmente */
+}
+
+#menu-x ul li a .material-icons {
+    vertical-align: middle; /* Alinha o ícone e o texto verticalmente */
+}
