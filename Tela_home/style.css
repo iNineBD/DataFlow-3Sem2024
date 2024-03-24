@@ -1,0 +1,62 @@
+body{
+    background-color: whitesmoke;
+    .container{
+        background-color: #021F4E;
+       
+    }
+    
+    .home{
+        color:#02BBCA;
+        width: 89 px;
+        border: 0px, 0px,1px,0px;
+        float:right;
+    }
+    .importarCSV {
+        color:white;
+        float:right;
+    }
+}
+
+
+
+main{
+    h1{
+        font: Inter;
+        weight: 700px;
+        size: 30 px;
+        line-height: 30 px;
+        color: #212529;
+        width: 250 px;
+        height: 40 px;
+        top: 120 px;
+        left: 40 px;
+    }
+
+    table#modificacao{
+        font: Inter;
+        color:#ADB5BD;
+        width: 1360px;
+        height: 230px;
+        top:190px;
+        left: 1000px;
+        border: 1px;
+        
+    }
+    table#modificacao{
+         /* border: 1px solid black; */
+        padding: 10px;
+    }
+    td:nth-child(1){
+        width: 25%;
+        text-align: left;
+    }
+    td {
+        text-align:left;
+    }
+    td{
+        border-bottom: 1px #CED4DA;
+    }
+
+}
+
+
