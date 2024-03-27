@@ -27,7 +27,7 @@
     font-variation-settings: "slnt" 0;
 }
 
-head {
+body {
     background: white scroll;
     margin: 0 auto;
     padding: 0;
@@ -76,7 +76,8 @@ head {
 
 main{
     h1{
-        font: Inter;
+        font-family: "Inter", sans-serif;
+        margin: 2%;
         weight: 700px;
         size: 30 px;
         line-height: 30 px;
@@ -88,13 +89,17 @@ main{
     }
 
     table#modificacao{
-        font: Inter;
+        font-family: "Inter", sans-serif;
+        margin: 1.5%;
+        border-collapse: separate;
+        border-spacing: 20px, 0px;
         color:#ADB5BD;
         width: 1360px;
         height: 230px;
         top:190px;
         left: 1000px;
         border: 1px;
+    
         
     }
     table#modificacao{
@@ -102,14 +107,12 @@ main{
         padding: 10px;
     }
     td:nth-child(1){
-        width: 25%;
+        width: auto;
         text-align: left;
     }
     td {
         text-align:left;
-    }
-    td{
-        border-bottom: 1px #CED4DA;
+    
     }
 
 }

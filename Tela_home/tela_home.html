@@ -4,71 +4,116 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!--icon de planilha-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <!--Icon do relógio-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!-- Icon de usuário-->
         <title>Home</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header> <!--Parte azul/pendente de ajustes-->
-                <div class="container">
-            
-                <img src="Imagem/Dom Rock.png" alt="Dom Rock">
-                 
-                <div class="Home">
-                    <img src="Imagem/IconHome.png" alt="Home"> Home    
-                </div>
+        <nav id="menu-x">
+            <ul>
+                <img src="../imagens/logoDomRock.png" alt="">
+    
+                <li class="semiBold600"><a href="#">
+                        <span class="material-icons">account_circle</span>
+                        Meu Perfil    
+                </a></li>
+    
+                <li class="semiBold600"><a href="#">
+                        <span class="material-icons">upload_file</span>
+                        Importar Novo CSV
+                    </a></li>
+    
+                <li class="semiBold600"><a href="#">
+                        <span class="material-icons">home</span>
+                        Home
+                    </a></li>
                 
-                <div class="importarCSV">
-                    <img src="Imagem/IconImportarCSV.png" alt="Import CSV">Importar novo CSV
-                </div>         
-                
-                               
-                <img src="Imagem/Fotoperfil.png" alt="Perfil">
-
-            </header>
+            </ul>
+        </nav>
+    
                        
         </div>
         <main>
-            <div class="Olá">
+            <div class="container">
                <h1>
                    Olá, Bem Vindo
                </h1> 
 
                <!--tabela dos arquivos com os status de modificação-->
+            </div>
+            <div class = "container">
                 <table id = "modificacao">
-                       <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nome</td> 
-                        <td>Data de Modificação</td>
-                        <td>Quem Modificou</td>
-                        <td>Status</td>
+                     
+                    <thead>
+                    <tr> <!--1ª linha-->
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nome</td> 
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Data de Modificação</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Quem Modificou</td>
                         </tr> 
-                        <tr>
+                    </thead>
+                    <tbody>
+                        <tr> <!--2ª linha -->
+                            <td><span class="material-symbols-outlined">
+                                description
+                                </span>&nbsp;&nbsp;Nome do arquivo</td>
+
+                            <td> <span class="material-symbols-outlined">
+                                schedule
+                                </span>&nbsp;&nbsp;Modificado 15 minutos atrás</td>
+                                
+                            <td><span class="material-symbols-outlined">
+                                account_circle
+                                </span> usuário.landing.zone</td>
+                        </tr>
                         
-                            <td><img src="Imagem/planilha.png" alt="">&nbsp;&nbsp;Nome do arquivo</td>
-                            <td><img src="Imagem/relogio 3.png" alt="">&nbsp;&nbsp;Modificado 15 minutos atrás</td>
-                            <td><img src="Imagem/perfil (1) 4.png" alt=""> usuário.landing.zone</td>
-                            <td><img src="Imagem/Coramarela.png" alt="">&nbsp;Aguardando aprovação da bronze&emsp;<img src="Imagem/png.png" alt=""></td>
+                        <tr> <!--3ª linha -->
+                            <td><span class="material-symbols-outlined">
+                                description
+                                </span>&nbsp;&nbsp;Nome do arquivo</td>
+
+                            <td><span class="material-symbols-outlined">
+                                schedule
+                                </span>&nbsp;&nbsp;Modificado 2 horas atrás</td>
+                                
+                            <td><span class="material-symbols-outlined">
+                                account_circle
+                                </span> usuário.bronze</td>
                         </tr>
-                        <tr>
-                            <td><img src="Imagem/planilha.png" alt="">&nbsp;&nbsp;Nome do arquivo</td>
-                            <td><img src="Imagem/relogio 3.png" alt="">&nbsp;&nbsp;Modificado 2 horas atrás</td>
-                            <td><img src="Imagem/perfil (1) 4.png" alt=""> usuário.bronze</td>
-                            <td><img src="Imagem/Corvermelha.png" alt="">&nbsp;Não aprovado pela silver &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="Imagem/png.png" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="Imagem/planilha.png" alt="">&nbsp;&nbsp;Nome do arquivo</td>
-                            <td><img src="Imagem/relogio 3.png" alt="">&nbsp;&nbsp;qui às 09:50 </td>
-                            <td><img src="Imagem/perfil (1) 4.png" alt=""> usuário.landing.zone</td>
-                            <td><img src="Imagem/Corverde.png" alt="">&nbsp;Não aprovado pela silver &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="Imagem/png.png" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="Imagem/planilha.png" alt="">&nbsp;&nbsp;Nome do arquivo</td>
-                            <td><img src="Imagem/relogio 3.png" alt="">&nbsp;&nbsp;11/03/2024 16:28:34</td>
-                            <td><img src="Imagem/perfil (1) 4.png" alt=""> usuário.bronze</td>
-                            <td><img src="Imagem/Coramarela.png" alt="">&nbsp;Aguardando aprovação da silver&ensp;&ensp;&ensp;<img src="Imagem/png.png" alt=""></td>
+                       
+                        <tr> <!--4ª linha -->
+                            <td><span class="material-symbols-outlined">
+                                description
+                                </span>&nbsp;&nbsp;Nome do arquivo</td>
+
+                            <td><span class="material-symbols-outlined">
+                                schedule
+                                </span>&nbsp;&nbsp;qui às 09:50 </td>
+                                
+                            <td><span class="material-symbols-outlined">
+                                account_circle
+                                </span> usuário.landing.zone</td>
                         </tr>
 
+                        <tr> <!--5ª linha -->
+                            <td><span class="material-symbols-outlined">
+                                description
+                                </span>&nbsp;&nbsp;Nome do arquivo</td>
+
+                            <td><span class="material-symbols-outlined">
+                                schedule
+                                </span>&nbsp;&nbsp;11/03/2024 16:28:34</td>
+
+                            <td><span class="material-symbols-outlined">
+                                account_circle
+                                </span> usuário.bronze</td>
+                        </tr>
+                    </tbody>
+
                         <!--faltam os retângulos, iguais ao do modelo do figma-->
-                     </table>
+                </table>
              
               
             </div>
