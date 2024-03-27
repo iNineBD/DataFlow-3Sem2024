@@ -88,6 +88,13 @@ main{
         left: 40 px;
     }
 
+    .container{
+        display: flex;
+        background-color: white;
+    }
+
+    
+
     table#modificacao{
         font-family: "Inter", sans-serif;
         margin: 1.5%;
@@ -99,6 +106,8 @@ main{
         top:190px;
         left: 1000px;
         border: 1px;
+
+        justify-content: center;
     
         
     }
@@ -107,7 +116,7 @@ main{
         padding: 10px;
     }
     td:nth-child(1){
-        width: auto;
+        width: 400px;
         text-align: left;
     }
     td {
