@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,19 +14,20 @@
         <nav>
             <a href="#">Home</a>
             <a href="upload-csv.html">Importar novo CSV</a>
-            <a href="#"><img src="/src/assets/images/icon-perfil-white.png" alt="icon-perfil-white" id="profileIcon"></a>
+            <a href="#"><img src="/src/assets/images/icon-perfil-white.png" alt="icon-perfil-white"
+                    id="profileIcon"></a>
         </nav>
     </header>
     <main>
         <form action="/upload" method="POST" enctype="multipart/form-data">
             <div id="fileUploadModal">
                 <input type="file" name="csvfile" accept=".csv" required hidden id="fileInput">
-                    <label for="fileInput">
-                        <div id="uploadArea">
-                            <img src="/src/assets/images/csv.png" alt="csv">
-                            <h1>Selecione um arquivo CSV</h1>
-                        </div>
-                    </label>
+                <label for="fileInput">
+                    <div id="uploadArea">
+                        <img src="/src/assets/images/csv.png" alt="csv">
+                        <h1>Selecione um arquivo CSV</h1>
+                    </div>
+                </label>
                 <button type="button">Cancelar</button>
                 <button type="submit">Fazer Upload</button>
             </div>
@@ -36,4 +38,5 @@
     <script src="/src/utils/upload-csv.js"></script>
     <script src="/src/utils/hover-image-change.js"></script>
 </body>
+
 </html>
