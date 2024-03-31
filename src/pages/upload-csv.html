@@ -19,9 +19,9 @@
         </nav>
     </header>
     <main>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
+        <form hx-encoding='multipart/form-data' hx-post='http://localhost:8080/landing/upload?delimiter=,'>
             <div id="fileUploadModal">
-                <input type="file" name="csvfile" accept=".csv" required hidden id="fileInput">
+                <input type="file" name="multipartFile" hidden id="fileInput">
                 <label for="fileInput">
                     <div id="uploadArea">
                         <img src="/src/assets/images/csv.png" alt="csv">
@@ -32,6 +32,9 @@
                 <button type="submit">Fazer Upload</button>
             </div>
         </form>
+        <div id="nameColumns">
+
+        </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
