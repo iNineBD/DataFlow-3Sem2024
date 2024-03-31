@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (response.ok) {
                     console.log('Sucesso:', response);
                     uploadArea.innerHTML = `
-                    <img src="/src/assets/images/csv.png" alt="csv">
+                    <img src="../assets/images/csv-azul.png" alt="csv-azul">
                     <h2>Arquivo carregado com sucesso!</h2>
                     `
                 } else {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fileInput.addEventListener('change', function () {
         var fileName = fileInput.files[0].name;
         uploadArea.innerHTML = `
-            <img src="/src/assets/images/csv.png" alt="csv">
+            <img src="../assets/images/csv-azul.png" alt="csv-azul">
             <h1>${fileName}</h1>
             <p>Clique para alterar o arquivo.</p>
         `;

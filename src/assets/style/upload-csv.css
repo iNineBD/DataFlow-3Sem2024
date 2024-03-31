@@ -18,6 +18,7 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 100px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 header #logo {
@@ -62,7 +63,7 @@ main {
     margin: auto;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 #uploadArea {
