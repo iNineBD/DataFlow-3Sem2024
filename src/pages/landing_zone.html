@@ -96,62 +96,65 @@
 
     <script>
 
-       
+        //recebendo o objeto da tela do lucas
+        //const jsonUpload = JSON.parse(LocalStorage).getItem('dadoTelaLucas');
 
-        const simuladoDados = { // apagar esta gambiarra
-            "columns": [
-                {
-                    "nome": "submission_date"
-                },
-                {
-                    "nome": "reviewer_id"
-                },
-                {
-                    "nome": "product_id"
-                },
-                {
-                    "nome": "product_name"
-                },
-                {
-                    "nome": "product_brand"
-                },
-                {
-                    "nome": "site_category_lv1"
-                },
-                {
-                    "nome": "site_category_lv2"
-                },
-                {
-                    "nome": "review_title"
-                },
-                {
-                    "nome": "overall_rating"
-                },
-                {
-                    "nome": "recommend_to_a_friend"
-                },
-                {
-                    "nome": "review_text"
-                },
-                {
-                    "nome": "reviewer_birth_year"
-                },
-                {
-                    "nome": "reviewer_gender"
-                },
-                {
-                    "nome": "reviewer_state"
-                }
-            ]
-        };
+        
+
+        // const simuladoDados = { // apagar esta gambiarra
+        //     "columns": [
+        //         {
+        //             "nome": "submission_date"
+        //         },
+        //         {
+        //             "nome": "reviewer_id"
+        //         },
+        //         {
+        //             "nome": "product_id"
+        //         },
+        //         {
+        //             "nome": "product_name"
+        //         },
+        //         {
+        //             "nome": "product_brand"
+        //         },
+        //         {
+        //             "nome": "site_category_lv1"
+        //         },
+        //         {
+        //             "nome": "site_category_lv2"
+        //         },
+        //         {
+        //             "nome": "review_title"
+        //         },
+        //         {
+        //             "nome": "overall_rating"
+        //         },
+        //         {
+        //             "nome": "recommend_to_a_friend"
+        //         },
+        //         {
+        //             "nome": "review_text"
+        //         },
+        //         {
+        //             "nome": "reviewer_birth_year"
+        //         },
+        //         {
+        //             "nome": "reviewer_gender"
+        //         },
+        //         {
+        //             "nome": "reviewer_state"
+        //         }
+        //     ]
+        // };
 
         let test = [] // referenciar a variavel que vai receber o objeto e desmembrar com um for 
 
-        simuladoDados.columns.forEach(coluna => {
-            test.push({ nome: coluna.nome })
-        });
+        // simuladoDados.columns.forEach(coluna => {
+        //     test.push({ nome: coluna.nome })
+        // });
 
-        console.log(test)
+        // console.log(test)
 
         const vm = new Vue({
             el: '#app',
@@ -163,12 +166,6 @@
             },
             method: {}
         })
-        
-
-        //const jsonUpload = JSON.parse(LocalStorage).getItem('dadoTelaLucas');
-        //fazer um for para desmenbrar o objeto e distribuir os nomes nas colunas
-
-
 
     </script>
 
