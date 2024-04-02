@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style/upload-csv.css">
     <title>Upload CSV</title>
-    <link rel="stylesheet" href="/src/assets/style/upload-csv.css">
 </head>
 
 <body>
     <header>
-        <img src="/src/assets/images/logo-dom-rock-2.webp" alt="logo-dom-rock-2" id="logo">
+        <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
         <nav>
             <a href="/public/index.html">Home</a>
-            <a href="upload-csv.html">Importar novo CSV</a>
-            <a href="#"><img src="/src/assets/images/icon-perfil-white.png" alt="icon-perfil-white"
-                    id="profileIcon"></a>
+            <a href="../pages/upload-csv.html">Importar novo CSV</a>
+            <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon"></a>
         </nav>
     </header>
     <main>
@@ -24,19 +23,19 @@
                 <input type="file" name="csvfile" accept=".csv" required hidden id="fileInput">
                 <label for="fileInput">
                     <div id="uploadArea">
-                        <img src="/src/assets/images/csv.png" alt="csv">
+                        <img src="../assets/images/csv-azul.png" alt="csv-azul">
                         <h1>Selecione um arquivo CSV</h1>
                     </div>
                 </label>
-                <button type="button">Cancelar</button>
-                <button type="submit">Fazer Upload</button>
+                <button type="button" id="cancelButton">Cancelar</button>
+                <button type="submit" id="uploadButton">Fazer Upload</button>
             </div>
         </form>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/src/utils/upload-csv.js"></script>
-    <script src="/src/utils/hover-image-change.js"></script>
+    <script src="../utils/upload-csv.js"></script>
+    <script src="../utils/hover-icon-change-upload-csv.js"></script>
+    <script src="../utils/go-back-on-cancel.js"></script>
 </body>
 
 </html>
