@@ -16,8 +16,10 @@
     <link rel="stylesheet" href="../assets/style/style_default.css">
     <link rel="stylesheet" href="../assets/style/landing_zone.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Landing Zone</title>
 
+    <script src="../utils/mockup.js"></script>
+
+    <title>Landing Zone</title>
 
     <style>
         table {
@@ -95,64 +97,17 @@
     </div>
 
     <script>
+        mock()
 
-        //recebendo o objeto da tela do lucas
-        //const jsonUpload = JSON.parse(LocalStorage).getItem('dadoTelaLucas');
+        let dados = JSON.parse(localStorage.getItem('dadosUpload'))
 
-        
-
-        // const simuladoDados = { // apagar esta gambiarra
-        //     "columns": [
-        //         {
-        //             "nome": "submission_date"
-        //         },
-        //         {
-        //             "nome": "reviewer_id"
-        //         },
-        //         {
-        //             "nome": "product_id"
-        //         },
-        //         {
-        //             "nome": "product_name"
-        //         },
-        //         {
-        //             "nome": "product_brand"
-        //         },
-        //         {
-        //             "nome": "site_category_lv1"
-        //         },
-        //         {
-        //             "nome": "site_category_lv2"
-        //         },
-        //         {
-        //             "nome": "review_title"
-        //         },
-        //         {
-        //             "nome": "overall_rating"
-        //         },
-        //         {
-        //             "nome": "recommend_to_a_friend"
-        //         },
-        //         {
-        //             "nome": "review_text"
-        //         },
-        //         {
-        //             "nome": "reviewer_birth_year"
-        //         },
-        //         {
-        //             "nome": "reviewer_gender"
-        //         },
-        //         {
-        //             "nome": "reviewer_state"
-        //         }
-        //     ]
-        // };
+        console.log(dados.columns)
 
         let test = [] // referenciar a variavel que vai receber o objeto e desmembrar com um for 
 
-        // simuladoDados.columns.forEach(coluna => {
-        //     test.push({ nome: coluna.nome })
-        // });
+        dados.columns.forEach(coluna => {
+            test.push({ nome: coluna.nome })
+        });
 
         // console.log(test)
 
@@ -162,6 +117,7 @@
                 headTabela: ['Nome', 'Tipo', 'Obrigatório', 'Tamanho Máximo', 'Valor Padrão', 'Descrição'],
                 tipoDado: ['Int', 'Decimal', 'Boolean', 'String', 'Date', 'Hour', 'Date Time'],
                 notNull: ['Sim', 'Não'],
+                ativo: true,
                 data: test
             },
             method: {}
