@@ -29,22 +29,46 @@
                     <th>Data de modificação</th>
                     <th>Quem modificou</th>
                     <!-- <th>Status</th> -->
-                    <th></th> <!-- Esse th é da opção, não tirar ele -->
+                    <th></th> <!-- Esse th é de EDITAR, não tirar ele -->
+                    <th></th> <!-- Esse th é de EXCLUIR, não tirar ele -->
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td id="fileName">ArquivoTeste.csv</td>
-                    <td id="modificationDate">Modificado 15 minutos atrás</td>
-                    <td id="whoModified">Usuário Landing Zone</td>
+                    <td id="fileName"><div id="centralizar"><img src="../src/assets/images/arquivo.png" alt="arquivo">ArquivoTeste1.csv</div></td>
+
+                    <td id="modificationDate"><div id="centralizar"><img src="../src/assets/images/data-modificacao.png" alt="data-modificacao">Modificado 15 minutos atrás</div></td>
+
+                    <td id="whoModified"><div id="centralizar"><img src="../src/assets/images/foto-perfil.png" alt="foto-perfil">Usuário Landing Zone</div></td>
+
                     <!-- <td id="status">Aguardando aprovação da Bronze Zone</td> -->
-                    <td id="options"><div><abbr title="Acessar opções"><img src="../src/assets/images/opcoes.png" alt="opcoes" id="centralizar"></abbr></div></td>
+                    
+                    <td id="editar"><div><abbr title="Editar arquivo"><img src="../src/assets/images/editar.png" alt="editar" id="centralizar"></abbr></div></td>
+
+                    <td id="excluir"><div><abbr title="Excluir arquivo"><img src="../src/assets/images/lixeira.png" alt="lixeira" id="centralizar"></abbr></div></td>
+                </tr>
+
+                <!--TESTE PARA REMOVER A LINHA-->
+                <tr>
+                    <td id="fileName"><div id="centralizar"><img src="../src/assets/images/arquivo.png" alt="arquivo">ArquivoTeste2.csv</div></td>
+
+                    <td id="modificationDate"><div id="centralizar"><img src="../src/assets/images/data-modificacao.png" alt="data-modificacao">quinta-feira às 16:38:23</div></td>
+
+                    <td id="whoModified"><div id="centralizar"><img src="../src/assets/images/foto-perfil.png" alt="foto-perfil">Usuário Landing Zone</div></td>
+
+                    <!-- <td id="status">Aguardando aprovação da Bronze Zone</td> -->
+                    
+                    <td id="editar"><div><abbr title="Editar arquivo"><img src="../src/assets/images/editar.png" alt="editar" id="centralizar"></abbr></div></td>
+
+                    <td id="excluir"><div><abbr title="Excluir arquivo"><img src="../src/assets/images/lixeira.png" alt="lixeira" id="centralizar"></abbr></div></td>
                 </tr>
             </tbody>
         </table>
     </main>
 
     <script src="../src/utils/hover-icon-change-home.js"></script>
+    <script src="../src/utils/delete-file.js"></script>
+
 </body>
 
 </html>

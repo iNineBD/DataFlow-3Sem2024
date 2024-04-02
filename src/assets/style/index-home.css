@@ -73,9 +73,13 @@ th {
     background-color: #f2f2f2;
 }
 
+img {
+    height: 16px;
+    margin: 0 6px 0 0;
+}
+
 #centralizar {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
