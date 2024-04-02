@@ -21,24 +21,7 @@
 
     <title>Landing Zone</title>
 
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #aaa;
-            text-align: left;
-        }
-
-        th {
-            background-color: #aaa;
-            color: white;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -64,39 +47,43 @@
 
         </ul>
     </nav>
-
-    <div id="app">
-        <h2>Tabela Landing Zone</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, index) in data" :key="index">
-                    <td>{{ item.nome }}</td>
-                    <td>
-                        <select v-model="item.tipo">
-                            <option v-for="(tipo, index) in tipoDado" :key="index">{{ tipo }}</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select v-model="item.obrigatorio">
-                            <option v-for="(obrigatorio, index) in notNull" :key="index">{{ obrigatorio }}</option>
-                        </select>
-                    </td>
-
-                    <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
-
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <main>
+        <div id="app">
+            <h2>Tabela Landing Zone</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in data" :key="index">
+                        <td>{{ item.nome }}</td>
+                        <td>
+                            <select v-model="item.tipo">
+                                <option v-for="(tipo, index) in tipoDadoTabela" :key="index">{{ tipo }}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="radio" value="true" v-model="item.obrigatorio">Sim
+                            <input type="radio" value="false" v-model="item.obrigatorio">Não
+                        </td>
+                        <td><input type="text" v-model="item.tamanhoMaximo"></td>
+                        <td><input type="text" v-model="item.valorPadrao"></td>
+                        <td><input type="text" v-model="item.descricao"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn" @click="adicionarMetadados()">Salvar</button>
+        </div>
+    </main>
+    
+</main>
 
     <script>
+
+        //import dos dados ficticios 
+
         mock()
 
         let dados = JSON.parse(localStorage.getItem('dadosUpload'))
@@ -109,18 +96,50 @@
             test.push({ nome: coluna.nome })
         });
 
-        // console.log(test)
+        // instancia do Vue
 
         const vm = new Vue({
             el: '#app',
             data: {
                 headTabela: ['Nome', 'Tipo', 'Obrigatório', 'Tamanho Máximo', 'Valor Padrão', 'Descrição'],
-                tipoDado: ['Int', 'Decimal', 'Boolean', 'String', 'Date', 'Hour', 'Date Time'],
-                notNull: ['Sim', 'Não'],
-                ativo: true,
-                data: test
+                tipoDadoTabela: ['Int', 'Decimal', 'Boolean', 'String', 'Date', 'Hour', 'Date Time'],
+                obrigatorio: '',
+                ativo: '',
+                data: test,
+                metaDados: [
+                    {
+                        nomeArquivo: "",
+                        usuario: "",
+                        metadados: [
+                            {
+                                ativo: 1,
+                                nome: "",
+                                valorPadrao: "",
+                                descricao: "",
+                                restricoes: [
+                                    {
+                                        nome: "obrigatorio",
+                                        valor: ""
+                                    },
+                                    {
+                                        nome: "obrigatorio",
+                                        valor: ""
+                                    }
+                                ],
+                                tipo: {
+                                    nomeTipo: ""
+                                }
+                            }
+                        ]
+                    }
+
+                ]
             },
-            method: {}
+            method: {
+                mostrarObjeto() {
+                    console.log(metaDados)
+                }
+            }
         })
 
     </script>
