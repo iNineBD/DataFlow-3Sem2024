@@ -21,7 +21,7 @@
 
     <title>Landing Zone</title>
 
-    
+
 </head>
 
 <body>
@@ -53,32 +53,41 @@
             <table>
                 <thead>
                     <tr>
+                        <!--cabeçalho da tabela-->
                         <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <!---->
                     <tr v-for="(item, index) in data" :key="index">
                         <td>{{ item.nome }}</td>
                         <td>
+                            <!--coluna tipo-->
                             <select v-model="item.tipo">
+                                <option value="" disabled>Selecione um Tipo</option>
                                 <option v-for="(tipo, index) in tipoDadoTabela" :key="index">{{ tipo }}</option>
                             </select>
                         </td>
+                        <!--coluna obrigatoprio-->
                         <td>
                             <input type="radio" value="true" v-model="item.obrigatorio">Sim
                             <input type="radio" value="false" v-model="item.obrigatorio">Não
                         </td>
+                        <!--coluna tamanho maximo-->
                         <td><input type="text" v-model="item.tamanhoMaximo"></td>
+                        <!--coluna valor padrão-->
                         <td><input type="text" v-model="item.valorPadrao"></td>
+                        <!--coluna descrição-->
                         <td><input type="text" v-model="item.descricao"></td>
+
                     </tr>
                 </tbody>
             </table>
             <button class="btn" @click="adicionarMetadados()">Salvar</button>
         </div>
     </main>
-    
-</main>
+
+    </main>
 
     <script>
 
@@ -101,7 +110,7 @@
         const vm = new Vue({
             el: '#app',
             data: {
-                headTabela: ['Nome', 'Tipo', 'Obrigatório', 'Tamanho Máximo', 'Valor Padrão', 'Descrição'],
+                headTabela: ['Nome', 'Tipo de Dado', 'Obrigatório', 'Tamanho Máximo', 'Valor Padrão', 'Descrição'],
                 tipoDadoTabela: ['Int', 'Decimal', 'Boolean', 'String', 'Date', 'Hour', 'Date Time'],
                 obrigatorio: '',
                 ativo: '',
