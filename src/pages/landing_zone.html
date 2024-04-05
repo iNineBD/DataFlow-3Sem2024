@@ -195,7 +195,6 @@
               body: JSON.stringify(objetoCompleto),
             })
               .then((response) => {
-                console.log(response.json());
                 if (!response.ok) {
                   throw new Error("Erro ao enviar dados para o backend");
                 }
@@ -207,7 +206,7 @@
                 // Lógica adicional após o envio bem-sucedido, se necessário
               })
               .catch((error) => {
-                console.log("Erro:", error);
+                console.error("Erro:", error);
                 // Lidar com erros aqui, se necessário
               });
           },
