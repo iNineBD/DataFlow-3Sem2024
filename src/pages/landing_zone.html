@@ -73,7 +73,12 @@
             <!--coluna nome-->
             <tr v-for="(item, index) in data" :key="index">
               <td>
-                <input type="checkbox" value="true" checked  v-model="item.ativo" />
+                <input
+                  type="checkbox"
+                  value="true"
+                  checked
+                  v-model="item.ativo"
+                />
               </td>
               <td>{{ item.nome }}</td>
               <td>
@@ -102,13 +107,12 @@
       </div>
     </main>
 
+    <!-- Seu script Vue.js -->
     <script>
       //import dos dados ficticios
-
       mock();
 
       let dados = JSON.parse(localStorage.getItem("dadosUpload"));
-
       console.log(dados.response.columns);
 
       let test = []; // referenciar a variavel que vai receber o objeto e desmembrar com um for
@@ -118,12 +122,12 @@
       });
 
       // instancia do Vue
-
       const vm = new Vue({
         el: "#app",
         data: {
           // dados tabela
           nameFile: dados.response.fileName,
+          userFile: dados.response.usuario,
           headTabela: [
             "Ativo",
             "Nome",
@@ -149,21 +153,63 @@
             let metadados = [];
 
             this.data.forEach((item) => {
-              console.log(item.ativo);
-              metadados.push({
+              let restricoes = [];
 
+              // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
+              if (item && item.restricoes && Array.isArray(item.restricoes)) {
+                item.restricoes.forEach((restricao) => {
+                  restricoes.push({
+                    nome: restricao.nome,
+                    valor: restricao.valor,
+                  });
+                });
+              }
+
+              metadados.push({
                 ativo: item.ativo,
                 nome: item.nome,
                 valorPadrao: item.valorPadrao,
                 descricao: item.descricao,
-                restricoes: {
-                  obrigatorio: item.obrigatorio,
-                  tamanhoMaximo: item.tamanhoMaximo,
+                restricoes: restricoes,
+                tipo: {
+                  nomeTipo: item.tipo,
                 },
-                tipo: item.tipo,
               });
             });
-            console.log(metadados); // Aqui você pode fazer o que deseja com os objetos gerados
+
+            // Construindo o objeto completo
+            const objetoCompleto = {
+              nomeArquivo: this.nameFile,
+              usuario: this.userFile,
+              metadados: metadados,
+            };
+
+            console.log(objetoCompleto);
+
+            //Enviar dados para o backend
+            // fetch("http://localhost:8080/landing/save", {
+            //   method: "POST",
+            //   headers: {
+            //     "Content-Type": "application/json",
+            //   },
+            //   body: JSON.stringify(objetoCompleto),
+            // })
+            //   .then((response) => {
+            //     console.log(response);
+            //     if (!response.ok) {
+            //       throw new Error("Erro ao enviar dados para o backend");
+            //     }
+            //     // Lidar com a resposta do backend aqui, se necessário
+            //     return response.json();
+            //   })
+            //   .then((data) => {
+            //     console.log("Dados enviados com sucesso:", data);
+            //     // Lógica adicional após o envio bem-sucedido, se necessário
+            //   })
+            //   .catch((error) => {
+            //     console.error("Erro:", error);
+            //     // Lidar com erros aqui, se necessário
+            //   });
           },
         },
       });
