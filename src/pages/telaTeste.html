@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../utils/vue.js"></script>
+    <title>Tela de Teste</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>Detalhes do Arquivo CSV</h1>
+        </header>
+        <main>
+            <p>Nome do Arquivo: {{ arquivo.nome.fileName }}</p>
+            <p>Tamanho do Arquivo: {{ arquivo.nome.fileSize }}</p>
+            <p>Colunas do Arquivo:</p>
+            <ul>
+                <li v-for="column in arquivo.nome.columns">{{ column.nome }}</li>
+            </ul>
+        </main>
+    </div>
+
+    <script>
+        // Recuperar os dados do localStorage
+        const arquivoJSON = localStorage.getItem('arquivoCSV');
+
+        // Converter os dados de JSON para objeto JavaScript
+        const arquivo = JSON.parse(arquivoJSON);
+
+        // Inicializar a Vue para exibir os dados na tela
+        new Vue({
+            el: '#app',
+            data: {
+                arquivo: arquivo
+            }
+        });
+    </script>
+</body>
+
+</html>
