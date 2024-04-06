@@ -5,32 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--VUE IMPORT-->
     <script src="../utils/vue.js"></script>
-      <!--CSS only-->
-      <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <!--JS Popper-->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <!--CSS IMPORT-->
     <link rel="stylesheet" href="../assets/style/style_default.css" />
     <link rel="stylesheet" href="../assets/style/landing_zone.css" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-
     <script src="../utils/mockup.js"></script>
-
     <title>Landing Zone</title>
   </head>
 
   <body>
+    <!--Toolbar-->
     <nav id="menu-x">
       <ul>
         <img src="../assets/images/logoDomRock.png" alt="" />
@@ -103,11 +90,12 @@
             </tr>
           </tbody>
         </table>
+        <!--Botão salvar-->
         <button class="btn" @click="adicionarMetadados()">Salvar</button>
       </div>
     </main>
 
-    <!-- Seu script Vue.js -->
+    <!-- script Vue.js -->
     <script>
       //import dos dados ficticios
       mock();
@@ -125,9 +113,11 @@
       const vm = new Vue({
         el: "#app",
         data: {
-          // dados tabela
+          // nome do arquivo
           nameFile: dados.response.fileName,
+          // nome do usuario
           userFile: dados.response.usuario,
+          // cabeçalho da tabela
           headTabela: [
             "Ativo",
             "Nome",
@@ -137,6 +127,7 @@
             "Valor Padrão",
             "Descrição",
           ],
+          // tipos a serem inseridos no arquivo
           tipoDadoTabela: [
             "Inteiro",
             "Decimal",
@@ -146,9 +137,11 @@
             "Hora",
             "Data e Hora",
           ],
+          //objeto pegado da tela anterior
           data: test,
         },
         methods: {
+          //função para acionar a extrasão de dados 
           adicionarMetadados() {
             let metadados = [];
 
