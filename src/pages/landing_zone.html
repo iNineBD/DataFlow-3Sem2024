@@ -12,7 +12,6 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <script src="../utils/mockup.js"></script>
     <title>Landing Zone</title>
   </head>
 
@@ -20,7 +19,7 @@
     <!--Toolbar-->
     <nav id="menu-x">
       <ul>
-        <img src="../assets/images/logoDomRock.png" alt="" />
+        <img src="../assets/images/logo-dom-rock.png" alt="" />
 
         <li class="semiBold600">
           <a href="#">
@@ -29,7 +28,7 @@
           </a>
         </li>
 
-        <li class="semiBold600">
+        <li class="semiBold700">
           <a href="/src/pages/upload-csv.html">
             <span class="material-icons">upload_file</span>
             Importar Novo CSV
@@ -97,15 +96,13 @@
 
     <!-- script Vue.js -->
     <script>
-      //import dos dados ficticios
-      mock();
+      let dados = JSON.parse(localStorage.getItem("arquivoCSV"));
 
-      let dados = JSON.parse(localStorage.getItem("dadosUpload"));
-      console.log(dados.response.columns);
+      console.log(dados.nome.columns);
 
       let test = []; // referenciar a variavel que vai receber o objeto e desmembrar com um for
 
-      dados.response.columns.forEach((coluna) => {
+      dados.nome.columns.forEach((coluna) => {
         test.push({ nome: coluna.nome, ativo: true });
       });
 
@@ -114,9 +111,9 @@
         el: "#app",
         data: {
           // nome do arquivo
-          nameFile: dados.response.fileName,
+          nameFile: dados.nome.fileName,
           // nome do usuario
-          userFile: dados.response.usuario,
+          userFile: dados.nome.usuario,
           // cabeçalho da tabela
           headTabela: [
             "Ativo",
@@ -141,7 +138,7 @@
           data: test,
         },
         methods: {
-          //função para acionar a extrasão de dados 
+          //função para acionar a extrasão de dados
           adicionarMetadados() {
             let metadados = [];
 
@@ -149,14 +146,16 @@
               let restricoes = [];
 
               // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
-              if (item && item.restricoes && Array.isArray(item.restricoes)) {
-                item.restricoes.forEach((restricao) => {
-                  restricoes.push({
-                    nome: restricao.nome,
-                    valor: restricao.valor,
-                  });
-                });
-              }
+              restricoes.push(
+                {
+                  nome: "tamanhoMaximo",
+                  valor: item.tamanhoMaximo,
+                },
+                {
+                  nome: "obrigatorio",
+                  valor: item.obrigatorio,
+                }
+              );
 
               metadados.push({
                 ativo: item.ativo,
@@ -173,7 +172,7 @@
             // Construindo o objeto completo
             const objetoCompleto = {
               nomeArquivo: this.nameFile,
-              usuario: this.userFile,
+              usuario: "usuario1@email.com",
               metadados: metadados,
             };
 
@@ -188,19 +187,19 @@
               body: JSON.stringify(objetoCompleto),
             })
               .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Erro ao enviar dados para o backend");
-                }
-                // Lidar com a resposta do backend aqui, se necessário
                 return response.json();
               })
-              .then((data) => {
-                console.log("Dados enviados com sucesso:", data);
-                // Lógica adicional após o envio bem-sucedido, se necessário
-              })
-              .catch((error) => {
-                console.error("Erro:", error);
-                // Lidar com erros aqui, se necessário
+              .then((responseJson) => {
+                if (
+                  responseJson.critica !== "Processamento efetuado com sucesso"
+                ) {
+                  alert(responseJson.critica);
+                  return;
+                } else {
+                  alert(responseJson.critica);
+                }
+
+                // Lidar com a resposta do backend aqui se necessário
               });
           },
         },

@@ -1,105 +1,122 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="../utils/vue.js"></script>
-    <link rel="stylesheet" href="../assets/style/upload-csv.css">
+    <link rel="stylesheet" href="../assets/style/upload-csv.css" />
     <title>Upload CSV</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <header>
-            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
-            <nav>
-                <a href="/public/index.html">Home</a>
-                <a href="../pages/upload-csv.html">Importar novo CSV</a>
-                <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon"></a>
-            </nav>
-        </header>
-        <main>
-            <form @submit.prevent="submitForm" enctype="multipart/form-data">
-                <div id="fileUploadModal">
-                    <input type="file" name="csvfile" accept=".csv" required hidden id="fileInput" @change="updateUploadArea">
-                    <label for="fileInput">
-                        <div id="uploadArea">
-                            <img src="../assets/images/csv-azul.png" alt="csv-azul">
-                            <h1>{{ fileName || 'Selecione um arquivo CSV' }}</h1>
-                            <p>{{ paragraph || '' }}</p>
-                        </div>
-                    </label>
-                    <button type="button" @click="cancelUpload">Cancelar</button>
-                    <button type="submit">Fazer Upload</button>
-                </div>
-            </form>
-        </main>
+      <header>
+        <img
+          src="../assets/images/logo-dom-rock.png"
+          alt="logo-dom-rock"
+          id="logo"
+        />
+        <nav>
+          <a href="/public/index.html">Home</a>
+          <a href="../pages/upload-csv.html">Importar novo CSV</a>
+          <a href="#"
+            ><img
+              src="../assets/images/foto-perfil-branco.png"
+              alt="foto-perfil-branco"
+              id="fotoPerfilIcon"
+          /></a>
+        </nav>
+      </header>
+      <main>
+        <form @submit.prevent="submitForm" enctype="multipart/form-data">
+          <div id="fileUploadModal">
+            <input
+              type="file"
+              name="csvfile"
+              accept=".csv"
+              required
+              hidden
+              id="fileInput"
+              @change="updateUploadArea"
+            />
+            <label for="fileInput">
+              <div id="uploadArea">
+                <img src="../assets/images/csv-azul.png" alt="csv-azul" />
+                <h1>{{ fileName || 'Selecione um arquivo CSV' }}</h1>
+                <p>{{ paragraph || '' }}</p>
+              </div>
+            </label>
+            <button type="button" @click="cancelUpload">Cancelar</button>
+            <button type="submit">Fazer Upload</button>
+          </div>
+        </form>
+      </main>
     </div>
 
     <script>
-        const app = new Vue({
-            el: '#app',
-            data: {
-                fileName: null,
-                file: null,
-                paragraph: null
-            },
-            methods: {
-                submitForm() {
-                    const formData = new FormData();
-                    formData.append("multipartFile", this.file);
+      const app = new Vue({
+        el: "#app",
+        data: {
+          fileName: null,
+          file: null,
+          paragraph: null,
+        },
+        methods: {
+          submitForm() {
+            const formData = new FormData();
+            formData.append("multipartFile", this.file);
 
-                    fetch('http://localhost:8080/landing/upload?delimiter=;', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        console.log("STATUS: " + response.status);
-                        return response.json();
-                    })
-                    .then(data => {
-                        if(data.critica != "Processamento efetuado com sucesso") {
-                            console.log(data.critica);
-                            return;
-                        }
-                        console.log('Arquivo carregado com sucesso!');
-
-                        const arquivo = {
-                            nome: {
-                                fileName: data.response.fileName,
-                                fileSize: data.response.fileSize,
-                                columns: data.response.columns
-                            }
-                        };
-                        localStorage.setItem('arquivoCSV', JSON.stringify(arquivo))
-
-                        console.log(localStorage)
-                        console.log("Arquivo salvo no localStorage")
-
-                        window.location.href = "/src/pages/telaTeste.html"
-                    })
-                    .catch(error => {
-                        console.error('Erro:', error);
-                    });
-                },
-                cancelUpload() {
-                    console.log('Upload cancelado');
-                    window.location.href = "/public/index.html";
-                },
-                updateUploadArea(event) {
-                    this.fileName = event.target.files[0].name;
-                    this.file = event.target.files[0];
-                    const uploadArea = document.getElementById('uploadArea');
-                    const fileNameElement = uploadArea.querySelector('h1');
-                    const textParagraphElement = uploadArea.querySelector('p')
-                    fileNameElement.textContent = this.fileName || 'Selecione um arquivo CSV';
-                    textParagraphElement.textContent = this.paragraph || 'Clique para alterar o arquivo';
+            fetch("http://localhost:8080/landing/upload?delimiter=;", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => {
+                console.log("STATUS: " + response.status);
+                return response.json();
+              })
+              .then((data) => {
+                if (data.critica != "Processamento efetuado com sucesso") {
+                  console.log(data.critica);
+                  return;
                 }
-            }
-        });
+                console.log("Arquivo carregado com sucesso!");
+
+                const arquivo = {
+                  nome: {
+                    fileName: data.response.fileName,
+                    fileSize: data.response.fileSize,
+                    columns: data.response.columns,
+                  },
+                };
+                localStorage.setItem("arquivoCSV", JSON.stringify(arquivo));
+
+                console.log(localStorage);
+                console.log("Arquivo salvo no localStorage");
+
+                window.location.href = "landing_zone.html";
+              })
+              .catch((error) => {
+                console.error("Erro:", error);
+              });
+          },
+          cancelUpload() {
+            console.log("Upload cancelado");
+            window.location.href = "/public/index.html";
+          },
+          updateUploadArea(event) {
+            this.fileName = event.target.files[0].name;
+            this.file = event.target.files[0];
+            const uploadArea = document.getElementById("uploadArea");
+            const fileNameElement = uploadArea.querySelector("h1");
+            const textParagraphElement = uploadArea.querySelector("p");
+            fileNameElement.textContent =
+              this.fileName || "Selecione um arquivo CSV";
+            textParagraphElement.textContent =
+              this.paragraph || "Clique para alterar o arquivo";
+          },
+        },
+      });
     </script>
     <script src="../utils/hover-icon-change-upload-csv.js"></script>
-</body>
-
+  </body>
 </html>
