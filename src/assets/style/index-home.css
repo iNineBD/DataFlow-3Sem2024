@@ -43,7 +43,7 @@ nav a img {
     height: 50px;
 }
 
-nav > a:hover {
+nav>a:hover {
     color: #02BBCA;
 }
 
@@ -51,7 +51,7 @@ body {
     background: white;
 }
 
-main > h1 {
+main>h1 {
     margin: 20px 35px 20px 35px;
 }
 
@@ -62,7 +62,8 @@ table {
     overflow-x: auto;
 }
 
-th, td {
+th,
+td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #CED4DA;
@@ -83,10 +84,55 @@ img {
     align-items: center;
 }
 
-tbody > tr > td > div > abbr > img {
+tbody>tr>td>div>abbr>img {
     height: 25px;
 }
 
-tbody > tr > td > div > abbr > img:hover {
+tbody>tr>td>div>abbr>img:hover {
     cursor: pointer;
 }
+
+.btn {
+    background-color: #021F4E;
+    /* Define a cor de fundo do botão */
+    color: #fff;
+    /* Define a cor do texto do botão como branco */
+    padding: 10px 20px;
+    /* Define o preenchimento interno do botão */
+    border: none;
+    /* Remove a borda do botão */
+    border-radius: 5px;
+    /* Adiciona bordas arredondadas ao botão */
+    cursor: pointer;
+    /* Transforma o cursor do mouse em um ponteiro ao passar sobre o botão */
+    float: right;
+    /* Alinha o botão à direita */
+    margin-top: 10px;
+    /* Define uma margem superior de 10 pixels */
+}
+
+/* Define o estilo dos botões para telas menores que 768 pixels */
+@media screen and (max-width: 768px) {
+    .btn {
+        float: none;
+        /* Remove o alinhamento flutuante */
+        display: block;
+        /* Transforma o botão em um bloco */
+        margin: 0 auto;
+        /* Centraliza o botão horizontalmente */
+        width: 80%;
+        /* Define a largura do botão como 80% da largura do elemento pai */
+    }
+}
+
+.h1Landing {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.h2Landing {
+    margin-left: 15px;
+    padding: 20px;
+}
+
