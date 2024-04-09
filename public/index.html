@@ -5,64 +5,92 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/assets/style/index-home.css">
-    <title>Home</title>
     <script src="../src/utils/vue.js"></script>
+    <link rel="stylesheet" href="../src/assets/style/index-home.css" />
+    <title>Home</title>
 </head>
 
 <body>
-    <header>
-        <img src="../src/assets/images/Dom Rock.png" alt="logo-dom-rock" id="logo">
-        <nav>
-            <a href="../public/index.html">Home</a>
-            <a href="../src/pages/upload-csv.html">Importar novo CSV</a>
-            <a href="#"><img src="../src/assets/images/Fotoperfil.png" alt="foto-perfil-branco" id="profileIcon"></a>
-        </nav>
-    </header>
+    <div id="app">
+        <header>
+            <img src="../src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+            <nav>
+                <a href="/public/index.html">Home</a>
+                <a href="../src/pages/upload-csv.html">Importar novo CSV</a>
+                <a href="#"><img src="../src/assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon" /></a>
+            </nav>
+        </header>
 
-    <main id="app">
-        <h1>Olá, Bem Vindo</h1>
+        <main>
+            <h1>Olá, Bem Vindo</h1>
 
-        <table id="table">
-            <thead>
-              <tr>
-                <!--cabeçalho da tabela-->
-                <th v-for="(head, index) in headTabela" :key="index">
-                  {{ head }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <!--coluna nome-->
-              <tr v-for="(item, index) in data" :key="index">
-                <td>{{ item.nome }}</td>
-                <td>{{ item.organizacao }}</td>
-                <td>{{ item.status }}</td>
-              </tr>
-            </tbody>
-          </table>
-    </main>
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th v-for="(head, index) in headTabela" :key="index">
+                            {{ head }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in data" :key="index">
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.organizacao }}</td>
+                        <td>{{ item.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <script src="index.js"></script>
+            <!-- <table id="table">
+                <thead>
+                    <tr>
+                        <th>Nome do arquivo</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(file, index) in files" :key="index">
+                        <td>
+                            <div id="centralizar">
+                                <img src="../src/assets/images/arquivo.png" alt="arquivo">
+                                {{ file.name }}
+                            </div>
+                        </td>
+                        <td>{{ file.status }}</td>
+                    </tr>
+                </tbody>
+            </table> -->
 
-
-
+        </main>
+    </div>
 
     <script>
         const vm = new Vue({
             el: "#app",
             data: {
-              // dados tabela
-              headTabela: [
-                "Nome",
-                "Organização",  
-                "Status",
-              ],
-            //   data: test,
+                headTabela: [
+                    "Nome",
+                    "Organização",
+                    "Status",
+                ],
             },
-          });
-      </script>
+        });
+    </script>
 
+    <!-- <script>
+        const app = new Vue({
+            data() {
+                return {
+                    files: [
+                        { name: 'ArquivoTeste1.csv', status: 'Aguardando aprovação da Bronze Zone' },
+                        { name: 'ArquivoTeste2.csv', status: 'Aguardando aprovação da Bronze Zone' }
+                    ]
+                };
+            }
+        }).mount('#app');
+    </script> -->
+
+    <script src="../src/utils/hover-icon-change-home.js"></script>
 </body>
 
 </html>

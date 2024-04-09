@@ -1,217 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--VUE IMPORT-->
-    <script src="../utils/vue.js"></script>
-      <!--CSS only-->
-      <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <!--JS Popper-->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="../assets/style/style_default.css" />
-    <link rel="stylesheet" href="../assets/style/landing_zone.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
 
-    <script src="../utils/mockup.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--VUE IMPORT-->
+  <script src="../utils/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!--CSS IMPORT-->
+  <link rel="stylesheet" href="/src/assets/style/index-home.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <title>Landing Zone</title>
+</head>
 
-    <title>Landing Zone</title>
-  </head>
+<body>
+  <div id="app">
+    <header>
+      <!--Toolbar-->
+      <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="/public/index.html">Home</a>
+        <a href="../pages/upload-csv.html">Importar novo CSV</a>
+        <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
+            id="fotoPerfilIcon" /></a>
+      </nav>
+    </header>
+    <h1 class="h1Landing">Landing Zone</h1>
 
-  <body>
-    <nav id="menu-x">
-      <ul>
-        <img src="../assets/images/logoDomRock.png" alt="" />
+    <h2 class="h2Landing" v-text="nameFile"></h2>
+    <table>
+      <thead>
+        <tr>
+          <!--cabeçalho da tabela-->
+          <th v-for="(head, index) in headTabela" :key="index">
+            {{ head }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--coluna nome-->
+        <tr v-for="(item, index) in data" :key="index">
+          <td>
+            <!--campo ativo-->
+            <input type="checkbox" value="true" checked v-model="item.ativo" />
+          </td>
+          <td>{{ item.nome }}</td>
+          <td>
+            <!--coluna tipo-->
+            <select v-model="item.tipo">
+              <option value="" disabled>Selecione um Tipo</option>
+              <option v-for="(tipo, index) in tipoDadoTabela" :key="index">
+                {{ tipo }}
+              </option>
+            </select>
+          </td>
+          <!--coluna obrigatoprio-->
+          <td>
+            <input type="checkbox" value="" v-model="item.obrigatorio" />
+          </td>
+          <!--coluna tamanho maximo-->
+          <td><input type="text" v-model="item.tamanhoMaximo" /></td>
+          <!--coluna valor padrão-->
+          <td><input type="text" v-model="item.valorPadrao" /></td>
+          <!--coluna descrição-->
+          <td><input type="text" v-model="item.descricao" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <!--Botão salvar-->
+    <button class="btn" @click="adicionarMetadados()">Salvar</button>
+  </div>
+  </main>
 
-        <li class="semiBold600">
-          <a href="#">
-            <span class="material-icons">account_circle</span>
-            Meu Perfil
-          </a>
-        </li>
+  <!-- script Vue.js -->
+  <script>
+    let dados = JSON.parse(localStorage.getItem("arquivoCSV"));
 
-        <li class="semiBold600">
-          <a href="/src/pages/upload-csv.html">
-            <span class="material-icons">upload_file</span>
-            Importar Novo CSV
-          </a>
-        </li>
+    console.log(dados.nome.columns);
 
-        <li class="semiBold600">
-          <a href="/public/index.html">
-            <span class="material-icons">home</span>
-            Home
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <main>
-      <div id="app">
-        <h2 v-text="nameFile"></h2>
-        <table>
-          <thead>
-            <tr>
-              <!--cabeçalho da tabela-->
-              <th v-for="(head, index) in headTabela" :key="index">
-                {{ head }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <!--coluna nome-->
-            <tr v-for="(item, index) in data" :key="index">
-              <td>
-                <input
-                  type="checkbox"
-                  value="true"
-                  checked
-                  v-model="item.ativo"
-                />
-              </td>
-              <td>{{ item.nome }}</td>
-              <td>
-                <!--coluna tipo-->
-                <select v-model="item.tipo">
-                  <option value="" disabled>Selecione um Tipo</option>
-                  <option v-for="(tipo, index) in tipoDadoTabela" :key="index">
-                    {{ tipo }}
-                  </option>
-                </select>
-              </td>
-              <!--coluna obrigatoprio-->
-              <td>
-                <input type="checkbox" value="" v-model="item.obrigatorio" />
-              </td>
-              <!--coluna tamanho maximo-->
-              <td><input type="text" v-model="item.tamanhoMaximo" /></td>
-              <!--coluna valor padrão-->
-              <td><input type="text" v-model="item.valorPadrao" /></td>
-              <!--coluna descrição-->
-              <td><input type="text" v-model="item.descricao" /></td>
-            </tr>
-          </tbody>
-        </table>
-        <button class="btn" @click="adicionarMetadados()">Salvar</button>
-      </div>
-    </main>
+    let test = []; // referenciar a variavel que vai receber o objeto e desmembrar com um for
 
-    <!-- Seu script Vue.js -->
-    <script>
-      //import dos dados ficticios
-      mock();
+    dados.nome.columns.forEach((coluna) => {
+      test.push({ nome: coluna.nome, ativo: true });
+    });
 
-      let dados = JSON.parse(localStorage.getItem("dadosUpload"));
-      console.log(dados.response.columns);
+    // instancia do Vue
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // nome do arquivo
+        nameFile: "Nome Arquivo: " + dados.nome.fileName,
+        // nome do usuario
+        userFile: dados.nome.usuario,
+        // cabeçalho da tabela
+        headTabela: [
+          "Ativo",
+          "Nome",
+          "Tipo de Dado",
+          "Obrigatório",
+          "Tamanho Máximo",
+          "Valor Padrão",
+          "Descrição",
+        ],
+        // tipos a serem inseridos no arquivo
+        tipoDadoTabela: [
+          "Inteiro",
+          "Decimal",
+          "Booleano",
+          "Texto",
+          "Data",
+          "Hora",
+          "Data e Hora",
+        ],
+        //objeto pegado da tela anterior
+        data: test,
+      },
+      methods: {
+        //função para acionar a extrasão de dados
+        adicionarMetadados() {
+          let metadados = [];
 
-      let test = []; // referenciar a variavel que vai receber o objeto e desmembrar com um for
+          this.data.forEach((item) => {
+            let restricoes = [];
 
-      dados.response.columns.forEach((coluna) => {
-        test.push({ nome: coluna.nome, ativo: true });
-      });
+            // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
+            restricoes.push(
+              {
+                nome: "tamanhoMaximo",
+                valor: item.tamanhoMaximo,
+              },
+              {
+                nome: "obrigatorio",
+                valor: item.obrigatorio,
+              }
+            );
 
-      // instancia do Vue
-      const vm = new Vue({
-        el: "#app",
-        data: {
-          // dados tabela
-          nameFile: dados.response.fileName,
-          userFile: dados.response.usuario,
-          headTabela: [
-            "Ativo",
-            "Nome",
-            "Tipo de Dado",
-            "Obrigatório",
-            "Tamanho Máximo",
-            "Valor Padrão",
-            "Descrição",
-          ],
-          tipoDadoTabela: [
-            "Inteiro",
-            "Decimal",
-            "Booleano",
-            "Texto",
-            "Data",
-            "Hora",
-            "Data e Hora",
-          ],
-          data: test,
-        },
-        methods: {
-          adicionarMetadados() {
-            let metadados = [];
+            metadados.push({
+              ativo: item.ativo,
+              nome: item.nome,
+              valorPadrao: item.valorPadrao,
+              descricao: item.descricao,
+              restricoes: restricoes,
+              nomeTipo: item.tipo,
 
-            this.data.forEach((item) => {
-              let restricoes = [];
+            });
+          });
 
-              // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
-              if (item && item.restricoes && Array.isArray(item.restricoes)) {
-                item.restricoes.forEach((restricao) => {
-                  restricoes.push({
-                    nome: restricao.nome,
-                    valor: restricao.valor,
-                  });
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            nomeArquivo: this.nameFile,
+            usuario: "usuario1@email.com",
+            metadados: metadados,
+          };
+
+          console.log(objetoCompleto);
+
+          //Enviar dados para o backend
+          fetch("http://localhost:8080/landing/upsert", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: 'Erro',
+                  text: responseJson.critica,
+                  icon: 'error', // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: 'OK' // Texto do botão de confirmação
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: 'Sucesso',
+                  text: responseJson.critica,
+                  icon: 'success', // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: 'OK' // Texto do botão de confirmação
                 });
               }
 
-              metadados.push({
-                ativo: item.ativo,
-                nome: item.nome,
-                valorPadrao: item.valorPadrao,
-                descricao: item.descricao,
-                restricoes: restricoes,
-                tipo: {
-                  nomeTipo: item.tipo,
-                },
-              });
+              // Lidar com a resposta do backend aqui se necessário
             });
-
-            // Construindo o objeto completo
-            const objetoCompleto = {
-              nomeArquivo: this.nameFile,
-              usuario: this.userFile,
-              metadados: metadados,
-            };
-
-            console.log(objetoCompleto);
-
-            //Enviar dados para o backend
-            fetch("http://localhost:8080/landing/save", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(objetoCompleto),
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error("Erro ao enviar dados para o backend");
-                }
-                // Lidar com a resposta do backend aqui, se necessário
-                return response.json();
-              })
-              .then((data) => {
-                console.log("Dados enviados com sucesso:", data);
-                // Lógica adicional após o envio bem-sucedido, se necessário
-              })
-              .catch((error) => {
-                console.error("Erro:", error);
-                // Lidar com erros aqui, se necessário
-              });
-          },
         },
-      });
-    </script>
-  </body>
+      },
+    });
+  </script>
+  <script src="../utils/hover-icon-change-upload-csv.js"></script>
+</body>
+
 </html>
