@@ -43,7 +43,7 @@ nav a img {
     height: 50px;
 }
 
-nav>a:hover {
+nav > a:hover {
     color: #02BBCA;
 }
 
@@ -51,7 +51,7 @@ body {
     background: white;
 }
 
-main>h1 {
+main > h1 {
     margin: 20px 35px 20px 35px;
 }
 
@@ -62,8 +62,7 @@ table {
     overflow-x: auto;
 }
 
-th,
-td {
+th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #CED4DA;
@@ -84,11 +83,11 @@ img {
     align-items: center;
 }
 
-tbody>tr>td>div>abbr>img {
+tbody > tr > td > div > abbr > img {
     height: 25px;
 }
 
-tbody>tr>td>div>abbr>img:hover {
+tbody > tr > td > div > abbr > img:hover {
     cursor: pointer;
 }
 
@@ -136,6 +135,7 @@ tbody>tr>td>div>abbr>img:hover {
     padding: 20px;
 }
 
+
 .h2archive {
     margin-top: 20px;
 
@@ -145,4 +145,3 @@ tbody>tr>td>div>abbr>img:hover {
     display:flex;
     flex-direction: row;
 }
-
