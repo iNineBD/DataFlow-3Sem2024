@@ -27,24 +27,8 @@
             <table id="table">
                 <thead>
                     <tr>
-                        <th v-for="(head, index) in headTabela" :key="index">
-                            {{ head }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in data" :key="index">
-                        <td>{{ item.nome }}</td>
-                        <td>{{ item.organizacao }}</td>
-                        <td>{{ item.status }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- <table id="table">
-                <thead>
-                    <tr>
-                        <th>Nome do arquivo</th>
+                        <th @click="sortByFileName">Nome do Arquivo</th>
+                        <th>Organização</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -53,42 +37,72 @@
                         <td>
                             <div id="centralizar">
                                 <img src="../src/assets/images/arquivo.png" alt="arquivo">
-                                {{ file.name }}
+                                <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
                             </div>
                         </td>
-                        <td>{{ file.status }}</td>
+                        <td>
+                            <div id="centralizar">
+                                <img src="../src/assets/images/organizacao.png" alt="organizacao">
+                                {{ file.organizacao }}
+                            </div>
+                        </td>
+                        <td>
+                            <div id="centralizar">
+                                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo">
+                                {{ file.status }}
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
-            </table> -->
-
+            </table>
         </main>
     </div>
 
     <script>
-        const vm = new Vue({
+        const app = new Vue({
             el: "#app",
             data: {
-                headTabela: [
-                    "Nome",
-                    "Organização",
-                    "Status",
-                ],
+                files: []
             },
+            mounted() { // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto
+                this.loadUserData("usuario1@email.com");
+            },
+            methods: {
+                loadUserData(email) {
+                    fetch("http://localhost:8080/home/filesOrg", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ email: email })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.response && data.response.arquivosLanding) {
+                            this.files = data.response.arquivosLanding.map(arquivo => {
+                                return {
+                                    nomeArquivo: arquivo.nome,
+                                    organizacao: arquivo.organizacao,
+                                    status: arquivo.status,
+                                };
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar os dados do usuário:', error);
+                    });
+                },
+                sortByFileName() {
+                    // Implementar a lógica para ordenar os arquivos pelo nome do arquivo, se necessário
+                },
+                viewFileDetails(file) {
+                    // Implementar a lógica para visualizar os detalhes do arquivo
+                    console.log("Visualizando detalhes do arquivo:", file);
+                    // Aqui você pode redirecionar para a tela de visualização de detalhes do arquivo
+                }
+            }
         });
     </script>
-
-    <!-- <script>
-        const app = new Vue({
-            data() {
-                return {
-                    files: [
-                        { name: 'ArquivoTeste1.csv', status: 'Aguardando aprovação da Bronze Zone' },
-                        { name: 'ArquivoTeste2.csv', status: 'Aguardando aprovação da Bronze Zone' }
-                    ]
-                };
-            }
-        }).mount('#app');
-    </script> -->
 
     <script src="../src/utils/hover-icon-change-home.js"></script>
 </body>
