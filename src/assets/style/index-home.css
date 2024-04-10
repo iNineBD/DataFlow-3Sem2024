@@ -136,3 +136,13 @@ tbody>tr>td>div>abbr>img:hover {
     padding: 20px;
 }
 
+.h2archive {
+    margin-top: 20px;
+
+}
+
+.alinhamentos {
+    display:flex;
+    flex-direction: row;
+}
+
