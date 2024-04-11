@@ -69,7 +69,7 @@
             },
             methods: {
                 loadUserData(email) {
-                    fetch("http://localhost:8080/home/filesOrg", {
+                    fetch("http://localhost:8080/home/files/find", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -79,7 +79,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.response && data.response.arquivosLanding) {
-                            this.files = data.response.arquivosLanding.map(arquivo => {
+                            this.files = data.response.arquivosBronze.map(arquivo => {
                                 return {
                                     nomeArquivo: arquivo.nome,
                                     organizacao: arquivo.organizacao,
@@ -96,9 +96,12 @@
                     // Implementar a lógica para ordenar os arquivos pelo nome do arquivo, se necessário
                 },
                 viewFileDetails(file) {
-                    // Implementar a lógica para visualizar os detalhes do arquivo
-                    console.log("Visualizando detalhes do arquivo:", file);
-                    // Aqui você pode redirecionar para a tela de visualização de detalhes do arquivo
+                    localStorage.setItem('fileName', file.nomeArquivo);
+                    localStorage.setItem('usuario', 'usuario1@email.com');
+                    
+                    console.log(localStorage)
+
+                    window.location.href = '../src/pages/outra-tela.html';
                 }
             }
         });
