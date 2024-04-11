@@ -74,7 +74,7 @@
             </td>
             <!--coluna obrigatoprio-->
             <td>
-              <input type="checkbox" value="" v-model="item.obrigatorio" />
+              <input type="checkbox" value="true" v-model.lazy="item.obrigatorio" />
             </td>
             <!--coluna tamanho maximo-->
             <td><input type="text" v-model="item.tamanhoMaximo" /></td>
