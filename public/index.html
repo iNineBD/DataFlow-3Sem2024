@@ -2,112 +2,113 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../src/utils/vue.js"></script>
-    <link rel="stylesheet" href="../src/assets/style/index-home.css" />
-    <title>Home</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="../src/utils/vue.js"></script>
+  <link rel="stylesheet" href="../src/assets/style/index-home.css" />
+  <title>Home</title>
 </head>
 
 <body>
-    <div id="app">
-        <header>
-            <img src="../src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
-            <nav>
-                <a href="/public/index.html">Home</a>
-                <a href="../src/pages/upload-csv.html">Importar novo CSV</a>
-                <a href="#"><img src="../src/assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon" /></a>
-            </nav>
-        </header>
+  <div id="app">
+    <header>
+      <img src="../src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="/public/index.html">Home</a>
+        <a href="../src/pages/upload-csv.html">Importar novo CSV</a>
+        <a href="#"><img src="../src/assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
+            id="fotoPerfilIcon" /></a>
+      </nav>
+    </header>
 
-        <main>
-            <h1>Olá, Bem Vindo</h1>
+    <main>
+      <h1>Olá, Bem Vindo</h1>
 
-            <table id="table">
-                <thead>
-                    <tr>
-                        <th @click="sortByFileName">Nome do Arquivo</th>
-                        <th>Organização</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(file, index) in files" :key="index">
-                        <td>
-                            <div id="centralizar">
-                                <img src="../src/assets/images/arquivo.png" alt="arquivo">
-                                <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="centralizar">
-                                <img src="../src/assets/images/organizacao.png" alt="organizacao">
-                                {{ file.organizacao }}
-                            </div>
-                        </td>
-                        <td>
-                            <div id="centralizar">
-                                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo">
-                                {{ file.status }}
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
-    </div>
+      <table id="table">
+        <thead>
+          <tr>
+            <th @click="sortByFileName">Nome do Arquivo</th>
+            <th>Organização</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(file, index) in files" :key="index">
+            <td>
+              <div id="centralizar">
+                <img src="../src/assets/images/arquivo.png" alt="arquivo" />
+                <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
+              </div>
+            </td>
+            <td>
+              <div id="centralizar">
+                <img src="../src/assets/images/organizacao.png" alt="organizacao" />
+                {{ file.organizacao }}
+              </div>
+            </td>
+            <td>
+              <div id="centralizar">
+                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo" />
+                {{ file.status }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
 
-    <script>
-        const app = new Vue({
-            el: "#app",
-            data: {
-                files: []
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        files: [],
+      },
+      mounted() {
+        // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto
+        this.loadUserData("usuario1@email.com");
+      },
+      methods: {
+        loadUserData(email) {
+          fetch("http://localhost:8080/home/files/find", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-            mounted() { // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto
-                this.loadUserData("usuario1@email.com");
-            },
-            methods: {
-                loadUserData(email) {
-                    fetch("http://localhost:8080/home/files/find", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ email: email })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.response && data.response.arquivosLanding) {
-                            this.files = data.response.arquivosBronze.map(arquivo => {
-                                return {
-                                    nomeArquivo: arquivo.nome,
-                                    organizacao: arquivo.organizacao,
-                                    status: arquivo.status,
-                                };
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erro ao carregar os dados do usuário:', error);
-                    });
-                },
-                sortByFileName() {
-                    // Implementar a lógica para ordenar os arquivos pelo nome do arquivo, se necessário
-                },
-                viewFileDetails(file) {
-                    localStorage.setItem('fileName', file.nomeArquivo);
-                    localStorage.setItem('usuario', 'usuario1@email.com');
-                    
-                    console.log(localStorage)
+            body: JSON.stringify({ email: email }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data && data.response && data.response.arquivosLanding) {
+                this.files = data.response.arquivosBronze.map((arquivo) => {
+                  return {
+                    nomeArquivo: arquivo.nome,
+                    organizacao: arquivo.organizacao,
+                    status: arquivo.status,
+                  };
+                });
+              }
+            })
+            .catch((error) => {
+              console.error("Erro ao carregar os dados do usuário:", error);
+            });
+        },
+        sortByFileName() {
+          // Implementar a lógica para ordenar os arquivos pelo nome do arquivo, se necessário
+        },
+        viewFileDetails(file) {
+          localStorage.setItem("fileName", file.nomeArquivo);
+          localStorage.setItem("usuario", "usuario1@email.com");
 
-                    window.location.href = '../src/pages/outra-tela.html';
-                }
-            }
-        });
-    </script>
+          console.log(localStorage);
 
-    <script src="../src/utils/hover-icon-change-home.js"></script>
+          window.location.href = "../src/pages/update_csv.html";
+        },
+      },
+    });
+  </script>
+  <script src="../src/utils/hover-icon-change-home.js"></script>
 </body>
 
 </html>
