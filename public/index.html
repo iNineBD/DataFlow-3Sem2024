@@ -36,19 +36,19 @@
                     <tr v-for="(file, index) in files" :key="index">
                         <td>
                             <div id="centralizar">
-                                <img src="../src/assets/images/arquivo.png" alt="arquivo">
+                                <img src="../src/assets/images/arquivo.png" alt="arquivo" id="img-table">
                                 <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
                             </div>
                         </td>
                         <td>
                             <div id="centralizar">
-                                <img src="../src/assets/images/organizacao.png" alt="organizacao">
+                                <img src="../src/assets/images/organizacao.png" alt="organizacao" id="img-table">
                                 {{ file.organizacao }}
                             </div>
                         </td>
-                        <td>
+                        <td class="status-cell">
                             <div id="centralizar">
-                                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo">
+                                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo" id="img-table">
                                 {{ file.status }}
                             </div>
                         </td>
