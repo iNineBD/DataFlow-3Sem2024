@@ -141,7 +141,7 @@
 
 | SPRINTS | PERÍODOS | DESCRIÇÃO |
 |:-------:|:-----:|:---------:|
-| Sprint 1 | 25/03/2024 à 14/04/2024 | Landing Zone |
+| [Sprint 1](https://github.com/iNineBD/DataFlow-3Sem2024.wiki.git)| 25/03/2024 à 14/04/2024 | Landing Zone |
 | Sprint 2 | 15/04/2024 à 05/05/2024 | Bronze Zone |
 | Sprint 3 | 06/05/2024 à 26/05/2024 | Dashboard e controle de usuários |
 | Sprint 4 | 27/05/2024 à 16/06/2024 | Silver Zone |
