@@ -64,7 +64,7 @@
     
     <div id="buttons">
       <a href="../pages/upload-csv.html"><button id="btnCancelar">Cancelar</button></a>
-      <a href="/public/index.html"><button id="btnSalvar" @click="adicionarMetadados()">Salvar</button></a>
+     <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
     </div>
 
   </div>
@@ -179,6 +179,10 @@
                   icon: "success", // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: "OK", // Texto do botão de confirmação
                 });
+                setTimeout(function () {
+                  // Redirecionar para a página desejada após 3 segundos
+                  window.location.href = "/public/index.html";
+                }, 3000);
               }
 
               // Lidar com a resposta do backend aqui se necessário
