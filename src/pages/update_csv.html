@@ -8,12 +8,14 @@
   <script src="../utils/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!--CSS IMPORT-->
-  <link rel="stylesheet" href="/src/assets/style/index-home.css" />
+  <link rel="stylesheet" href="/src/assets/style/update-csv.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <title>Landing Zone</title>
 </head>
+
 <body>
   <div id="app">
+    
     <header>
       <!--Toolbar-->
       <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
@@ -24,53 +26,62 @@
             id="fotoPerfilIcon" /></a>
       </nav>
     </header>
-    <h1 class="h1Landing">Edite seu Arquivo</h1>
-    <div class="alinhamentos">
-      <h2 class="h2Landing">Nome do arquivo:</h2>
-      <h2 class="h2archive" v-text="nameFile"></h2>
+
+    <h1 id="h1Landing">Edite seu Arquivo</h1>
+
+    <div id="alinhamentos">
+      <h2 id="h2Landing">Nome do arquivo:</h2>
+      <h2 id="parchive" v-text="nameFile"></h2>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <!--cabeçalho da tabela-->
-          <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!--coluna nome-->
-        <tr v-for="(item, index) in data" :key="index">
-          <td>
-            <!--campo ativo-->
-            <input type="checkbox" value="true" checked v-model="item.ativo" />
-          </td>
-          <td>{{ item.nome }}</td>
-          <td>
-            <!--coluna tipo-->
-            <select v-model="item.tipo">
-              <option value="" disabled>Selecione um Tipo</option>
-              <option v-for="(tipo, index) in tipoDadoTabela" :key="index">
-                {{ tipo }}
-              </option>
-            </select>
-          </td>
-          <!--coluna obrigatoprio-->
-          <td>
-            <input type="checkbox" value="" v-model="item.obrigatorio" />
-          </td>
-          <!--coluna tamanho maximo-->
-          <td><input type="text" v-model="item.tamanhoMaximo" /></td>
-          <!--coluna valor padrão-->
-          <td><input type="text" v-model="item.valorPadrao" /></td>
-          <!--coluna descrição-->
-          <td><input type="text" v-model="item.descricao" /></td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div id="table-container" style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <!--cabeçalho da tabela-->
+            <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--coluna nome-->
+          <tr v-for="(item, index) in data" :key="index">
+            <td>
+              <!--campo ativo-->
+              <input type="checkbox" value="true" checked v-model="item.ativo" />
+            </td>
+            <td>{{ item.nome }}</td>
+            <td>
+              <!--coluna tipo-->
+              <select v-model="item.tipo">
+                <option value="" disabled>Selecione um Tipo</option>
+                <option v-for="(tipo, index) in tipoDadoTabela" :key="index">
+                  {{ tipo }}
+                </option>
+              </select>
+            </td>
+            <!--coluna obrigatoprio-->
+            <td>
+              <input type="checkbox" value="" v-model="item.obrigatorio" />
+            </td>
+            <!--coluna tamanho maximo-->
+            <td><input type="text" v-model="item.tamanhoMaximo" /></td>
+            <!--coluna valor padrão-->
+            <td><input type="text" v-model="item.valorPadrao" /></td>
+            <!--coluna descrição-->
+            <td><input type="text" v-model="item.descricao" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!--Botão salvar-->
-    <div>
-      <button class="btn" @click="adicionarMetadados()">Salvar</button>
+    <div id="buttons">
+      <a href="../public/index.html"><button id="btnCancelar">Cancelar</button></a>
+      <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
     </div>
+
   </div>
+
   <!-- script Vue.js -->
   <script>
     // instancia do Vue
@@ -219,4 +230,5 @@
   </script>
   <script src="../utils/hover-icon-change-upload-csv.js"></script>
 </body>
+
 </html>
