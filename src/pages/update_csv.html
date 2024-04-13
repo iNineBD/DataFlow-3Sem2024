@@ -185,12 +185,10 @@
                   text: responseJson.critica,
                   icon: 'success', // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: 'OK' // Texto do botão de confirmação
-                });
-                localStorage.removeItem('fileName');
-                setTimeout(function () {
-                  // Redirecionar para a página desejada após 3 segundos
+                }).then((result) => {
+                  localStorage.removeItem('arquivoCSV');
                   window.location.href = "/public/index.html";
-                }, 3000);
+                });
               }
             });
         },
