@@ -25,39 +25,39 @@
     <main>
       <h1>Olá, Bem Vindo</h1>
 
-      <table id="table">
-        <thead>
-          <tr>
-            <th @click="sortByFileName">Nome do Arquivo</th>
-            <th>Organização</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(file, index) in files" :key="index">
-            <td>
-              <div id="centralizar">
-                <img src="../src/assets/images/arquivo.png" alt="arquivo" />
-                <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
-              </div>
-            </td>
-            <td>
-              <div id="centralizar">
-                <img src="../src/assets/images/organizacao.png" alt="organizacao" />
-                {{ file.organizacao }}
-              </div>
-            </td>
-            <td>
-              <div id="centralizar">
-                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo" />
-                {{ file.status }}
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
-  </div>
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th @click="sortByFileName">Nome do Arquivo</th>
+                        <th>Organização</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(file, index) in files" :key="index">
+                        <td>
+                            <div id="centralizar">
+                                <img src="../src/assets/images/arquivo.png" alt="arquivo" id="img-table">
+                                <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="centralizar">
+                                <img src="../src/assets/images/organizacao.png" alt="organizacao" id="img-table">
+                                {{ file.organizacao }}
+                            </div>
+                        </td>
+                        <td class="status-cell">
+                            <div id="centralizar">
+                                <img src="../src/assets/images/status-amarelo.png" alt="status-amarelo" id="img-table">
+                                {{ file.status }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
 
   <script>
     const app = new Vue({

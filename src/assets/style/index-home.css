@@ -73,7 +73,7 @@ th {
     background-color: #f2f2f2;
 }
 
-img {
+#img-table {
     height: 16px;
     margin: 0 6px 0 0;
 }
@@ -91,57 +91,18 @@ tbody > tr > td > div > abbr > img:hover {
     cursor: pointer;
 }
 
-.btn {
-    background-color: #021F4E;
-    /* Define a cor de fundo do botão */
-    color: #fff;
-    /* Define a cor do texto do botão como branco */
-    padding: 10px 20px;
-    /* Define o preenchimento interno do botão */
-    border: none;
-    /* Remove a borda do botão */
-    border-radius: 5px;
-    /* Adiciona bordas arredondadas ao botão */
-    cursor: pointer;
-    /* Transforma o cursor do mouse em um ponteiro ao passar sobre o botão */
-    float: right;
-    /* Alinha o botão à direita */
-    margin-top: 10px;
-    /* Define uma margem superior de 10 pixels */
+.status-cell {
+    font-size: 14px;
 }
 
-/* Define o estilo dos botões para telas menores que 768 pixels */
-@media screen and (max-width: 768px) {
-    .btn {
-        float: none;
-        /* Remove o alinhamento flutuante */
-        display: block;
-        /* Transforma o botão em um bloco */
-        margin: 0 auto;
-        /* Centraliza o botão horizontalmente */
-        width: 80%;
-        /* Define a largura do botão como 80% da largura do elemento pai */
-    }
+#table th:nth-child(1), #table td:nth-child(1) {
+    width: 40%; /* Defina a largura desejada para a primeira coluna */
 }
 
-.h1Landing {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+#table th:nth-child(2), #table td:nth-child(2) {
+    width: 35%; /* Defina a largura desejada para a segunda coluna */
 }
 
-.h2Landing {
-    margin-left: 15px;
-    padding: 20px;
-}
-
-
-.h2archive {
-    margin-top: 20px;
-
-}
-
-.alinhamentos {
-    display:flex;
-    flex-direction: row;
+#table th:nth-child(3), #table td:nth-child(3) {
+    width: 25%; /* Defina a largura desejada para a terceira coluna */
 }
