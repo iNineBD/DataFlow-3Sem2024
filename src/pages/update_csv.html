@@ -8,11 +8,10 @@
   <script src="../utils/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!--CSS IMPORT-->
-  <link rel="stylesheet" href="/src/assets/style/index-home.css">
+  <link rel="stylesheet" href="/src/assets/style/index-home.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <title>Landing Zone</title>
 </head>
-
 <body>
   <div id="app">
     <header>
@@ -26,19 +25,15 @@
       </nav>
     </header>
     <h1 class="h1Landing">Edite seu Arquivo</h1>
-
     <div class="alinhamentos">
-    <h2 class="h2Landing" >Nome do arquivo: </h2>
-    <h2 class="h2archive" v-text="nameFile"></h2>
+      <h2 class="h2Landing">Nome do arquivo:</h2>
+      <h2 class="h2archive" v-text="nameFile"></h2>
     </div>
-
     <table>
       <thead>
         <tr>
           <!--cabeçalho da tabela-->
-          <th v-for="(head, index) in headTabela" :key="index">
-            {{ head }}
-          </th>
+          <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
         </tr>
       </thead>
       <tbody>
@@ -72,30 +67,20 @@
       </tbody>
     </table>
     <!--Botão salvar-->
-    <button class="btn" @click="adicionarMetadados()">Salvar</button>
+    <div>
+      <button class="btn" @click="adicionarMetadados()">Salvar</button>
+    </div>
   </div>
-  </main>
-
   <!-- script Vue.js -->
   <script>
-    let dados = JSON.parse(localStorage.getItem("updateCSV"));
-
-    console.log(dados.nome.columns);
-
-    let test = []; // referenciar a variavel que vai receber o objeto e desmembrar com um for
-
-    dados.nome.columns.forEach((coluna) => {
-      test.push({ nome: coluna.nome, ativo: true });
-    });
-
     // instancia do Vue
     const vm = new Vue({
       el: "#app",
       data: {
         // nome do arquivo
-        nameFile: dados.nome.fileName,
+        nameFile: "",
         // nome do usuario
-        userFile: dados.nome.usuario,
+        userFile: "",
         // cabeçalho da tabela
         headTabela: [
           "Ativo",
@@ -117,7 +102,14 @@
           "Data e Hora",
         ],
         //objeto pegado da tela anterior
-        data: test,
+        data: [],
+      },
+      created() {
+        let test = [];
+        let metadado = [];
+      },
+      mounted() {
+        this.importarDadosHome();
       },
       methods: {
         //função para acionar a extrasão de dados
@@ -138,7 +130,6 @@
                 valor: item.obrigatorio,
               }
             );
-
             metadados.push({
               ativo: item.ativo,
               nome: item.nome,
@@ -146,19 +137,15 @@
               descricao: item.descricao,
               restricoes: restricoes,
               nomeTipo: item.tipo,
-
             });
           });
-
           // Construindo o objeto completo
           const objetoCompleto = {
             nomeArquivo: this.nameFile,
             usuario: "usuario1@email.com",
             metadados: metadados,
           };
-
           console.log(objetoCompleto);
-
           //Enviar dados para o backend
           fetch("http://localhost:8080/landing/upsert", {
             method: "POST",
@@ -188,15 +175,48 @@
                   icon: 'success', // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: 'OK' // Texto do botão de confirmação
                 });
+                setTimeout(function () {
+                  // Redirecionar para a página desejada após 3 segundos
+                  window.location.href = "/public/index.html";
+                }, 3000);
               }
-
-              // Lidar com a resposta do backend aqui se necessário
             });
         },
+        importarDadosHome() {
+          fetch("http://localhost:8080/landing/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "usuario": "usuario1@email.com",
+              "nomeArquivo": localStorage.getItem('fileName')
+            }),
+          })
+            .then((response) => response.json())
+            .then((responseData) => {
+              const response = responseData.response;
+              console.log(response);
+
+              this.nameFile = response.nomeArquivo;
+              this.userFile = response.usuario;
+              this.data = response.metadados.map((coluna) => {
+                return {
+                  nome: coluna.nome,
+                  ativo: coluna.ativo,
+                  tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
+                  obrigatorio: coluna.restricoes.some(r => r.nome === "obrigatorio" && r.valor === "true"), // Verifica se há restrições obrigatórias
+                  tamanhoMaximo: coluna.restricoes.find(r => r.nome === "tamanhoMaximo")?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                  valorPadrao: coluna.valorPadrao || "",
+                  descricao: coluna.descricao || ""
+                };
+              });
+              return response;
+            });
+        }
       },
     });
   </script>
   <script src="../utils/hover-icon-change-upload-csv.js"></script>
 </body>
-
 </html>
