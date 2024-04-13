@@ -56,10 +56,15 @@ main > h1 {
 }
 
 table {
-    width: calc(100% - 70px);
+    width: 100%;
     border-collapse: collapse;
-    margin: 0 35px;
     overflow-x: auto;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 th, td {
@@ -70,12 +75,7 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
-}
-
-img {
-    height: 16px;
-    margin: 0 6px 0 0;
+    background-color: #cdcdcd;
 }
 
 #centralizar {
@@ -91,57 +91,80 @@ tbody > tr > td > div > abbr > img:hover {
     cursor: pointer;
 }
 
-.btn {
-    background-color: #021F4E;
-    /* Define a cor de fundo do botão */
+.checkboxAtivo {
+    margin: 0px 0px 0px 12px;
+    display: block;
+}
+
+.checkboxObrigatorio {
+    margin: 0px 0px 0px 32px;
+    display: block;
+}
+
+#table-container {
+    max-height: 520px;
+    overflow-y: auto;
+    margin: 0px 35px;
+}
+
+.even-row {
+    background-color: #ffffff; /* Cor de fundo para linhas pares */
+}
+  
+.odd-row {
+    background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
+}
+
+#btnCancelar {
+    background-color: #ADB5BD;
     color: #fff;
-    /* Define a cor do texto do botão como branco */
     padding: 10px 20px;
-    /* Define o preenchimento interno do botão */
     border: none;
-    /* Remove a borda do botão */
     border-radius: 5px;
-    /* Adiciona bordas arredondadas ao botão */
     cursor: pointer;
-    /* Transforma o cursor do mouse em um ponteiro ao passar sobre o botão */
-    float: right;
-    /* Alinha o botão à direita */
-    margin-top: 10px;
-    /* Define uma margem superior de 10 pixels */
+    margin: 15px 10px 10px 35px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
-/* Define o estilo dos botões para telas menores que 768 pixels */
-@media screen and (max-width: 768px) {
-    .btn {
-        float: none;
-        /* Remove o alinhamento flutuante */
-        display: block;
-        /* Transforma o botão em um bloco */
-        margin: 0 auto;
-        /* Centraliza o botão horizontalmente */
-        width: 80%;
-        /* Define a largura do botão como 80% da largura do elemento pai */
-    }
+#btnSalvar {
+    background-color: #021F4E;
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px 35px 10px 10px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
-.h1Landing {
+#buttons {
+    display: flex;
+    justify-content: right;
+}
+
+#h1Landing {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-}
-
-.h2Landing {
-    margin-left: 15px;
-    padding: 20px;
-}
-
-
-.h2archive {
     margin-top: 20px;
-
 }
 
-.alinhamentos {
+#h2Landing {
+    margin-left: 40px;
+    padding: 20px 10px 20px 0px;
+    display: flex;
+    align-items: center;
+}
+
+
+#parchive {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+#alinhamentos {
     display:flex;
     flex-direction: row;
 }
