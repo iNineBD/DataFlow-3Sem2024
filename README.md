@@ -1,10 +1,11 @@
 # DataFlow-3Sem2024
 
+### 🖥️ Servidor de Processamento de Dados - [DataFlowServer](https://github.com/iNineBD/DataFlowServer-3Sem2024)
+
 <br>
 <p align="center">
     <a href="#equipe">Equipe</a> |
     <a href="#context">Contextualização</a>  |
-    <a href="#requisitos">Requisitos</a>  |
     <a href="#backlog">Product Backlog</a>  |
     <a href="#entregas">Sprints</a>  |
     <a href="#tecnologias">Tecnologias</a> 
@@ -41,19 +42,6 @@
 
 <div align="left"><hr width=70%></div>
 
-<span id="requisitos">
-
-## ◻️ Requisitos Funcionais
-- Realizar cadastro do cliente, solução e usuários autorizados a configurar os dados; 
-- Importações de dados csv ou excel e apresentação da estrutura dos dados; 
-- Identificar campos como chave de identificação dos dados;
-- Aplicar regras de acordo com os clientes, conhecidas como "de/para" ;
-- Realizar mapeamento de cruzamento de dados;
-- Criar um painel administrativo (dashboard) para oferecer visões quantitativas, como clientes, tipos de fontes de dados e quantidade de campos configurados;
-- Desenvolver uma interface que apresente uma visão analítica completa da configuração dos dados. 
-
-<div align="left"><hr width=70%></div>
-
 <span id="backlog">
 
 ## ◻️ Product Backlog
@@ -68,7 +56,7 @@
     <tr>
         <td>1</td>
         <td>Média</td>
-        <td>Como parceiro landing zone, quero poder carregar um csv  que gere uma tabela para vizualização dos metadados apresentados.</td>
+        <td>Como parceiro landing zone, quero poder carregar um csv  que gere uma tabela para visualização dos metadados apresentados.</td>
         <td>1</td>
     </tr>
     <tr>
@@ -80,44 +68,68 @@
     <tr>
         <td>3</td>
         <td>Média</td>
-        <td>Como parceiro da bronze, quero poder associar os campos afim de gerar um identificador do registro (chave primária)</td>
+        <td>Como parceiro landing zone, quero poder salvar os metadados e suas restrições em uma base para serem utilizados em todas os estágios. </td>
         <td>1</td>
     </tr>
     <tr>
         <td>4</td>
         <td>Alta</td>
-        <td>Como parceiro da bronze, quero poder associar os campos afim de gerar um identificador do registro (chave primária)</td>
+        <td>Como parceiro da bronze, quando um novo registro for criado, quero poder associar os campos necessários para gerar um identificador único.</td>
         <td>2</td>
     </tr>
     <tr>
         <td>5</td>
-        <td>Alta</td>
-        <td>Como Parceiro Silver, quero poder aplicar minhas regras de negócio na aplicação, para personalizar a apresentação dos resultados, a fim de atender melhor as necessidades específicas da minha empresa.</td>
-        <td>3</td>
+        <td>Baixa</td>
+        <td>Como parceiro da bronze, quero poder visualizar o identificador selecionado para cada registro na interface do usuário.</td>
+        <td>2</td>
     </tr>
     <tr>
         <td>6</td>
-        <td>Baixa</td>
-        <td>Como administrador, quero poder adicionar diversos parceiros, sendo responsável por definir qual/quais estágios terão acessos.</td>
+        <td>Média</td>
+        <td>Como parceiro da bronze, quero poder editar os campos associados ao identificador, caso seja necessário fazer alterações.</td>
         <td>2</td>
     </tr>
     <tr>
         <td>7</td>
-        <td>Baixa</td>
-        <td>Como administrador, quero poder monitorar os acessos realizados pelos parceiros e as modificações feitas sobre todos os projetos cadastrados.</td>
-        <td>3</td>
+        <td>Alta</td>
+        <td>Como Parceiro Silver, quero poder aplicar minhas regras de negócio para personalizar a apresentação dos resultados</td>
+        <td>4</td>
     </tr>
     <tr>
         <td>8</td>
         <td>Média</td>
-        <td>Como administrador, desejo um painel que exiba informações quantitativas configuradas, incluindo dados sobre clientes, tipos de fontes de dados e contagens de campos, para facilitar a análise e gestão do sistema.</td>
+        <td>Como parceiro da Silver, quero que as regras de negócio personalizadas sejam modificáveis e removíveis, caso as necessidades da empresa mudem ao longo do tempo.</td>
         <td>4</td>
     </tr>
     <tr>
         <td>9</td>
         <td>Baixa</td>
+        <td>Como administrador, quero poder adicionar diversos parceiros, sendo responsável por definir qual/quais estágios terão acessos.</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Baixa</td>
+        <td>Como administrador, quero poder monitorar os acessos realizados pelos parceiros e as modificações feitas sobre todos os projetos cadastrados.</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>Média</td>
+        <td>Como administrador, desejo um painel que exiba informações quantitativas configuradas, incluindo dados sobre clientes, tipos de fontes de dados e contagens de campos, para facilitar a análise e gestão do sistema.</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>Baixa</td>
         <td>Como administrador, desejo uma interface que me permita gerar um arquivo de configuração no formato YAML por estágio a partir de uma base de dados, para que eu possa utilizar este arquivo como configurador de uma aplicação terceira.</td>
-        <td>4</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>Baixa</td>
+        <td>Como parceiro Bronze e/ou Silver, desejo ter a capacidade de validar a etapa anterior de um processo, para que a próxima etapa possa ser iniciada, permitindo que eu tenha um controle maior sobre o fluxo do processo e garantindo que cada etapa seja concluída com precisão antes de avançar para a próxima.</td>
+        <td>2, 3 e 4</td>
     </tr>
 </table>
 
@@ -129,10 +141,10 @@
 
 | SPRINTS | PERÍODOS | DESCRIÇÃO |
 |:-------:|:-----:|:---------:|
-| Sprint 1 | 25/03/2024 à 14/04/2024 |  |
-| Sprint 2 | 15/04/2024 à 05/05/2024 |  |
-| Sprint 3 | 06/05/2024 à 26/05/2024 |  |
-| Sprint 4 | 27/05/2024 à 16/06/2024 |  |
+| [Sprint 1](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-1)| 25/03/2024 à 14/04/2024 | Landing Zone |
+| [Sprint 2](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-2) | 15/04/2024 à 05/05/2024 | Bronze Zone |
+| [Sprint 3](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-3) | 06/05/2024 à 26/05/2024 | Dashboard e controle de usuários |
+| [Sprint 4](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-4) | 27/05/2024 à 16/06/2024 | Silver Zone |
 
 <div align="left"><hr width=70%></div>
 
@@ -141,12 +153,18 @@
 ## ◻️ Tecnologias
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![ClickUp](https://img.shields.io/badge/clickup-%237B68EE.svg?&style=for-the-badge&logo=clickup&logoColor=white)
+![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 
 <div align="left"><hr width=70%></div>
-
-
-Referência para server: https://github.com/iNineBD/DataFlowServer-3Sem2024
