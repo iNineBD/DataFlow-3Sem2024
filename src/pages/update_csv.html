@@ -76,7 +76,7 @@
 
     <!--Botão salvar-->
     <div id="buttons">
-      <a href="../public/index.html"><button id="btnCancelar">Cancelar</button></a>
+      <a href="../../public/index.html"><button id="btnCancelar">Cancelar</button></a>
       <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
     </div>
 
@@ -186,6 +186,7 @@
                   icon: 'success', // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: 'OK' // Texto do botão de confirmação
                 });
+                localStorage.removeItem('fileName');
                 setTimeout(function () {
                   // Redirecionar para a página desejada após 3 segundos
                   window.location.href = "/public/index.html";
