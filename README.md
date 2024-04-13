@@ -142,9 +142,9 @@
 | SPRINTS | PERÍODOS | DESCRIÇÃO |
 |:-------:|:-----:|:---------:|
 | [Sprint 1](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-1)| 25/03/2024 à 14/04/2024 | Landing Zone |
-| Sprint 2 | 15/04/2024 à 05/05/2024 | Bronze Zone |
-| Sprint 3 | 06/05/2024 à 26/05/2024 | Dashboard e controle de usuários |
-| Sprint 4 | 27/05/2024 à 16/06/2024 | Silver Zone |
+| [Sprint 2](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-2) | 15/04/2024 à 05/05/2024 | Bronze Zone |
+| [Sprint 3](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-3) | 06/05/2024 à 26/05/2024 | Dashboard e controle de usuários |
+| [Sprint 4](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-4) | 27/05/2024 à 16/06/2024 | Silver Zone |
 
 <div align="left"><hr width=70%></div>
 
@@ -154,13 +154,17 @@
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![ClickUp](https://img.shields.io/badge/clickup-%237B68EE.svg?&style=for-the-badge&logo=clickup&logoColor=white)
+![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 
 <div align="left"><hr width=70%></div>
