@@ -1,6 +1,6 @@
 # DataFlow-3Sem2024
 
-### 🖥️ Servidor de Processamento de Dados - [DataFlowServer](https://github.com/iNineBD/DataFlowServer-3Sem2024)
+### 🖥️ API REST (BACKEND) - [DataFlowServer](https://github.com/iNineBD/DataFlowServer-3Sem2024)
 
 <br>
 <p align="center">
