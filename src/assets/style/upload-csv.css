@@ -59,7 +59,7 @@ main {
 #fileUploadModal {
     background-color: white;
     width: 800px;
-    height: 400px;
+    height: 460px;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
@@ -109,3 +109,25 @@ main {
 .fixed-hover {
     color: #02BBCA;
 }
+
+.retangulo {
+    display: inline-block;
+    width: 200px; /* Largura do retângulo */
+    height: 75px; /* Altura do retângulo */
+    background-color: white; /* Cor de fundo branca */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    border-radius: 10px; /* Cantos arredondados */
+    vertical-align: middle;
+    margin-bottom: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.retangulo-align {
+    display: flex;
+    flex-direction: row; /* Alinha os elementos na horizontal */
+    align-items: center; /* Alinha os elementos verticalmente ao centro */
+}
+
+
+
