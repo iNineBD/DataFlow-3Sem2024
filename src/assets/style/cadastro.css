@@ -71,3 +71,48 @@ main > div > p {
     width: 630px;
     overflow-wrap: break-word;
 }
+
+.dados-cadastro {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 95%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+#checkboxes {
+    display: flex; /* Organiza caixas de seleção em linha */
+  }
+  
+input[type="checkbox"] {
+    display: flex;
+    justify-self: left;
+  }
+
+  
