@@ -51,8 +51,23 @@ body {
     background: white;
 }
 
+
 main > h1 {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+#instrucoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+main > div > p {
+    text-align: left;
+    width: 630px;
+    overflow-wrap: break-word;
 }
