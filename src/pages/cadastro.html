@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../src/utils/vue.js"></script>
+    <script src="../utils/vue.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -35,37 +35,49 @@
         </div>
         <div class="dados-cadastro">
             <form @submit.prevent="handleSubmit">
-                <div class="campo">
+                <div class="campoTexto">
                     <label for="nome">Nome do usuário *</label>
                     <input type="text" id="nome" v-model="dadosFormulario.nome" required />
                 </div>
-                <div class="campo">
+                <div class="campoTexto">
                     <label for="email">Email do usuário *</label>
                     <input type="email" id="email" v-model="dadosFormulario.email" required />
                 </div>
-                <div class="campo">
-                    <input type="checkbox" id="landing" v-model="selecionados.includes('Landing')" />
-                    <label for="landing">Landing</label>
-                    <input type="checkbox" id="bronze" v-model="selecionados.includes('Bronze')" />
-                    <label for="bronze">Bronze</label>
-                    <input type="checkbox" id="silver" v-model="selecionados.includes('Silver')" />
-                    <label for="silver">Silver</label>
-                    <input type="checkbox" id="full" v-model="selecionados.includes('Full')" />
-                    <label for="full">Full</label>
+                <div class="campoCheckbox">
+                    <div class="zone">
+                        <input type="checkbox" id="landing" v-model="selecionados.includes('Landing')" />
+                        <label for="landing">Landing</label>
+                    </div>
+                    <div class="zone">
+                        <input type="checkbox" id="bronze" v-model="selecionados.includes('Bronze')" />
+                        <label for="bronze">Bronze</label>
+                    </div>
+                    <div class="zone">
+                        <input type="checkbox" id="silver" v-model="selecionados.includes('Silver')" />
+                        <label for="silver">Silver</label>  
+                    </div>
+                    <div class="zone">
+                        <input type="checkbox" id="full" v-model="selecionados.includes('Full')" />
+                        <label for="full">Full</label>
+                    </div>
                 </div>
-                <div class="campo">
+                <div class="campoChoice">
                     <label for="cnpj">CNPJ da organização</label>
                     <input type="text" id="cnpj" v-model="dadosFormulario.cnpj" />
                 </div>
-                <div class="campo">
+                <div class="campoPassword">
                     <label for="senha">Senha *</label>
                     <input type="password" id="senha" v-model="dadosFormulario.senha" required />
                 </div>
-                <div class="campo">
+                <div class="campoPassword">
                     <label for="confirmarSenha">Confirmar senha *</label>
                     <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao" required />
                 </div>
-                <button type="submit">Cadastrar</button>
+                <div id="buttons">
+                    <a href="../../public/index.html">
+                        <button id="btnCancelar">Cancelar</button></a>
+                    <button id="btnCadastrar" @click="adicionarDados()">Cadastrar</button>
+                  </div>
             </form>
         </div>
     </main>

@@ -91,7 +91,7 @@ form {
   flex-direction: column;
 }
 
-.campo {
+.campoTexto, .campoChoice, .campoPassword, .campoCheckbox {
   margin-bottom: 15px;
 }
 
@@ -106,13 +106,38 @@ input, select {
   border: 1px solid #ccc;
 }
 
-#checkboxes {
-    display: flex; /* Organiza caixas de seleção em linha */
-  }
-  
-input[type="checkbox"] {
-    display: flex;
-    justify-self: left;
+.campoCheckbox {
+  display: flex; 
+  align-items: center;
+  color: rgb(164, 164, 164);
   }
 
+.zone {
+  margin: 15px;
+  display: flex; 
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
   
+}
+
+button {
+  width: 110px;
+  height: 35px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#btnCadastrar {
+  background-color: #021F4E;
+}
+
+#btnCancelar {
+  background-color: #ADB5BD;
+}
