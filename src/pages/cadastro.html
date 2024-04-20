@@ -31,34 +31,37 @@
         <div id="instrucoes">
             <p>Para cadastrar um usuário é necessário preencher corretamente os campos abaixo com os respectivos dados.
             </p><br>
-            <p>Os campos com * são de preenchimento obrigatório.</p>
+            <p>Os campos com <font color="red">*</font> são de preenchimento obrigatório.</p>
         </div>
         <div class="dados-cadastro">
             <form @submit.prevent="handleSubmit">
                 <div class="campoTexto">
-                    <label for="nome">Nome do usuário *</label>
+                    <label for="nome">Nome do usuário <font color="red">*</font></label>
                     <input type="text" id="nome" v-model="dadosFormulario.nome" required />
                 </div>
                 <div class="campoTexto">
-                    <label for="email">Email do usuário *</label>
+                    <label for="email">Email do usuário <font color="red">*</font></label>
                     <input type="email" id="email" v-model="dadosFormulario.email" required />
+                </div>
+                <div>
+                    <label for="nivelAcesso" class="nivelAcesso">Nível de acesso do usuário <font color="red">*</font></label>
                 </div>
                 <div class="campoCheckbox">
                     <div class="zone">
                         <input type="checkbox" id="landing" v-model="selecionados.includes('Landing')" />
-                        <label for="landing">Landing</label>
+                        <label for="landing" class="checkNivel">Landing</label>
                     </div>
                     <div class="zone">
                         <input type="checkbox" id="bronze" v-model="selecionados.includes('Bronze')" />
-                        <label for="bronze">Bronze</label>
+                        <label for="bronze" class="checkNivel">Bronze</label>
                     </div>
                     <div class="zone">
                         <input type="checkbox" id="silver" v-model="selecionados.includes('Silver')" />
-                        <label for="silver">Silver</label>  
+                        <label for="silver" class="checkNivel">Silver</label>  
                     </div>
                     <div class="zone">
                         <input type="checkbox" id="full" v-model="selecionados.includes('Full')" />
-                        <label for="full">Full</label>
+                        <label for="full" class="checkNivel">Full</label>
                     </div>
                 </div>
                 <div class="campoChoice">
@@ -66,13 +69,18 @@
                     <input type="text" id="cnpj" v-model="dadosFormulario.cnpj" />
                 </div>
                 <div class="campoPassword">
-                    <label for="senha">Senha *</label>
+                    <label for="senha">Senha <font color="red">*</font></label>
                     <input type="password" id="senha" v-model="dadosFormulario.senha" required />
                 </div>
                 <div class="campoPassword">
-                    <label for="confirmarSenha">Confirmar senha *</label>
-                    <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao" required />
-                </div>
+                    <label for="confirmarSenha">Confirmar senha <font color="red">*</font></label>
+                    <div class="input-group">
+                      <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao" required />
+                      <span class="input-group-text" @click="toggleSenha">
+                        <i class="fas fa-eye"></i>
+                      </span>
+                    </div>
+                  </div>
                 <div id="buttons">
                     <a href="../../public/index.html">
                         <button id="btnCancelar">Cancelar</button></a>
