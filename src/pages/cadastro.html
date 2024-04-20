@@ -68,6 +68,20 @@
                     <label for="cnpj">CNPJ da organização</label>
                     <input type="text" id="cnpj" v-model="dadosFormulario.cnpj" />
                 </div>
+
+                <div id="input">
+                    <input type="password">
+                    <img src="https://i.stack.imgur.com/H9Sb2.png" alt="">
+                  </div>
+
+                  <script type="text/javascript">
+                    var input = document.querySelector('#input input');
+                    var img = document.querySelector('#input img');
+                    img.addEventListener('click', function () {
+                    input.type = input.type == 'password' ? 'text' : 'password';
+                    });
+                </script>
+
                 <div class="campoPassword">
                     <label for="senha">Senha <font color="red">*</font></label>
                     <input type="password" id="senha" v-model="dadosFormulario.senha" required />
@@ -119,6 +133,8 @@
             },
         };
     </script>
+
+    
 
 </body>
 

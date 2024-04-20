@@ -131,6 +131,15 @@ input[type="checkbox"] {
   margin-right: 5px;
 }
 
+#input img {
+  cursor: pointer;
+}
+
+#input > * {
+  height: 1.3em;
+  float: left;
+}
+
 button {
   width: 110px;
   height: 35px;
