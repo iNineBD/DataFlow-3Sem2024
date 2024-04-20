@@ -141,7 +141,9 @@
           const objetoCompleto = {
             nomeArquivo: file.nomeArquivo,
             usuario: "usuario1@email.com",
+            usuarioOrg: file.organizacao,
           };
+          
           //Enviar dados para o backend
           fetch("http://localhost:8080/home/files", {
             method: "DELETE",
