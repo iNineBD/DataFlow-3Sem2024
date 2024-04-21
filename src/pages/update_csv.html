@@ -49,7 +49,8 @@
               <!--campo ativo-->
               <input type="checkbox" value="true" checked v-model="item.ativo" />
             </td>
-            <td>{{ item.nome }}</td>
+            <td><input type="text" v-model="item.nome" /></td>
+            <td>{{ item.exemplo }}</td>
             <td>
               <!--coluna tipo-->
               <select v-model="item.tipo">
@@ -96,6 +97,7 @@
         headTabela: [
           "Ativo",
           "Nome",
+          "Exemplo",
           "Tipo de Dado",
           "Obrigatório",
           "Tamanho Máximo",
@@ -144,6 +146,7 @@
             metadados.push({
               ativo: item.ativo,
               nome: item.nome,
+              sampleValue: item.exemplo,
               valorPadrao: item.valorPadrao,
               descricao: item.descricao,
               restricoes: restricoes,
@@ -153,7 +156,7 @@
           // Construindo o objeto completo
           const objetoCompleto = {
             nomeArquivo: this.nameFile,
-            usuario: "usuario1@email.com",
+            usuario: sessionStorage.getItem("usuario"),
             metadados: metadados,
           };
           console.log(objetoCompleto);
@@ -199,7 +202,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              "usuario": "usuario1@email.com",
+              "usuario": sessionStorage.getItem("usuario"),
               "nomeArquivo": localStorage.getItem('fileName')
             }),
           })
@@ -218,7 +221,8 @@
                   obrigatorio: coluna.restricoes.some(r => r.nome === "obrigatorio" && r.valor === "true"), // Verifica se há restrições obrigatórias
                   tamanhoMaximo: coluna.restricoes.find(r => r.nome === "tamanhoMaximo")?.valor || "", // Encontra o valor da restrição de tamanho máximo
                   valorPadrao: coluna.valorPadrao || "",
-                  descricao: coluna.descricao || ""
+                  descricao: coluna.descricao || "",
+                  exemplo: coluna.sampleValue || "",
                 };
               });
               return response;
