@@ -40,8 +40,8 @@
               <div class="retangulo">
                   <label for="cabecalhoDropdown">O Arquivo tem Cabeçalho?</label><br>
                   <select id="cabecalhoDropdown" v-model="cabecalho">
-                      <option value="sim">Sim</option>
-                      <option value="nao">Não</option>
+                      <option value="true">Sim</option>
+                      <option value="false">Não</option>
                   </select>
               </div>
               <div class="retangulo">
@@ -103,7 +103,9 @@
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             }
 
-            fetch("http://localhost:8080/landing/upload?delimiter="+data.delimiter, {
+            console.log("cabeca: ", this.cabecalho);
+
+            fetch("http://localhost:8080/landing/upload?delimiter="+this.delimiter+"&header="+this.cabecalho, {
               method: "POST",
               body: formData,
             })
@@ -129,7 +131,6 @@
                     fileName: data.response.fileName,
                     fileSize: data.response.fileSize,
                     columns: data.response.columns,
-                    cabecalho: data.response.cabecalho
                   },
                 };
                 localStorage.setItem("arquivoCSV", JSON.stringify(arquivo));
