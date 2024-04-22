@@ -169,7 +169,7 @@
         aprovarArquivo() {
           // Construindo o objeto completo
           const objetoCompleto = {
-            nomeArquivo: this.nameFile,
+            arquivo: this.nameFile,
             usuario: sessionStorage.getItem("usuario"),
             aprovado: (this.aprovado = true),
             observacao: this.observacao,
@@ -187,6 +187,17 @@
               return response.json();
             })
             .then((responseJson) => {
+              // Verifica se o campo observacao está vazio
+              if (!this.observacao.trim()) {
+                // Se estiver vazio, exibe uma mensagem de erro
+                Swal.fire({
+                  title: "Erro",
+                  text: "Por favor, forneça uma observação antes de aprovar o arquivo.",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                return; // Retorna sem continuar a execução do método
+              }
               if (
                 responseJson.critica !== "Processamento efetuado com sucesso"
               ) {
@@ -213,7 +224,7 @@
         reprovarArquivo() {
           // Construindo o objeto completo
           const objetoCompleto = {
-            nomeArquivo: this.nameFile,
+            arquivo: this.nameFile,
             usuario: sessionStorage.getItem("usuario"),
             aprovado: (this.aprovado = false),
             observacao: this.observacao,

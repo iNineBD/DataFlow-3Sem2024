@@ -116,18 +116,6 @@ tbody > tr > td > div > abbr > img:hover {
   background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
 }
 
-#btnReprovado {
-  background-color: #ff0000;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 15px 15px 10px 20px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
 #h1Landing {
   display: flex;
   justify-content: center;
@@ -154,6 +142,18 @@ tbody > tr > td > div > abbr > img:hover {
 
 #btnCancelar {
   background-color: #adb5bd;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px 15px 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#btnReprovado {
+  background-color: #ff0000;
   color: #fff;
   padding: 10px 20px;
   border: none;
