@@ -109,9 +109,9 @@
           <input type="text" id="inputObs" v-model="observacao" />
         </div>
         <div class="right-section">
-          <a href="../../public/index.html"
-            ><button id="btnCancelar">Cancelar</button></a
-          >
+          <a href="/public/index.html">
+            <button id="btnCancelar">Cancelar</button>
+          </a>
           <button id="btnReprovado" @click="reprovarArquivo()">
             Reprovado
           </button>
@@ -155,6 +155,7 @@
         //objeto pegado da tela anterior
         data: [],
         observacao: "",
+        aprovado: "",
       },
       created() {
         let test = [];
@@ -170,7 +171,7 @@
           const objetoCompleto = {
             nomeArquivo: this.nameFile,
             usuario: sessionStorage.getItem("usuario"),
-            aprovado: true,
+            aprovado: (this.aprovado = true),
             observacao: this.observacao,
           };
           console.log(objetoCompleto);
@@ -198,7 +199,62 @@
                 return;
               } else {
                 Swal.fire({
-                  title: "Sucesso",
+                  title: "Aprovado com Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "/public/index.html";
+                });
+              }
+            });
+        },
+        reprovarArquivo() {
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            nomeArquivo: this.nameFile,
+            usuario: sessionStorage.getItem("usuario"),
+            aprovado: (this.aprovado = false),
+            observacao: this.observacao,
+          };
+          console.log(objetoCompleto);
+          //Enviar dados para o backend
+          fetch("http://localhost:8080/bronze/validation", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              // Verifica se o campo observacao está vazio
+              if (!this.observacao.trim()) {
+                // Se estiver vazio, exibe uma mensagem de erro
+                Swal.fire({
+                  title: "Erro",
+                  text: "Por favor, forneça uma observação antes de reprovar o arquivo.",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                return; // Retorna sem continuar a execução do método
+              }
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Reprovado com Sucesso",
                   text: responseJson.critica,
                   icon: "success", // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: "OK", // Texto do botão de confirmação
