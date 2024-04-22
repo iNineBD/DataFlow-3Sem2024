@@ -78,15 +78,27 @@
     </main>
 
     <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                dadosFormulario: {
+                    nome: '',
+                    nivelAcesso: '',
+                    orgnizacao: '',
+                    novaSenha: '',
+                    senhaConfirmacao: '',
+                },
+            }
+        })
+
         export default {
             data() {
                 return {
                     dadosFormulario: {
                         nome: '',
-                        email: '',
                         nivelAcesso: '',
-                        cnpj: '',
-                        senha: '',
+                        orgnizacao: '',
+                        novaSenha: '',
                         senhaConfirmacao: '',
                     },
                 };
@@ -96,10 +108,9 @@
                     alert('Formulário enviado com sucesso!');
                     this.dadosFormulario = {
                         nome: '',
-                        email: '',
                         nivelAcesso: '',
-                        cnpj: '',
-                        senha: '',
+                        orgnizacao: '',
+                        novaSenha: '',
                         senhaConfirmacao: '',
                     };
                 },

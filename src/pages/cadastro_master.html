@@ -88,12 +88,10 @@
             data() {
                 return {
                     dadosFormulario: {
-                        nome: '',
                         email: '',
                         nivelAcesso: '',
                         cnpj: '',
-                        senha: '',
-                        senhaConfirmacao: '',
+                        token: '',
                     },
                 };
             },
@@ -101,12 +99,10 @@
                 handleSubmit() {
                     alert('Formulário enviado com sucesso!');
                     this.dadosFormulario = {
-                        nome: '',
                         email: '',
                         nivelAcesso: '',
                         cnpj: '',
-                        senha: '',
-                        senhaConfirmacao: '',
+                        token: '',
                     };
                 },
             },
