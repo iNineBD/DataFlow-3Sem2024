@@ -197,3 +197,8 @@ tbody > tr > td > div > abbr > img:hover {
   justify-content: flex-end; /* Alinha os itens à direita */
   gap: 10px; /* Espaçamento entre os botões */
 }
+
+#inputObs {
+  width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
+  height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
+}

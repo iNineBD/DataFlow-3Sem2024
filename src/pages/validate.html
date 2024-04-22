@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <title>Landing Zone - Update</title>
+    <title>Validação - Bronze</title>
   </head>
 
   <body>
@@ -36,7 +36,7 @@
         </nav>
       </header>
 
-      <h1 id="h1Landing">Edite seu Arquivo</h1>
+      <h1 id="h1Landing">Validação de Arquivo</h1>
 
       <div id="alinhamentos">
         <h2 id="h2Landing">Nome do arquivo:</h2>
@@ -106,167 +106,148 @@
       <div class="container">
         <div class="left-section">
           Observações:
-          <input type="text" />
+          <input type="text" id="inputObs" v-model="observacao" />
         </div>
         <div class="right-section">
-          <a href="../../public/index.html"><button id="btnCancelar">Cancelar</button></a>
-          <button id="btnReprovado">Reprovado</button>
-          <button id="btnSalvar" @click="">Aprovado</button>
+          <a href="../../public/index.html"
+            ><button id="btnCancelar">Cancelar</button></a
+          >
+          <button id="btnReprovado" @click="reprovarArquivo()">
+            Reprovado
+          </button>
+          <button id="btnSalvar" @click="aprovarArquivo()">Aprovado</button>
         </div>
       </div>
-      
-    <!-- script Vue.js -->
-    <script>
-      // instancia do Vue
-      const vm = new Vue({
-        el: "#app",
-        data: {
-          // nome do arquivo
-          nameFile: "",
-          // nome do usuario
-          userFile: "",
-          // cabeçalho da tabela
-          headTabela: [
-            "Ativo",
-            "Nome",
-            "Exemplo",
-            "Tipo de Dado",
-            "Obrigatório",
-            "Tamanho Máximo",
-            "Valor Padrão",
-            "Descrição",
-          ],
-          // tipos a serem inseridos no arquivo
-          tipoDadoTabela: [
-            "Inteiro",
-            "Decimal",
-            "Booleano",
-            "Texto",
-            "Data",
-            "Hora",
-            "Data e Hora",
-          ],
-          //objeto pegado da tela anterior
-          data: [],
-        },
-        created() {
-          let test = [];
-          let metadado = [];
-        },
-        mounted() {
-          this.importarDadosHome();
-        },
-        methods: {
-          //função para acionar a extrasão de dados
-          adicionarMetadados() {
-            let metadados = [];
-
-            this.data.forEach((item) => {
-              let restricoes = [];
-
-              // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
-              restricoes.push(
-                {
-                  nome: "tamanhoMaximo",
-                  valor: item.tamanhoMaximo,
-                },
-                {
-                  nome: "obrigatorio",
-                  valor: item.obrigatorio,
-                }
-              );
-              metadados.push({
-                ativo: item.ativo,
-                nome: item.nome,
-                sampleValue: item.exemplo,
-                valorPadrao: item.valorPadrao,
-                descricao: item.descricao,
-                restricoes: restricoes,
-                nomeTipo: item.tipo,
-              });
-            });
-            // Construindo o objeto completo
-            const objetoCompleto = {
-              nomeArquivo: this.nameFile,
-              usuario: sessionStorage.getItem("usuario"),
-              metadados: metadados,
-            };
-            console.log(objetoCompleto);
-            //Enviar dados para o backend
-            fetch("http://localhost:8080/landing/upsert", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(objetoCompleto),
-            })
-              .then((response) => {
-                return response.json();
-              })
-              .then((responseJson) => {
-                if (
-                  responseJson.critica !== "Processamento efetuado com sucesso"
-                ) {
-                  Swal.fire({
-                    title: "Erro",
-                    text: responseJson.critica,
-                    icon: "error", // Ícone personalizado (success, error, warning, info)
-                    confirmButtonText: "OK", // Texto do botão de confirmação
-                  });
-                  return;
-                } else {
-                  Swal.fire({
-                    title: "Sucesso",
-                    text: responseJson.critica,
-                    icon: "success", // Ícone personalizado (success, error, warning, info)
-                    confirmButtonText: "OK", // Texto do botão de confirmação
-                  }).then((result) => {
-                    localStorage.removeItem("arquivoCSV");
-                    window.location.href = "/public/index.html";
-                  });
-                }
-              });
-          },
-          importarDadosHome() {
-            fetch("http://localhost:8080/landing/search", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                usuario: sessionStorage.getItem("usuario"),
-                nomeArquivo: localStorage.getItem("fileName"),
-              }),
-            })
-              .then((response) => response.json())
-              .then((responseData) => {
-                const response = responseData.response;
-                console.log(response);
-
-                this.nameFile = response.nomeArquivo;
-                this.userFile = response.usuario;
-                this.data = response.metadados.map((coluna) => {
-                  return {
-                    nome: coluna.nome,
-                    ativo: coluna.ativo,
-                    tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
-                    obrigatorio: coluna.restricoes.some(
-                      (r) => r.nome === "obrigatorio" && r.valor === "true"
-                    ), // Verifica se há restrições obrigatórias
-                    tamanhoMaximo:
-                      coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
-                        ?.valor || "", // Encontra o valor da restrição de tamanho máximo
-                    valorPadrao: coluna.valorPadrao || "",
-                    descricao: coluna.descricao || "",
-                    exemplo: coluna.sampleValue || "",
-                  };
-                });
-                return response;
-              });
-          },
-        },
-      });
-    </script>
-    <script src="../utils/hover-icon-change-upload-csv.js"></script>
+    </div>
   </body>
+
+  <!-- script Vue.js -->
+  <script>
+    // instancia do Vue
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // nome do arquivo
+        nameFile: "",
+        // nome do usuario
+        userFile: "",
+        // cabeçalho da tabela
+        headTabela: [
+          "Ativo",
+          "Nome",
+          "Exemplo",
+          "Tipo de Dado",
+          "Obrigatório",
+          "Tamanho Máximo",
+          "Valor Padrão",
+          "Descrição",
+        ],
+        // tipos a serem inseridos no arquivo
+        tipoDadoTabela: [
+          "Inteiro",
+          "Decimal",
+          "Booleano",
+          "Texto",
+          "Data",
+          "Hora",
+          "Data e Hora",
+        ],
+        //objeto pegado da tela anterior
+        data: [],
+        observacao: "",
+      },
+      created() {
+        let test = [];
+        let metadado = [];
+      },
+      mounted() {
+        this.importarDadosHome();
+      },
+      methods: {
+        //função para acionar a extrasão de dados
+        aprovarArquivo() {
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            nomeArquivo: this.nameFile,
+            usuario: sessionStorage.getItem("usuario"),
+            aprovado: true,
+            observacao: this.observacao,
+          };
+          console.log(objetoCompleto);
+          //Enviar dados para o backend
+          fetch("http://localhost:8080/bronze/validation", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "/public/index.html";
+                });
+              }
+            });
+        },
+        importarDadosHome() {
+          fetch("http://localhost:8080/landing/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              usuario: sessionStorage.getItem("usuario"),
+              nomeArquivo: localStorage.getItem("fileName"),
+            }),
+          })
+            .then((response) => response.json())
+            .then((responseData) => {
+              const response = responseData.response;
+              console.log(response);
+
+              this.nameFile = response.nomeArquivo;
+              this.userFile = response.usuario;
+              this.data = response.metadados.map((coluna) => {
+                return {
+                  nome: coluna.nome,
+                  ativo: coluna.ativo,
+                  tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
+                  obrigatorio: coluna.restricoes.some(
+                    (r) => r.nome === "obrigatorio" && r.valor === "true"
+                  ), // Verifica se há restrições obrigatórias
+                  tamanhoMaximo:
+                    coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
+                      ?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                  valorPadrao: coluna.valorPadrao || "",
+                  descricao: coluna.descricao || "",
+                  exemplo: coluna.sampleValue || "",
+                };
+              });
+              return response;
+            });
+        },
+      },
+    });
+  </script>
+  <script src="../utils/hover-icon-change-upload-csv.js"></script>
 </html>
