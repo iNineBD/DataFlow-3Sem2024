@@ -39,67 +39,40 @@
                     <label for="nome">Nome do usuário <font color="red">*</font></label>
                     <input type="text" id="nome" v-model="dadosFormulario.nome" required />
                 </div>
-                <div class="campoTexto">
-                    <label for="email">Email do usuário <font color="red">*</font></label>
-                    <input type="email" id="email" v-model="dadosFormulario.email" required />
-                </div>
                 <div>
-                    <label for="nivelAcesso" class="nivelAcesso">Nível de acesso do usuário <font color="red">*</font></label>
+                    <label for="campoNivel" class="campoNivel">Nível de acesso do usuário</label>
                 </div>
-                <div class="campoCheckbox">
-                    <div class="zone">
-                        <input type="checkbox" id="landing" v-model="selecionados.includes('Landing')" />
-                        <label for="landing" class="checkNivel">Landing</label>
-                    </div>
-                    <div class="zone">
-                        <input type="checkbox" id="bronze" v-model="selecionados.includes('Bronze')" />
-                        <label for="bronze" class="checkNivel">Bronze</label>
-                    </div>
-                    <div class="zone">
-                        <input type="checkbox" id="silver" v-model="selecionados.includes('Silver')" />
-                        <label for="silver" class="checkNivel">Silver</label>  
-                    </div>
-                    <div class="zone">
-                        <input type="checkbox" id="full" v-model="selecionados.includes('Full')" />
-                        <label for="full" class="checkNivel">Full</label>
+                <div class="nivelAcesso">
+                    <label for="landing" class="textNivel">Landing</label>
+                    <label for="bronze" class="textNivel">Bronze</label>
+                    <label for="silver" class="textNivel">Silver</label>
+                    <label for="full" class="textNivel">Full</label>
+                </div>
+                <div class="campoTexto">
+                    <label for="organização">Organização</label>
+                    <div class="campoOrganizacao">
+                        <label for="nomeOrganizacao">DomRock</label>
                     </div>
                 </div>
-                <div class="campoChoice">
-                    <label for="cnpj">CNPJ da organização</label>
-                    <input type="text" id="cnpj" v-model="dadosFormulario.cnpj" />
-                </div>
-
-                <div id="input">
-                    <input type="password">
-                    <img src="https://i.stack.imgur.com/H9Sb2.png" alt="">
-                  </div>
-
-                  <script type="text/javascript">
-                    var input = document.querySelector('#input input');
-                    var img = document.querySelector('#input img');
-                    img.addEventListener('click', function () {
-                    input.type = input.type == 'password' ? 'text' : 'password';
-                    });
-                </script>
-
                 <div class="campoPassword">
-                    <label for="senha">Senha <font color="red">*</font></label>
+                    <label for="senha">Nova senha <font color="red">*</font></label>
                     <input type="password" id="senha" v-model="dadosFormulario.senha" required />
                 </div>
                 <div class="campoPassword">
                     <label for="confirmarSenha">Confirmar senha <font color="red">*</font></label>
                     <div class="input-group">
-                      <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao" required />
-                      <span class="input-group-text" @click="toggleSenha">
-                        <i class="fas fa-eye"></i>
-                      </span>
+                        <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao"
+                            required />
+                        <span class="input-group-text" @click="toggleSenha">
+                            <i class="fas fa-eye"></i>
+                        </span>
                     </div>
-                  </div>
+                </div>
                 <div id="buttons">
                     <a href="../../public/index.html">
                         <button id="btnCancelar">Cancelar</button></a>
                     <button id="btnCadastrar" @click="adicionarDados()">Cadastrar</button>
-                  </div>
+                </div>
             </form>
         </div>
     </main>
@@ -134,7 +107,7 @@
         };
     </script>
 
-    
+
 
 </body>
 

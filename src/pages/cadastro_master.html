@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../utils/vue.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../assets/style/cadastro.css" />
+    <title>Cadastro de Usuário</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
+            <nav>
+                <a href="/public/index.html">Home</a>
+                <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
+                <a href="#">
+                    <img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon">
+                </a>
+            </nav>
+        </header>
+    </div>
+    <main>
+        <h1 id="h1Cadastrar">Cadastrar usuário</h1>
+        <div id="instrucoes">
+            <p>Para cadastrar um usuário é necessário preencher corretamente os campos abaixo com os respectivos dados.
+            </p><br>
+            <p>Os campos com <font color="red">*</font> são de preenchimento obrigatório.</p>
+        </div>
+        <div class="dados-cadastro">
+            <form @submit.prevent="handleSubmit">
+                <div class="campoTexto">
+                    <label for="email">Email do usuário <font color="red">*</font></label>
+                    <input type="email" id="email" v-model="dadosFormulario.email" required />
+                </div>
+                <div>
+                    <label for="campoNivel" class="campoNivel">Nível de acesso do usuário <font color="red">*</font></label>
+                </div>
+                <div class="campoCheckbox">
+                    <div class="zone">
+                        <input type="checkbox" id="landing" v-model="selecionados.includes('Landing')" />
+                        <label for="landing" class="checkNivel">Landing</label>
+                    </div>
+                    <div class="zone">
+                        <input type="checkbox" id="bronze" v-model="selecionados.includes('Bronze')" />
+                        <label for="bronze" class="checkNivel">Bronze</label>
+                    </div>
+                    <div class="zone">
+                        <input type="checkbox" id="silver" v-model="selecionados.includes('Silver')" />
+                        <label for="silver" class="checkNivel">Silver</label>  
+                    </div>
+                    <div class="zone">
+                        <input type="checkbox" id="full" v-model="selecionados.includes('Full')" />
+                        <label for="full" class="checkNivel">Full</label>
+                    </div>
+                </div>
+                <div class="campoChoice">
+                    <label for="cnpj">CNPJ da organização</label>
+                    <input type="text" id="cnpj" v-model="dadosFormulario.cnpj" />
+                </div>          
+                <div class="campoToken">
+                    <label for="confirmarSenha">Confirmar senha <font color="red">*</font></label>
+                    <div class="input-group">
+                      <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao" required />
+                      <span class="input-group-text" @click="toggleSenha">
+                        <i class="fas fa-eye"></i>
+                      </span>
+                    </div>
+                </div>
+
+                <div id="buttons">
+                    <a href="../../public/index.html">
+                        <button id="btnCancelar">Cancelar</button></a>
+                    <button id="btnCadastrar" @click="adicionarDados()">Cadastrar</button>
+                  </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        export default {
+            data() {
+                return {
+                    dadosFormulario: {
+                        nome: '',
+                        email: '',
+                        nivelAcesso: '',
+                        cnpj: '',
+                        senha: '',
+                        senhaConfirmacao: '',
+                    },
+                };
+            },
+            methods: {
+                handleSubmit() {
+                    alert('Formulário enviado com sucesso!');
+                    this.dadosFormulario = {
+                        nome: '',
+                        email: '',
+                        nivelAcesso: '',
+                        cnpj: '',
+                        senha: '',
+                        senhaConfirmacao: '',
+                    };
+                },
+            },
+        };
+    </script>
+
+    
+
+</body>
+
+</html>

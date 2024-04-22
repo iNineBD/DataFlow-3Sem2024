@@ -3,73 +3,73 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-    --fonte-padrao: 'Inter', sans-serif;
+  --fonte-padrao: 'Inter', sans-serif;
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: var(--fonte-padrao);
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--fonte-padrao);
 }
 
 header {
-    background-color: #021F4E;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: #021F4E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 header #logo {
-    margin: 30px;
+  margin: 30px;
 }
 
 nav {
-    margin-right: 20px;
-    align-items: center;
-    display: flex;
+  margin-right: 20px;
+  align-items: center;
+  display: flex;
 }
 
 nav a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 20px;
-    font-weight: 600;
-    font-size: large;
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: large;
 }
 
 nav a img {
-    height: 50px;
+  height: 50px;
 }
 
-nav > a:hover {
-    color: #02BBCA;
+nav>a:hover {
+  color: #02BBCA;
 }
 
 body {
-    background: white;
+  background: white;
 }
 
 
-main > h1 {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+main>h1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 #instrucoes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-main > div > p {
-    text-align: left;
-    width: 630px;
-    overflow-wrap: break-word;
+main>div>p {
+  text-align: left;
+  width: 630px;
+  overflow-wrap: break-word;
 }
 
 .dados-cadastro {
@@ -91,7 +91,10 @@ form {
   flex-direction: column;
 }
 
-.campoTexto, .campoChoice, .campoPassword, .campoCheckbox {
+.campoTexto,
+.campoChoice,
+.campoPassword,
+.campoCheckbox{
   margin-bottom: 15px;
 }
 
@@ -100,31 +103,45 @@ label {
   margin-bottom: 5px;
 }
 
-input, select {
+input,
+select {
   width: 95%;
   padding: 5px;
   border: 1px solid #ccc;
 }
 
-.nivelAcesso{
+.nivelAcesso {
   color: black;
   margin: 0px;
 }
 
 .campoCheckbox {
-  display: flex; 
+  display: flex;
   align-items: center;
   color: rgb(164, 164, 164);
-  }
+}
+
+.nivelAcesso, .campoOrganizacao {
+  display: flex;
+  align-items: center;
+  color: rgb(164, 164, 164);
+}
 
 .zone {
-  margin: 15px;
-  display: flex; 
+  margin: 10px;
+  margin-left: 0px;
+  display: flex;
   align-items: center;
 }
 
 .checkNivel {
   margin-bottom: 0px;
+}
+
+.textNivel {
+  margin-bottom: 15px;
+  margin-left: 0px;
+  margin-right: 20px;
 }
 
 input[type="checkbox"] {
@@ -135,7 +152,7 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-#input > * {
+#input>* {
   height: 1.3em;
   float: left;
 }
