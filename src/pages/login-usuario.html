@@ -10,23 +10,40 @@
     <link rel="stylesheet" href="/src/assets/style/login-usuario.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <title>Login</title>
+   
 </head>
-<body>
-    teste
-    <div id="app">
 
+<body> 
+    <div class="container-login">
+        <div class="img-box">
+            <img src="..assets/images/logo-dom-rock.png" alt="arquivo" id = "img-table">
 
-    </div>
-
-    <script> 
-
-        options = {
-            el: '#app' //# para selecionar por id
-        }
-        const vm = new Vue(options) //vm=ViewModel
-        
-        console.log(vm)
+        </div>
+        <div class="content-box">
+            <div class="form-box">
+                <h3>Entre na sua conta</h3>
+                <h6>Preencha os campos abaixo</h6>
+                <br>
+                <form>
+                    <div class="input-box">
+                        <input type="text" placeholder="Digite seu usuário">
+                    </div>
+                    <br>
+                    <div class="input-box">
+                        <input type="password" placeholder="Digite sua senha">
+                    </div>
+                    <br>
+                    <div>
+                        <button>Entrar</button>
+                    </div>
+                    
     
-    </script>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
 </body>
+
 </html>
