@@ -34,83 +34,91 @@
             <p>Os campos com <font color="red">*</font> são de preenchimento obrigatório.</p>
         </div>
         <div class="dados-cadastro">
-            <form @submit.prevent="handleSubmit">
+            <form>
                 <div class="campoTexto">
-                    <label for="email">Email do usuário <font color="red">*</font></label>
-                    <input type="email" id="email" v-model="dadosFormulario.email" required />
+                    <label >Email do usuário <font color="red">*</font></label>
+                    <input type="email" id="email" v-model="emailUser" required />
                 </div>
                 <div>
-                    <label for="campoNivel" class="campoNivel">Nível de acesso do usuário <font color="red">*</font></label>
+                    <label class="campoNivel">Nível de acesso do usuário <font color="red">*</font>
+                        </label>
                 </div>
-                <div class="campoCheckbox">
+                <div class="campoCheckbox" v-model="nivelAcesso">
                     <div class="zone">
-                        <input type="checkbox" id="landing" v-model="selecionados.includes('Landing')" />
-                        <label for="landing" class="checkNivel">Landing</label>
+                        <input type="checkbox" id="landing" value="Landing" />
+                        <label class="checkNivel">Landing</label>
                     </div>
                     <div class="zone">
-                        <input type="checkbox" id="bronze" v-model="selecionados.includes('Bronze')" />
-                        <label for="bronze" class="checkNivel">Bronze</label>
+                        <input type="checkbox" id="bronze" value="Bronze" />
+                        <label class="checkNivel">Bronze</label>
                     </div>
                     <div class="zone">
-                        <input type="checkbox" id="silver" v-model="selecionados.includes('Silver')" />
-                        <label for="silver" class="checkNivel">Silver</label>  
+                        <input type="checkbox" id="silver" value="Silver" />
+                        <label class="checkNivel">Silver</label>
                     </div>
                     <div class="zone">
-                        <input type="checkbox" id="full" v-model="selecionados.includes('Full')" />
-                        <label for="full" class="checkNivel">Full</label>
-                    </div>
-                </div>
-                <div class="campoChoice">
-                    <label for="cnpj">CNPJ da organização</label>
-                    <input type="text" id="cnpj" v-model="dadosFormulario.cnpj" />
-                </div>          
-                <div class="campoToken">
-                    <label for="confirmarSenha">Confirmar senha <font color="red">*</font></label>
-                    <div class="input-group">
-                      <input type="password" id="confirmarSenha" v-model="dadosFormulario.senhaConfirmacao" required />
-                      <span class="input-group-text" @click="toggleSenha">
-                        <i class="fas fa-eye"></i>
-                      </span>
+                        <input type="checkbox" id="full" value="Full" />
+                        <label class="checkNivel">Full</label>
                     </div>
                 </div>
-
+                <div class="campoTexto">
+                    <label>CNPJ da organização <font color="red">*</font></label>
+                    <input type="text" id="cnpj" v-model="cnpjOrg" />
+                </div>
+                <div class="campoTexto">
+                    <label>Razão social <font color="red">*</font></label>
+                    <input type="text" id="nome" v-model="razaoSocial" />
+                </div>
                 <div id="buttons">
                     <a href="../../public/index.html">
-                        <button id="btnCancelar">Cancelar</button></a>
+                        <button id="btnCancelar">Cancelar</button>
+                    </a>
                     <button id="btnCadastrar" @click="adicionarDados()">Cadastrar</button>
-                  </div>
+                </div>
             </form>
         </div>
     </main>
 
+
     <script>
-        export default {
-            data() {
-                return {
-                    dadosFormulario: {
-                        email: '',
-                        nivelAcesso: '',
-                        cnpj: '',
-                        token: '',
-                    },
-                };
+        //obj para guardar infos
+
+        const app = new Vue({
+            el: "#app",
+            data: {
+                emailUser: null,
+                nivelAcesso: [],
+                cnpjOrg: null,
+                razaoSocial: null,
             },
+
             methods: {
-                handleSubmit() {
-                    alert('Formulário enviado com sucesso!');
-                    this.dadosFormulario = {
-                        email: '',
-                        nivelAcesso: '',
-                        cnpj: '',
-                        token: '',
-                    };
+                adicionarDados() {
+                    // Criar um objeto para armazenar os dados do usuário
+                let novoUsuario = {
+                    email: this.emailUser,
+                    nivelAcesso: this.nivelAcesso,
+                    cnpjOrg: this.cnpjOrg,
+                    razaoSocial: this.razaoSocial
+                };
+
+                // Aqui você pode fazer o que quiser com os dados, como enviar para um servidor, exibir em algum lugar, etc.
+                console.log("Novo usuário:", novoUsuario);
+
+                // Limpar os campos após o cadastro
+                this.emailUser = null;
+                this.nivelAcesso = [];
+                this.cnpjOrg = null;
+                this.razaoSocial = null;
+            }
+        }
+    });
+
+
                 },
             },
-        };
+        });
     </script>
-
-    
-
 </body>
 
 </html>
