@@ -8,7 +8,6 @@
     <script src="../utils/vue.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../assets/style/cadastro.css" />
     <title>Cadastro de Usuário</title>
 </head>
@@ -25,39 +24,39 @@
                 </a>
             </nav>
         </header>
-    </div>
-    <main>
-        <h1 id="h1Cadastrar">Cadastrar usuário</h1>
-        <div id="instrucoes">
-            <p>Para cadastrar um usuário é necessário preencher corretamente os campos abaixo com os respectivos dados.
-            </p><br>
-            <p>Os campos com <font color="red">*</font> são de preenchimento obrigatório.</p>
-        </div>
-        <div class="dados-cadastro">
-            <form>
+        <main>
+            <h1 id="h1Cadastrar">Cadastrar usuário</h1>
+            <div id="instrucoes">
+                <p>Para cadastrar um usuário é necessário preencher corretamente os campos abaixo com os respectivos
+                    dados.
+                </p><br>
+                <p>Os campos com <font color="red">*</font> são de preenchimento obrigatório.</p>
+            </div>
+            <div class="dados-cadastro">
+
                 <div class="campoTexto">
-                    <label >Email do usuário <font color="red">*</font></label>
+                    <label>Email do usuário <font color="red">*</font></label>
                     <input type="email" id="email" v-model="emailUser" required />
                 </div>
                 <div>
                     <label class="campoNivel">Nível de acesso do usuário <font color="red">*</font>
-                        </label>
+                    </label>
                 </div>
-                <div class="campoCheckbox" v-model="nivelAcesso">
+                <div class="campoCheckbox">
                     <div class="zone">
-                        <input type="checkbox" id="landing" value="Landing" />
+                        <input type="checkbox" id="landing" value="LZ" v-model="nivelAcesso" />
                         <label class="checkNivel">Landing</label>
                     </div>
                     <div class="zone">
-                        <input type="checkbox" id="bronze" value="Bronze" />
+                        <input type="checkbox" id="bronze" value="B" v-model="nivelAcesso" />
                         <label class="checkNivel">Bronze</label>
                     </div>
                     <div class="zone">
-                        <input type="checkbox" id="silver" value="Silver" />
+                        <input type="checkbox" id="silver" value="S" v-model="nivelAcesso" />
                         <label class="checkNivel">Silver</label>
                     </div>
                     <div class="zone">
-                        <input type="checkbox" id="full" value="Full" />
+                        <input type="checkbox" id="full" value="Full" v-model="nivelAcesso" />
                         <label class="checkNivel">Full</label>
                     </div>
                 </div>
@@ -75,13 +74,13 @@
                     </a>
                     <button id="btnCadastrar" @click="adicionarDados()">Cadastrar</button>
                 </div>
-            </form>
-        </div>
-    </main>
 
+            </div>
+        </main>
+    </div>
 
     <script>
-        //obj para guardar infos
+        // Objeto para guardar infos
 
         const app = new Vue({
             el: "#app",
@@ -91,32 +90,61 @@
                 cnpjOrg: null,
                 razaoSocial: null,
             },
-
             methods: {
                 adicionarDados() {
                     // Criar um objeto para armazenar os dados do usuário
-                let novoUsuario = {
-                    email: this.emailUser,
-                    nivelAcesso: this.nivelAcesso,
-                    cnpjOrg: this.cnpjOrg,
-                    razaoSocial: this.razaoSocial
-                };
+                    let novoUsuario = {
+                        emailUsuario: this.emailUser,
+                        nivelAcesso: this.nivelAcesso,
+                        cnpj: this.cnpjOrg,
+                        organizacao: this.razaoSocial
+                    };
 
-                // Aqui você pode fazer o que quiser com os dados, como enviar para um servidor, exibir em algum lugar, etc.
-                console.log("Novo usuário:", novoUsuario);
+                    // Aqui você pode fazer o que quiser com os dados, como enviar para um servidor, exibir em algum lugar, etc.
+                    console.log("Novo usuário:", novoUsuario);
 
-                // Limpar os campos após o cadastro
-                this.emailUser = null;
-                this.nivelAcesso = [];
-                this.cnpjOrg = null;
-                this.razaoSocial = null;
+                    //Enviar dados para o backend
+                    fetch("http://localhost:8080/register/cadastro", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(novoUsuario),
+                    })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error", // Ícone personalizado (success, error, warning, info)
+                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success", // Ícone personalizado (success, error, warning, info)
+                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                }).then((result) => {
+                                    // Limpar os campos após o cadastro
+                                    this.emailUser = null;
+                                    this.nivelAcesso = [];
+                                    this.cnpjOrg = null;
+                                    this.razaoSocial = null;
+                                    //voltar pada index
+                                    window.location.href = "/pages/navegation.hmtl";
+                                });
+                            }
+                            // Lidar com a resposta do backend aqui se necessário
+                        });
+                }
             }
-        }
-    });
-
-
-                },
-            },
         });
     </script>
 </body>
