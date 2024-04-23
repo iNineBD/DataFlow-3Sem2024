@@ -72,6 +72,15 @@
     text-align: left;
 }
 
+.content-box .form-box h7{
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 100;
+    font-size:x-small;
+    text-transform:initial;
+    margin-bottom: 8px;
+    text-align:center;
+}
+
 .content-box .form-box .input-box input{
     width: 90%;
     padding: 8px;
@@ -83,5 +92,44 @@
 
 }
 
+.content-box .form-box .input-box input [type=submit]{
+    background: #021F4E;
+    color: white;
+    outline:none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 20px;
+    transition: 0.3s;
+        
+}
 
+.content-box .form-box .input-box input [type=submit]:hover{
+    background: #021F4E ;
+}
 
+.content-box .form-box .input-box a:hover{ 
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 400px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content:center;
+}
+
+.img-box-1{
+    display: flex;
+    justify-items: left;
+    background-color: white;
+    padding: 172px;
+}
+
+.img-box-2{
+    display: flex;
+    justify-items: left;
+    width: 60%;
+    height: 80%;
+    background-color: white;
+    padding: 172px;
+}
