@@ -62,7 +62,6 @@
                         <label class="checkNivel">Full</label>
                     </div>
                 </div>
-
                 <div class="campoTexto">
                     <label>CNPJ da organização <font color="red">*</font></label>
                     <input type="text" id="cnpj" v-model="cnpjOrg">
@@ -78,7 +77,6 @@
                     </a>
                     <button id="btnCadastrar" @click="adicionarDados()">Cadastrar</button>
                 </div>
-
             </div>
         </main>
     </div>
@@ -149,11 +147,10 @@
                         });
                 },
                 desmarcarOutrasOpcoes() {
-                    if (this.nivelAcesso.includes("Full") == true) {
-                        resetChecked();
+                    if (this.nivelAcesso.includes("Full")) {
                         this.nivelAcesso = ["Full"];
                     }
-                },
+                }
             }
         });
     </script>
