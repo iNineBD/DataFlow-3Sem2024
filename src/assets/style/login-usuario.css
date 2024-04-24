@@ -48,8 +48,8 @@
     display: block;
     align-items: center;
     justify-content: center;
-    border-radius: 3%;
-    margin: 10 7px;
+    border-radius: 4%;
+    margin: 30 27px;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -73,6 +73,12 @@
     margin-bottom: 8px;
     text-align: left;
 }
+.input-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
 
 .content-box .form-box .input-box input{
@@ -84,16 +90,20 @@
     border:1px solid #CED4DA;
     font-size: 12px;
     border-radius: 0.15cm;
-
+    padding: 14px 12px;
     
 
 }
 
-.content-box .form-box .input-box input [type=submit]{
-    background: #021F4E;
+.content-box .form-box .input-box input[type=submit]{
+    background-color: #021F4E;
     color: white;
     outline:none;
     border: none;
+    padding: 14px 12px;
+    border: radius 4px;
+    display: block;
+    margin:0 auto;
     font-weight: 500;
     cursor: pointer;
     font-size: 20px;
@@ -105,15 +115,14 @@
     background: #021F4E ;
 }
 
-.content-box .form-box .input-box a:hover{ 
-    margin-bottom: 20px;
-    color: black;
-    font-weight: 400px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    justify-content:center;
-}
+.input-box a {
+    color: black; 
+    text-decoration: none; 
+    display: block; 
+    text-align: center; 
+    padding: 10px; 
+    
+  }
 
 .img-box-1{
     height:1px;
