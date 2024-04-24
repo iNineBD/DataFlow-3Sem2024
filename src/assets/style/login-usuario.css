@@ -116,12 +116,14 @@
 }
 
 .input-box a {
-    color: black; 
+    color: #00B4F0; 
     text-decoration: none; 
-    display: block; 
-    text-align: center; 
+    display: block;  
     padding: 10px; 
-    
+    font-weight: 500;
+    font-size: 15px;
+    text-align: left;
+    justify-content: flex-start;    
   }
 
 .img-box-1{
