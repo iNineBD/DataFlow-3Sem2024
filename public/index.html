@@ -81,7 +81,7 @@
       mounted() {
         // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto
         sessionStorage.setItem("usuario", "usuario1@email.com")
-        
+
         this.loadUserData(sessionStorage.getItem("usuario"));
       },
       methods: {
@@ -95,8 +95,16 @@
           })
             .then((response) => response.json())
             .then((data) => {
-              if (data && data.response && data.response.arquivosLanding) {
-                this.files = data.response.arquivosBronze.map((arquivo) => {
+              if (data && data.response) {
+                // Concatenar as listas de arquivos de todas as categorias
+                const allFiles = [
+                  ...data.response.arquivosLanding,
+                  ...data.response.arquivosBronze,
+                  ...data.response.arquivosSilver,
+                ];
+
+                // Mapear os arquivos para o formato desejado
+                this.files = allFiles.map((arquivo) => {
                   return {
                     nomeArquivo: arquivo.nome,
                     organizacao: arquivo.organizacao,
@@ -116,9 +124,13 @@
           localStorage.setItem("fileName", file.nomeArquivo);
           localStorage.setItem("usuario", "usuario1@email.com");
 
-          console.log(localStorage);
-
-          window.location.href = "../src/pages/validate.html";
+          if (file.status === "AGUARDANDO APROVAÇÃO DA BRONZE") {
+            window.location.href = "../src/pages/validate.html";
+          } else if (file.status === "BRONZE ZONE") {
+            window.location.href = "../src/pages/bronze-zone-hash.html";
+          } else {
+            console.error("Status desconhecido:", file.status);
+          }
         },
         checkExclud(file) {
           Swal.fire({
@@ -146,7 +158,7 @@
             usuario: sessionStorage.getItem("usuario"),
             usuarioOrg: file.organizacao,
           };
-          
+
           //Enviar dados para o backend
           fetch("http://localhost:8080/home/files", {
             method: "DELETE",
