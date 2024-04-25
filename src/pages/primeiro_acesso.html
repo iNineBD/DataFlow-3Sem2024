@@ -46,13 +46,15 @@
                 </div>
                 <div class="campoPassword">
                     <label>Nova senha <font color="red">*</font></label>
-                    <input type="password" id="senha" v-model="senha" required />
+                    <input type="password" id="senha" v-model="senha" class="senha" required />
+                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png" class="eyeSenha1">
                 </div>
                 <div class="campoPassword">
                     <label>Confirmar senha <font color="red">*</font></label>
-                    <input type="password" id="confirmarSenha" v-model="confirmarSenha" required />
-                    <p v-if="senha !== '' && senha !== confirmarSenha">As senhas não coincidem</p>
+                    <input type="password" id="confirmarSenha" v-model="confirmarSenha" class="confirmarSenha" required />
+                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png" class="eyeSenha2">
                 </div>
+                <p v-if="senha !== '' && senha !== confirmarSenha" class="alertaSenha">As senhas não coincidem</p>
                 <div class="campoTexto">
                     <label>Token<font color="red">*</font></label>
                     <input type="text" id="token" v-model="token" required />
@@ -61,12 +63,32 @@
                     <a href="../../public/index.html">
                         <button id="btnCancelar">Cancelar</button>
                     </a>
-                    <button id="btnCadastrar" :disabled="senha !== confirmarSenha" @click="adicionarDados()">Cadastrar</button>
+                    <button id="btnCadastrar" :disabled="senha !== confirmarSenha"
+                        @click="adicionarDados()">Cadastrar</button>
                 </div>
             </div>
         </main>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.querySelector('.senha');
+            var img = document.querySelector('.eyeSenha1');
+            
+            img.addEventListener('click', function () {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.querySelector('.confirmarSenha');
+            var img = document.querySelector('.eyeSenha2');
+            
+            img.addEventListener('click', function () {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        });
+    </script>
     <script>
         const app = new Vue({
             el: "#app",
@@ -96,7 +118,7 @@
                         },
                         body: JSON.stringify(validacaoUsuario),
                     })
-                    .then((response) => {
+                        .then((response) => {
                             return response.json();
                         })
                         .then((responseJson) => {
@@ -131,8 +153,7 @@
             }
         });
     </script>
-    
+
 </body>
 
 </html>
-
