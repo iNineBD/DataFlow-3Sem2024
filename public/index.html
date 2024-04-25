@@ -128,7 +128,9 @@
             window.location.href = "../src/pages/validate.html";
           } else if (file.status === "BRONZE ZONE") {
             window.location.href = "../src/pages/bronze-zone-hash.html";
-          } else {
+          } else if (file.status === "NÃO APROVADO PELA BRONZE") {
+            window.location.href = "../src/pages/update_csv.html";}
+          else {
             console.error("Status desconhecido:", file.status);
           }
         },
