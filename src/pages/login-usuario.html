@@ -14,8 +14,9 @@
 
 </head>
 
-<body>
-    <div class="container-login">
+<body >
+    
+    <div id="app" class="container-login">
         <div class="img-box-1">
             <img src="../assets/images/DataFlow.png" alt="arquivo" id="img-table1">
             <br>
@@ -36,10 +37,10 @@
                     </div>
 
                     <div class="primeiroAcesso">
-                        <a href="#">Meu primeiro acesso ></a>
+                        <a href="../pages/primeiro_acesso.html">Meu primeiro acesso ></a>
                     </div>
-                    <div class="input-box">
-                        <input type="submit" value="Entrar">
+                    <div class="entrar">
+                        <button id="btnEntrar"  @click="login()">Entrar</button>
                     </div>
                     <br>
 
@@ -51,6 +52,28 @@
 
         </div>
     </div>
+    <script> //Minha tela 
+        const app = new Vue({ 
+            el: "#app",
+            data:{
+                emailUsuario: null,
+                senha: null,
+            },
+            methods:{
+                login(){
+                    let validacaoLogin = {
+                    emailUsuario: this.emailUsuario,
+                    senha: this.senha,
+                };
+
+                console.log("Login realizado", validacaoLogin);
+            
+            }
+            }
+        })
+
+
+    </script>
 </body>
 
 </html>

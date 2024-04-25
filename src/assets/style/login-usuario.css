@@ -116,6 +116,33 @@
     background: #021F4E;
 }
 
+button {
+    width: 90%;
+    height: 35px;
+    padding: 8px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  div #buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  
+  #btnEntrar {
+    background-color: #021F4E;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+  }
+
+
 .primeiroAcesso {
     margin: 5px 5px 15px 20px;
 }
