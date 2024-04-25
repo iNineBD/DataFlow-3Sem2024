@@ -55,6 +55,8 @@
                     <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png" class="eyeSenha2">
                 </div>
                 <p v-if="senha !== '' && senha !== confirmarSenha" class="alertaSenha">As senhas não coincidem</p>
+                <p v-if="confirmarSenha !== null && confirmarSenha !== '' && confirmarSenha.length < 8" class="alertaMin">A senha deve ter no mínimo 8 caracteres</p>
+                
                 <div class="campoTexto">
                     <label>Token<font color="red">*</font></label>
                     <input type="text" id="token" v-model="token" required />
