@@ -14,8 +14,8 @@
 
 </head>
 
-<body >
-    
+<body>
+
     <div id="app" class="container-login">
         <div class="img-box-1">
             <img src="../assets/images/DataFlow.png" alt="arquivo" id="img-table1">
@@ -40,7 +40,7 @@
                         <a href="../pages/primeiro_acesso.html">Meu primeiro acesso ></a>
                     </div>
                     <div class="entrar">
-                        <button id="btnEntrar"  @click="login()">Entrar</button>
+                        <button id="btnEntrar" @click="login()">Entrar</button>
                     </div>
                     <br>
 
@@ -53,22 +53,59 @@
         </div>
     </div>
     <script> //Minha tela 
-        const app = new Vue({ 
+        const app = new Vue({
             el: "#app",
-            data:{
+            data: {
                 emailUsuario: null,
                 senha: null,
             },
-            methods:{
-                login(){
+            methods: {
+                login() {
                     let validacaoLogin = {
-                    emailUsuario: this.emailUsuario,
-                    senha: this.senha,
-                };
-
-                console.log("Login realizado", validacaoLogin);
-            
-            }
+                        emailUsuario: this.emailUsuario,
+                        senha: this.senha,
+                    };
+                    console.log("Login realizado", validacaoLogin);
+                    //inserir o caminho http do back (localhost) da tela de login (ANA)
+                    fetch("http:", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(validacaoLogin),
+                    })
+                    //eu estou enviando o JSON para o Back
+                    .then((response) => {
+                            return response.json();
+                        })
+                        //o que eu recebo de resposta do meu back - JSON
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error", // Ícone personalizado (success, error, warning, info)
+                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success", // Ícone personalizado (success, error, warning, info)
+                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                }).then((result) => {
+                                    // Limpar os campos após o cadastro
+                                    this.emailUsuario = null;
+                                    this.senha = null;
+                                    //ir pada index
+                                    window.location.href = "/src/pages/navegation.html";
+                                });
+                            }
+                        });
+                }
             }
         })
 
