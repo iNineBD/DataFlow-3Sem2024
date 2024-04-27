@@ -1,0 +1,188 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --fonte-padrao: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: var(--fonte-padrao);
+}
+
+header {
+    background-color: #021F4E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+header #logo {
+    margin: 30px;
+}
+
+nav {
+    margin-right: 20px;
+    align-items: center;
+    display: flex;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: large;
+}
+
+nav a img {
+    height: 50px;
+}
+
+nav > a:hover {
+    color: #02BBCA;
+}
+
+body {
+    background: white;
+}
+
+main > h1 {
+    margin: 20px 35px 20px 35px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #CED4DA;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #cdcdcd;
+}
+
+#centralizar {
+    display: flex;
+    align-items: center;
+}
+
+#checkbox-cell {
+    padding-left: 65px;
+}
+
+#table-container {
+    max-height: 480px;
+    overflow-y: auto;
+    margin: 0px 250px;
+}
+
+.even-row {
+    background-color: #ffffff;
+    /* Cor de fundo para linhas pares */
+}
+
+.odd-row {
+    background-color: #f2f2f2;
+    /* Cor de fundo para linhas ímpares */
+}
+
+#btnCancelar {
+    background-color: #ADB5BD;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0px 10px 10px 35px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#btnEditar {
+    background-color: #021F4E;
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0px 0px 10px 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#buttons {
+    display: flex;
+    justify-content: right;
+}
+
+#h1BronzeHash {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#h2BronzeHash {
+    padding: 30px 10px 20px 0px;
+    display: flex;
+    align-items: center;
+}
+
+#pBronzeHash {
+    display: flex;
+    justify-content: center;
+}
+
+#parchive {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+#alinhamentos {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 250px;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    margin: 0px 250px;
+}
+
+#sectionObs {
+    flex: 1;
+}
+
+#sectionObs textarea[id="inputObs"] {
+    padding: 6px;
+}
+
+#inputObs {
+    display: flex;
+    width: 500px;
+    height: 80px;
+}
+
+.apagado {
+    opacity: 0.6;
+}

@@ -127,7 +127,9 @@
           if (file.status === "AGUARDANDO APROVAÇÃO DA BRONZE") {
             window.location.href = "../src/pages/validate.html";
           } else if (file.status === "BRONZE ZONE") {
-            window.location.href = "../src/pages/bronze-zone-hash.html";
+            window.location.href = "../src/pages/bronze-zone-criar-hash.html";
+          } else if (file.status === "AGUARDANDO APROVAÇÃO DA SILVER") {
+            window.location.href = "../src/pages/bronze-zone-editar-hash.html"
           } else if (file.status === "NÃO APROVADO PELA BRONZE") {
             window.location.href = "../src/pages/update_csv.html";}
           else {
