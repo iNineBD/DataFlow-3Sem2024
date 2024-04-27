@@ -130,7 +130,9 @@
             window.location.href = "../src/pages/bronze-zone-criar-hash.html";
           } else if (file.status === "AGUARDANDO APROVAÇÃO DA SILVER") {
             window.location.href = "../src/pages/bronze-zone-editar-hash.html"
-          } else {
+          } else if (file.status === "NÃO APROVADO PELA BRONZE") {
+            window.location.href = "../src/pages/update_csv.html";}
+          else {
             console.error("Status desconhecido:", file.status);
           }
         },
