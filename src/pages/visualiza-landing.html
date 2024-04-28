@@ -103,13 +103,6 @@
           </tbody>
         </table>
       </div>
-      <div class="container">
-        <div class="left-section">
-          Observações:
-          <input type="text" id="inputObs" v-model="observacao" />
-        </div>
-
-      </div>
     </div>
   </body>
 
@@ -157,7 +150,6 @@
         this.importarDadosHome();
       },
       methods: {
-        
         importarDadosHome() {
           fetch("http://localhost:8080/landing/search", {
             method: "POST",

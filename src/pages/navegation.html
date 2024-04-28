@@ -4,63 +4,134 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../src/utils/vue.js"></script>
+    <!-- Corrija o caminho para o script Vue.js -->
+    <script src="/src/utils/vue.js"></script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="../assets/style/navegation.css" />
+    <!-- Corrija o caminho para o arquivo CSS -->
+    <link rel="stylesheet" href="/src/assets/style/navegation.css" />
     <title>Navegação</title>
   </head>
-
   <body>
     <div id="app">
       <header>
         <img
-          src="../assets/images/logo-dom-rock.png"
+          src="/src/assets/images/logo-dom-rock.png"
           alt="logo-dom-rock"
           id="logo"
         />
         <nav>
           <a href="/public/index.html">Home</a>
-          <a href="#"
-            ><img
+          <a href="#">
+            <img
               src="../assets/images/foto-perfil-branco.png"
               alt="foto-perfil-branco"
               id="fotoPerfilIcon"
-          /></a>
+            />
+          </a>
         </nav>
       </header>
 
       <main>
         <div class="container">
-            <div class="content">
-                <h1>
-                    Olá Junin, Seja Bem-Vindo <br />
-                    O que deseja fazer?
-                </h1>
-                <div class="containerButton">
-                    <button>Acessar Landing Zone</button>
-                    <button>Acessar Bronze Zone</button>
-                    <button>Acessar Silver Zone</button>
-                </div>
+          <div class="content">
+            <h1>Olá, <span v-text="dadosLocalStorage.usuario"></span></h1>
+            <br />
+            <h3>Escolha a etapa</h3>
+            <div class="containerButton">
+              <button
+                v-if="btnLandingZone"
+                @click="changePathButtons('Landing')"
+              >
+                Acessar Landing Zone
+              </button>
+              <button v-if="btnBronzeZone" @click="changePathButtons('Bronze')">
+                Acessar Bronze Zone
+              </button>
+              <button v-if="btnSilverZone" @click="changePathButtons('Silver')">
+                Acessar Silver Zone
+              </button>
             </div>
+          </div>
         </div>
-        
-
-        
       </main>
     </div>
-
     <script>
       const app = new Vue({
         el: "#app",
-        data: {},
-        mounted() {},
-        methods: {},
+        data: {
+          dadosLocalStorage: {
+            fileName: localStorage.getItem("fileName"),
+            usuario: this.sessionStorage.getItem("usuario"),
+            status: localStorage.getItem("status"),
+          },
+          btnLandingZone: false,
+          btnBronzeZone: false,
+          btnSilverZone: false,
+          status: localStorage.getItem("status"),
+          pathButtons: "../public/index.html",
+        },
+        mounted() {
+          this.importScreenNavegation();
+        },
+        methods: {
+          importScreenNavegation() {
+            const objetoNav = {
+              email: localStorage.getItem("usuario"),
+              arquivo: localStorage.getItem("fileName"),
+            };
+
+            console.log(objetoNav);
+
+            fetch("http://localhost:8080/navigation/zones", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(objetoNav),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                this.btnLandingZone = data.response.acessoLanding;
+                this.btnBronzeZone = data.response.acessoBronze;
+                this.btnSilverZone = data.response.acessoSilver;
+              });
+          },
+          changePathButtons(etapa) {
+            console.log(this.status);
+            if (etapa == "Landing") {
+              if (this.status == "NÃO APROVADO PELA BRONZE") {
+                window.location.href = "update_csv.html";
+              } else {
+                window.location.href = "visualiza-landing.html";
+              }
+            }
+            if (etapa == "Bronze") {
+              if (this.status == "AGUARDANDO APROVAÇÃO DA BRONZE") {
+                window.location.href = "validate.html";
+              } else if (this.status == "BRONZE ZONE") {
+                window.location.href = "bronze-zone-criar-hash.html";
+              } else if (this.status == "NÂO APROVADO PELA SILVER") {
+                window.location.href = "bronze-zone-editar-hash.html";
+              } else {
+                window.location.href = "bronze-zone-visualizar-hash.html";
+              }
+            }
+            if (etapa == "Silver") {
+              if (this.status == "AGUARDANDO APROVAÇÃO DA SILVER") {
+                window.location.href = "#";
+              } else if (this.status == "SILVER ZONE") {
+                window.location.href = "#";
+              }
+            }
+          },
+        },
       });
     </script>
-    <script src="../src/utils/hover-icon-change-home.js"></script>
+    <script src="/src/utils/hover-icon-change-upload-csv.js"></script>
   </body>
 </html>

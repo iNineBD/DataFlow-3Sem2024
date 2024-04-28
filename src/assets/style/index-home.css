@@ -51,7 +51,7 @@ body {
     background: white;
 }
 
-main > h1 {
+main > h1,h2,h3 {
     margin: 20px 35px 20px 35px;
 }
 
