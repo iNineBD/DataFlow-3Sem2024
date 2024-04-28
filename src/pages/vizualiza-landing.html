@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--VUE IMPORT-->
+    <script src="../utils/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!--CSS IMPORT-->
+    <link rel="stylesheet" href="/src/assets/style/validate.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>Visualização Landing</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <!--Toolbar-->
+        <img
+          src="../assets/images/logo-dom-rock.png"
+          alt="logo-dom-rock"
+          id="logo"
+        />
+        <nav>
+          <a href="/public/index.html">Home</a>
+          <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
+          <a href="#"
+            ><img
+              src="../assets/images/foto-perfil-branco.png"
+              alt="foto-perfil-branco"
+              id="fotoPerfilIcon"
+          /></a>
+        </nav>
+      </header>
+
+      <h1 id="h1Landing">Visualização Landing</h1>
+
+      <div id="alinhamentos">
+        <h2 id="h2Landing">Nome do arquivo:</h2>
+        <h2 id="parchive" v-text="nameFile"></h2>
+      </div>
+
+      <div id="table-container" style="overflow-x: auto">
+        <table>
+          <thead>
+            <tr>
+              <!--cabeçalho da tabela-->
+              <th v-for="(head, index) in headTabela" :key="index">
+                {{ head }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--coluna nome-->
+            <tr v-for="(item, index) in data" :key="index">
+              <td>
+                <!--campo ativo-->
+                <input
+                  type="checkbox"
+                  value="true"
+                  checked
+                  v-model="item.ativo"
+                  disabled
+                />
+              </td>
+              <!--campo exemplo-->
+              <td><input type="text" v-model="item.nome" disabled /></td>
+              <td>{{ item.exemplo }}</td>
+              <td>
+                <!--coluna tipo-->
+                <select v-model="item.tipo" disabled>
+                  <option value="">Selecione um Tipo</option>
+                  <option
+                    v-for="(tipo, index) in tipoDadoTabela"
+                    :key="index"
+                    disabled
+                  >
+                    {{ tipo }}
+                  </option>
+                </select>
+              </td>
+              <!--coluna obrigatoprio-->
+              <td>
+                <input
+                  type="checkbox"
+                  value=""
+                  v-model="item.obrigatorio"
+                  disabled
+                />
+              </td>
+              <!--coluna tamanho maximo-->
+              <td>
+                <input type="text" v-model="item.tamanhoMaximo" disabled />
+              </td>
+              <!--coluna valor padrão-->
+              <td><input type="text" v-model="item.valorPadrao" disabled /></td>
+              <!--coluna descrição-->
+              <td><input type="text" v-model="item.descricao" disabled /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <div class="left-section">
+          Observações:
+          <input type="text" id="inputObs" v-model="observacao" />
+        </div>
+
+      </div>
+    </div>
+  </body>
+
+  <!-- script Vue.js -->
+  <script>
+    // instancia do Vue
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // nome do arquivo
+        nameFile: "",
+        // nome do usuario
+        userFile: "",
+        // cabeçalho da tabela
+        headTabela: [
+          "Ativo",
+          "Nome",
+          "Exemplo",
+          "Tipo de Dado",
+          "Obrigatório",
+          "Tamanho Máximo",
+          "Valor Padrão",
+          "Descrição",
+        ],
+        // tipos a serem inseridos no arquivo
+        tipoDadoTabela: [
+          "Inteiro",
+          "Decimal",
+          "Booleano",
+          "Texto",
+          "Data",
+          "Hora",
+          "Data e Hora",
+        ],
+        //objeto pegado da tela anterior
+        data: [],
+        observacao: "",
+        aprovado: "",
+      },
+      created() {
+        let test = [];
+        let metadado = [];
+      },
+      mounted() {
+        this.importarDadosHome();
+      },
+      methods: {
+        
+        importarDadosHome() {
+          fetch("http://localhost:8080/landing/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              usuario: sessionStorage.getItem("usuario"),
+              nomeArquivo: localStorage.getItem("fileName"),
+            }),
+          })
+            .then((response) => response.json())
+            .then((responseData) => {
+              const response = responseData.response;
+              console.log(response);
+
+              this.nameFile = response.nomeArquivo;
+              this.userFile = response.usuario;
+              this.data = response.metadados.map((coluna) => {
+                return {
+                  nome: coluna.nome,
+                  ativo: coluna.ativo,
+                  tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
+                  obrigatorio: coluna.restricoes.some(
+                    (r) => r.nome === "obrigatorio" && r.valor === "true"
+                  ), // Verifica se há restrições obrigatórias
+                  tamanhoMaximo:
+                    coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
+                      ?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                  valorPadrao: coluna.valorPadrao || "",
+                  descricao: coluna.descricao || "",
+                  exemplo: coluna.sampleValue || "",
+                };
+              });
+              return response;
+            });
+        },
+      },
+    });
+  </script>
+  <script src="../utils/hover-icon-change-upload-csv.js"></script>
+</html>
