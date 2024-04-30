@@ -1,206 +1,253 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="../utils/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../assets/style/bronze-zone-editar-hash.css" />
     <title>Bronze Zone Visualizar/Editar Hash</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <header>
-            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
-            <nav>
-                <a href="/public/index.html">Home</a>
-                <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
-                        id="fotoPerfilIcon" /></a>
-            </nav>
-        </header>
+      <header>
+        <img
+          src="../assets/images/logo-dom-rock.png"
+          alt="logo-dom-rock"
+          id="logo"
+        />
+        <nav>
+          <a href="/public/index.html">Home</a>
+          <a href="#"
+            ><img
+              src="../assets/images/foto-perfil-branco.png"
+              alt="foto-perfil-branco"
+              id="fotoPerfilIcon"
+          /></a>
+        </nav>
+      </header>
 
-        <main>
-            <h1 id="h1BronzeHash">Bronze Zone - Visualizar/Editar Hash</h1>
+      <main>
+        <h1 id="h1BronzeHash">Bronze Zone - Visualizar/Editar Hash</h1>
 
-            <p id="pBronzeHash">{{ editMode ? 'Você está editando os metadados que foram utilizados para criar o hash!' : 'Você está visualizando os metadados que foram utilizados para criar o hash!' }}</p>
-            <p id="pBronzeHash">{{ editMode ? 'Após editá-los clique em "Salvar"' : 'Para editá-los clique no botão "Editar"' }}</p>
+        <p id="pBronzeHash">
+          {{ editMode ? 'Você está editando os metadados que foram utilizados
+          para criar o hash!' : 'Você está visualizando os metadados que foram
+          utilizados para criar o hash!' }}
+        </p>
+        <p id="pBronzeHash">
+          {{ editMode ? 'Após editá-los clique em "Salvar"' : 'Para editá-los
+          clique no botão "Editar"' }}
+        </p>
 
-            <div id="alinhamentos">
-                <h2 id="h2BronzeHash">Nome do arquivo:</h2>
-                <p id="parchive" v-text="nameFile"></p>
-            </div>
+        <div id="alinhamentos">
+          <h2 id="h2BronzeHash">Nome do arquivo:</h2>
+          <p id="parchive" v-text="nameFile"></p>
+        </div>
 
-            <div id="table-container" style="overflow-x:auto;">
-                <table :class="{ 'apagado': !editMode }">
-                    <thead>
-                        <tr>
-                            <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, index) in data" :key="index"
-                            :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
-                            <td>{{ item.nome }}</td>
-                            <td>{{ item.valorPadrao }}</td>
-                            <td id="checkbox-cell" :class="{ 'apagado': !editMode }">
-                                <input type="checkbox" v-model="item.agrupar" checked="true" :disabled="!editMode">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div id="table-container" style="overflow-x: auto">
+          <table :class="{ 'apagado': !editMode }">
+            <thead>
+              <tr>
+                <th v-for="(head, index) in headTabela" :key="index">
+                  {{ head }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(item, index) in data"
+                :key="index"
+                :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }"
+              >
+                <td>{{ item.nome }}</td>
+                <td>{{ item.valorPadrao }}</td>
+                <td id="checkbox-cell" :class="{ 'apagado': !editMode }">
+                  <input
+                    type="checkbox"
+                    v-model="item.agrupar"
+                    checked="true"
+                    :disabled="!editMode"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-            <div id="container">
-                <div id="sectionObs">
-                    Observações:
-                    <textarea id="inputObs" v-model="observacao" readonly cols="30" rows="10" class="apagado"></textarea>
-                </div>
-    
-                <div id="buttons">
-                    <a href="/public/index.html"><button id="btnCancelar">Cancelar</button></a>
-                    <button id="btnEditar" @click="toggleEditMode">{{ editMode ? 'Salvar' : 'Editar' }}</button>
-                </div>
-            </div>
-        </main>
+        <div id="container">
+          <div id="sectionObs">
+            Observações:
+            <textarea
+              id="inputObs"
+              v-model="observacao"
+              readonly
+              cols="30"
+              rows="10"
+              class="apagado"
+            ></textarea>
+          </div>
+
+          <div id="buttons">
+            <a href="/public/index.html"
+              ><button id="btnCancelar">Cancelar</button></a
+            >
+            <button id="btnEditar" @click="toggleEditMode">
+              {{ editMode ? 'Salvar' : 'Editar' }}
+            </button>
+          </div>
+        </div>
+      </main>
     </div>
 
     <script>
-        const app = new Vue({
-            el: "#app",
-            data: {
-                nameFile: "",
-                userFile: "",
-                data: [],
-                observacao: "",
-                colunasDisponiveis: [],
-                headTabela: [
-                    "Nome",
-                    "Valor Padrão",
-                    "Agrupar colunas"
-                ],
-                editMode: false
-            },
-            mounted() {
-                this.nameFile = localStorage.getItem('fileName') || '';
-                this.userFile = localStorage.getItem('usuario') || '';
-                this.visualizarMetadadosDoHash();
-            },
-            methods: {
-                visualizarMetadadosDoHash() {
-                    const objetoParaEnviar = {
-                        nomeArquivo: this.nameFile,
-                        usuario: this.userFile,
-                    };
-                    console.log(objetoParaEnviar)
+      const app = new Vue({
+        el: "#app",
+        data: {
+          nameFile: "",
+          userFile: "",
+          data: [],
+          observacao: "",
+          colunasDisponiveis: [],
+          headTabela: ["Nome", "Valor Padrão", "Agrupar colunas"],
+          editMode: false,
+        },
+        mounted() {
+          this.nameFile = localStorage.getItem("fileName") || "";
+          this.userFile = localStorage.getItem("usuario") || "";
 
-                    // Enviar requisição para a criação do hash
-                    fetch("http://localhost:8080/bronze/visualize", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(objetoParaEnviar),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                console.log(Error + " erro na requisição: " + response.status)
-                            }
-                            console.log("Requisição feita com sucesso: " + response.status)
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log("Dados recebidos:", data);
-                            if (data && data.response && data.response.metadados) {
-                                this.data = data.response.metadados.map(meta => ({
-                                    nome: meta.nome,
-                                    valorPadrao: meta.valorPadrao || ""
-                                }));
-                                this.observacao = data.response.observacao || "Nenhuma observação disponível"
-                                console.log("Metadados:", this.data);
-                                console.log("Observação:", this.observacao);
-                            } else {
-                                console.log(Error + ' Resposta da requisição inválida: ', data);
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Erro ao criar hash:", error);
-                        });
-                },
-                salvarHashEditado() {
-                    if (!this.editMode) {
-                        const metadadosSelecionados = this.data
-                        .filter(item => item.agrupar)
-                        .map(({ nome, valorPadrao, agrupar }) => ({ nome, valorPadrao: valorPadrao || "", agrupar }));
+          this.visualizarMetadadosDoHash();
+        },
+        methods: {
+          visualizarMetadadosDoHash() {
+            const objetoParaEnviar = {
+              nomeArquivo: this.nameFile,
+              usuario: this.userFile,
+            };
+            console.log(objetoParaEnviar);
 
-                        const objetoParaEnviar = {
-                            nomeArquivo: this.nameFile,
-                            usuario: this.userFile,
-                            metadados: metadadosSelecionados,
-                        };
-
-                        console.log(objetoParaEnviar)
-
-                        // Enviar requisição para salvar hash
-                        fetch("http://localhost:8080/bronze/editHash", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(objetoParaEnviar),
-                        })
-                            .then((response) => {
-                                return response.json();
-                            })
-                            .then(responseJson => {
-                                if (
-                                    responseJson.critica !== "Processamento efetuado com sucesso"
-                                ) {
-                                    console.log(Error + " erro na requisição: " + responseJson.critica)
-
-                                    Swal.fire({
-                                        title: "Erro",
-                                        text: responseJson.critica,
-                                        icon: "error",
-                                        confirmButtonText: "OK",
-                                    });
-                                    return;
-                                } else {
-                                    Swal.fire({
-                                        title: "Sucesso",
-                                        text: responseJson.critica,
-                                        icon: "success",
-                                        confirmButtonText: "OK",
-                                    }).then((result) => {
-                                        window.location.href = "/public/index.html";
-                                    });
-                                }
-                                console.log("Requisição feita com sucesso")
-                            })
-                            .catch(error => {
-                                console.error("Erro ao salvar hash:", error);
-                            });
-                    } else {
-                        Swal.fire({
-                            title: "Atenção",
-                            text: "Por favor, habilite a edição antes de salvar.",
-                            icon: "warning",
-                            confirmButtonText: "OK",
-                        });
-                    }
-                },
-                toggleEditMode() {
-                    this.editMode = !this.editMode;
-
-                    if (!this.editMode) {
-                        this.salvarHashEditado();
-                    } else {
-                        this.data.forEach(item => {
-                            item.agrupar = true;
-                        });
-                    }
+            // Enviar requisição para a criação do hash
+            fetch("http://localhost:8080/bronze/visualize", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+              },
+              body: JSON.stringify(objetoParaEnviar),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  console.log(
+                    Error + " erro na requisição: " + response.status
+                  );
                 }
+                console.log("Requisição feita com sucesso: " + response.status);
+                return response.json();
+              })
+              .then((data) => {
+                console.log("Dados recebidos:", data);
+                if (data && data.response && data.response.metadados) {
+                  this.data = data.response.metadados.map((meta) => ({
+                    nome: meta.nome,
+                    valorPadrao: meta.valorPadrao || "",
+                  }));
+                  this.observacao =
+                    data.response.observacao || "Nenhuma observação disponível";
+                  console.log("Metadados:", this.data);
+                  console.log("Observação:", this.observacao);
+                } else {
+                  console.log(
+                    Error + " Resposta da requisição inválida: ",
+                    data
+                  );
+                }
+              })
+              .catch((error) => {
+                console.error("Erro ao criar hash:", error);
+              });
+          },
+          salvarHashEditado() {
+            if (!this.editMode) {
+              const metadadosSelecionados = this.data
+                .filter((item) => item.agrupar)
+                .map(({ nome, valorPadrao, agrupar }) => ({
+                  nome,
+                  valorPadrao: valorPadrao || "",
+                  agrupar,
+                }));
+
+              const objetoParaEnviar = {
+                nomeArquivo: this.nameFile,
+                usuario: this.userFile,
+                metadados: metadadosSelecionados,
+              };
+
+              console.log(objetoParaEnviar);
+
+              // Enviar requisição para salvar hash
+              fetch("http://localhost:8080/bronze/editHash", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(objetoParaEnviar),
+              })
+                .then((response) => {
+                  return response.json();
+                })
+                .then((responseJson) => {
+                  if (
+                    responseJson.critica !==
+                    "Processamento efetuado com sucesso"
+                  ) {
+                    console.log(
+                      Error + " erro na requisição: " + responseJson.critica
+                    );
+
+                    Swal.fire({
+                      title: "Erro",
+                      text: responseJson.critica,
+                      icon: "error",
+                      confirmButtonText: "OK",
+                    });
+                    return;
+                  } else {
+                    Swal.fire({
+                      title: "Sucesso",
+                      text: responseJson.critica,
+                      icon: "success",
+                      confirmButtonText: "OK",
+                    }).then((result) => {
+                      window.location.href = "/public/index.html";
+                    });
+                  }
+                  console.log("Requisição feita com sucesso");
+                })
+                .catch((error) => {
+                  console.error("Erro ao salvar hash:", error);
+                });
+            } else {
+              Swal.fire({
+                title: "Atenção",
+                text: "Por favor, habilite a edição antes de salvar.",
+                icon: "warning",
+                confirmButtonText: "OK",
+              });
             }
-        });
+          },
+          toggleEditMode() {
+            this.editMode = !this.editMode;
+
+            if (!this.editMode) {
+              this.salvarHashEditado();
+            } else {
+              this.data.forEach((item) => {
+                item.agrupar = true;
+              });
+            }
+          },
+        },
+      });
     </script>
-</body>
+  </body>
 </html>

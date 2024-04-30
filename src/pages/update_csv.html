@@ -200,6 +200,8 @@
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+
             },
             body: JSON.stringify({
               "usuario": sessionStorage.getItem("usuario"),

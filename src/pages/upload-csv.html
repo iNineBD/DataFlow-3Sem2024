@@ -108,6 +108,9 @@
             fetch("http://localhost:8080/landing/upload?delimiter="+this.delimiter+"&header="+this.cabecalho, {
               method: "POST",
               body: formData,
+              headers: {
+                'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+              }
             })
               .then((response) => {
                 console.log("STATUS: " + response.status);

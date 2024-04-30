@@ -90,6 +90,8 @@
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+
               },
               body: JSON.stringify(objetoNav),
             })
