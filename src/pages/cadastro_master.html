@@ -132,6 +132,8 @@
                   icon: "error", // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: "OK", // Texto do botão de confirmação
                 });
+                // Redefinir as checkboxes selecionadas para evitar conflitos
+                this.nivelAcesso = [];
                 return;
               } else {
                 Swal.fire({
@@ -150,6 +152,19 @@
                 });
               }
               // Lidar com a resposta do backend aqui se necessário
+            })
+            .catch((error) => {
+              // Lidar com o erro aqui
+              console.error('Ocorreu um erro:', error);
+              Swal.fire({
+                title: "Erro",
+                text: "Ocorreu um erro durante o processamento da solicitação.",
+                icon: "error",
+                confirmButtonText: "OK",
+              });
+
+              // Redefinir as checkboxes selecionadas para evitar conflitos
+              this.nivelAcesso = [];
             });
         },
         mudarCheckbox(event) {
@@ -158,24 +173,37 @@
             ".campoCheckbox .zone input[type=checkbox]:not(#full)"
           );
 
+          // Verifica se a caixa de seleção "Full" foi marcada
           if (caixaSelecaoFull.checked) {
+            // Desmarca todas as outras caixas de seleção e as desabilita
             outrasCaixasSelecao.forEach((caixaSelecao) => {
               caixaSelecao.checked = false;
-              caixaSelecao.disabled = true;
             });
           } else {
-            // Verifica se todas as outras caixas de seleção estão marcadas (excluindo full)
+            // Verifica se todas as outras caixas de seleção foram marcadas
             const todasAsOutrasMarcadas = Array.from(
               outrasCaixasSelecao
             ).every((caixaSelecao) => caixaSelecao.checked);
+
+            // Se todas as outras caixas de seleção foram marcadas
             if (todasAsOutrasMarcadas) {
+              // Marca a caixa de seleção "Full" e desmarca as outras
               caixaSelecaoFull.checked = true;
+              outrasCaixasSelecao.forEach((caixaSelecao) => {
+                caixaSelecao.checked = false;
+                
+              });
             } else {
+              // Habilita todas as outras caixas de seleção
               outrasCaixasSelecao.forEach((caixaSelecao) => {
                 caixaSelecao.disabled = false;
               });
             }
           }
+          // Atualiza os dados do Vue.js
+          this.nivelAcesso = Array.from(document.querySelectorAll(".campoCheckbox .zone input[type=checkbox]"))
+            .filter(caixaSelecao => caixaSelecao.checked)
+            .map(caixaSelecao => caixaSelecao.value);
         },
       },
     });
