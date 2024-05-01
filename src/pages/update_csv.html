@@ -90,11 +90,16 @@
           </tbody>
         </table>
       </div>
-
       <!--Botão salvar-->
-      <div id="buttons">
-        <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
-        <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
+      <div class="container-footer-table">
+        <div class="left-section">
+          Observações:
+          <input type="text" id="inputObs" v-model="observacao" />
+        </div>
+        <div id="buttons">
+          <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
+          <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
+        </div>
       </div>
     </div>
 
@@ -131,6 +136,8 @@
           ],
           //objeto pegado da tela anterior
           data: [],
+        observacao: "",
+
         },
         created() {
           let test = [];
@@ -225,11 +232,12 @@
             })
               .then((response) => response.json())
               .then((responseData) => {
-                const response = responseData.response;
-                console.log(response);
+                const response = responseData.response.aboutMetadados;
+                console.log(responseData);
 
                 this.nameFile = response.nomeArquivo;
                 this.userFile = response.usuario;
+                this.observacao = responseData.response.lastObs;
                 this.data = response.metadados.map((coluna) => {
                   return {
                     nome: coluna.nome,

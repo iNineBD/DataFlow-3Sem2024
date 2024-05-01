@@ -121,8 +121,8 @@ tbody > tr > td > div > abbr > img:hover {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    margin-right: 20px;
     cursor: pointer;
-    margin: 15px 10px 10px 35px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -134,10 +134,18 @@ tbody > tr > td > div > abbr > img:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 35px 10px 10px;
     font-size: 15px;
     font-weight: 600;
 }
+
+.container-footer-table {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
 
 #buttons {
     display: flex;
@@ -168,3 +176,8 @@ tbody > tr > td > div > abbr > img:hover {
     display:flex;
     flex-direction: row;
 }
+
+#inputObs {
+    width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
+    height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
+  }

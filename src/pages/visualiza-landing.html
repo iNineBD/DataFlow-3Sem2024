@@ -164,7 +164,7 @@
           })
             .then((response) => response.json())
             .then((responseData) => {
-              const response = responseData.response;
+              const response = responseData.response.aboutMetadados;
               console.log(response);
 
               this.nameFile = response.nomeArquivo;
