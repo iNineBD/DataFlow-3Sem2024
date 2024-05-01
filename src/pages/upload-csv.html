@@ -18,8 +18,8 @@
           id="logo"
         />
         <nav>
-          <a href="/public/index.html">Home</a>
-          <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
+          <a href="home.html">Home</a>
+          <a href="upload-csv.html">Importar novo Arquivo</a>
           <a href="#"
             ><img
               src="../assets/images/foto-perfil-branco.png"
@@ -38,22 +38,24 @@
           <div id="fileUploadModal">
             <div class="retangulo-align">
               <div class="retangulo">
-                  <label for="cabecalhoDropdown">O Arquivo tem Cabeçalho?</label><br>
-                  <select id="cabecalhoDropdown" v-model="cabecalho">
-                      <option value="true">Sim</option>
-                      <option value="false">Não</option>
-                  </select>
+                <label for="cabecalhoDropdown">O Arquivo tem Cabeçalho?</label
+                ><br />
+                <select id="cabecalhoDropdown" v-model="cabecalho">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
               </div>
               <div class="retangulo">
-                  <label for="delimitadorDropdown">Delimitador das Colunas:</label><br><br>
-                  <select id="delimitadorDropdown" v-model="delimiter">
-                      <option value=",">Vírgula (,)</option>
-                      <option value=".">Ponto (.)</option>
-                      <option value="/">Barra (/)</option>
-                      <option value=";">Ponto e Vírgula (;)</option>
-                  </select>
+                <label for="delimitadorDropdown">Delimitador das Colunas:</label
+                ><br /><br />
+                <select id="delimitadorDropdown" v-model="delimiter">
+                  <option value=",">Vírgula (,)</option>
+                  <option value=".">Ponto (.)</option>
+                  <option value="/">Barra (/)</option>
+                  <option value=";">Ponto e Vírgula (;)</option>
+                </select>
               </div>
-          </div>
+            </div>
             <input
               type="file"
               name="csvfile"
@@ -86,7 +88,7 @@
           file: null,
           paragraph: null,
           cabecalho: null,
-          delimiter: null
+          delimiter: null,
         },
         methods: {
           submitForm() {
@@ -105,13 +107,19 @@
 
             console.log("cabeca: ", this.cabecalho);
 
-            fetch("http://localhost:8080/landing/upload?delimiter="+this.delimiter+"&header="+this.cabecalho, {
-              method: "POST",
-              body: formData,
-              headers: {
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+            fetch(
+              "http://localhost:8080/landing/upload?delimiter=" +
+                this.delimiter +
+                "&header=" +
+                this.cabecalho,
+              {
+                method: "POST",
+                body: formData,
+                headers: {
+                  'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                },
               }
-            })
+            )
               .then((response) => {
                 console.log("STATUS: " + response.status);
                 return response.json();
@@ -149,7 +157,7 @@
           },
           cancelUpload() {
             console.log("Upload cancelado");
-            window.location.href = "/public/index.html";
+            window.location.href = "home.html";
           },
           updateUploadArea(event) {
             this.fileName = event.target.files[0].name;

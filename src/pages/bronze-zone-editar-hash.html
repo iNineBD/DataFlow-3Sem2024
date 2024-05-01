@@ -17,7 +17,7 @@
           id="logo"
         />
         <nav>
-          <a href="/public/index.html">Home</a>
+          <a href="home.html">Home</a>
           <a href="#"
             ><img
               src="../assets/images/foto-perfil-branco.png"
@@ -89,7 +89,7 @@
           </div>
 
           <div id="buttons">
-            <a href="/public/index.html"
+            <a href="home.html"
               ><button id="btnCancelar">Cancelar</button></a
             >
             <button id="btnEditar" @click="toggleEditMode">
@@ -114,7 +114,7 @@
         },
         mounted() {
           this.nameFile = localStorage.getItem("fileName") || "";
-          this.userFile = localStorage.getItem("usuario") || "";
+          this.userFile = sessionStorage.getItem("usuario") || "";
 
           this.visualizarMetadadosDoHash();
         },
@@ -189,6 +189,7 @@
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
+                  'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
                 },
                 body: JSON.stringify(objetoParaEnviar),
               })
@@ -218,7 +219,7 @@
                       icon: "success",
                       confirmButtonText: "OK",
                     }).then((result) => {
-                      window.location.href = "/public/index.html";
+                      window.location.href = "home.html";
                     });
                   }
                   console.log("Requisição feita com sucesso");

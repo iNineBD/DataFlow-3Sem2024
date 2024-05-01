@@ -25,8 +25,8 @@
           id="logo"
         />
         <nav>
-          <a href="/public/index.html">Home</a>
-          <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
+          <a href="home.html">Home</a>
+          <a href="upload-csv.html">Importar novo Arquivo</a>
           <a href="#"
             ><img
               src="../assets/images/foto-perfil-branco.png"
@@ -155,7 +155,7 @@
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
             },
             body: JSON.stringify({
               usuario: sessionStorage.getItem("usuario"),

@@ -18,8 +18,8 @@
         <header>
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
             <nav>
-                <a href="/public/index.html">Home</a>
-                <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
+                <a href="home.html">Home</a>
+                <a href="upload-csv.html">Importar novo Arquivo</a>
                 <a href="#">
                     <img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon">
                 </a>
@@ -62,7 +62,7 @@
                     <input type="text" id="token" v-model="token" required />
                 </div>
                 <div id="buttons">
-                    <a href="../../public/index.html">
+                    <a href="home.html">
                         <button id="btnCancelar">Cancelar</button>
                     </a>
                     <button id="btnCadastrar" :disabled="senha !== confirmarSenha"
@@ -117,6 +117,7 @@
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
                         },
                         body: JSON.stringify(validacaoUsuario),
                     })
@@ -147,7 +148,7 @@
                                     this.senha = null;
                                     this.token = null;
                                     //voltar pada index
-                                    window.location.href = "/src/pages/navegation.html";
+                                    window.location.href = "navegation.html";
                                 });
                             }
                         });

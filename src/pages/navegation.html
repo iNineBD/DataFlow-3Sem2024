@@ -24,7 +24,7 @@
           id="logo"
         />
         <nav>
-          <a href="/public/index.html">Home</a>
+          <a href="home.html">Home</a>
           <a href="#">
             <img
               src="../assets/images/foto-perfil-branco.png"
@@ -48,10 +48,18 @@
               >
                 Acessar Landing Zone
               </button>
-              <button style="background-color: #CD7F32" v-if="btnBronzeZone" @click="changePathButtons('Bronze')">
+              <button
+                style="background-color: #cd7f32"
+                v-if="btnBronzeZone"
+                @click="changePathButtons('Bronze')"
+              >
                 Acessar Bronze Zone
               </button>
-              <button style="background-color: #C0C0C0" v-if="btnSilverZone" @click="changePathButtons('Silver')">
+              <button
+                style="background-color: #c0c0c0"
+                v-if="btnSilverZone"
+                @click="changePathButtons('Silver')"
+              >
                 Acessar Silver Zone
               </button>
             </div>
@@ -72,7 +80,6 @@
           btnBronzeZone: false,
           btnSilverZone: false,
           status: localStorage.getItem("status"),
-          pathButtons: "../public/index.html",
         },
         mounted() {
           this.importScreenNavegation();
@@ -80,7 +87,7 @@
         methods: {
           importScreenNavegation() {
             const objetoNav = {
-              email: localStorage.getItem("usuario"),
+              email: sessionStorage.getItem("usuario"),
               arquivo: localStorage.getItem("fileName"),
             };
 
@@ -90,8 +97,7 @@
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
-
+                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
               },
               body: JSON.stringify(objetoNav),
             })
