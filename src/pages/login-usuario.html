@@ -1,118 +1,119 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- VUE IMPORT -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <!-- CSS IMPORT -->
-        <link rel="stylesheet" href="/src/assets/style/login-usuario.css" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <title>Login</title>
-    </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- VUE IMPORT -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- CSS IMPORT -->
+  <link rel="stylesheet" href="/src/assets/style/login-usuario.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <title>Login</title>
+</head>
 
-    <body>
-        <div class="mother-div">
-        <div id="app" class="container-login">
-            <div class="img-box-1">
-                <div class="centraliza-imagem">
-                <img src="../assets/images/DataFlow.png" alt="arquivo" id="img-table1">
-                <br>
-                <img src="../assets/images/domrock2.png" alt="arquivo" id="img-table2">
-                </div>
-                
-            </div>
-            <div class="content-box">
-                <div class="form-box">
-                    <h3>Entre na sua conta</h3>
-                    <h6>Preencha os campos abaixo</h6>
-                    <br>
-                    <form @submit.prevent="login">
-                        <div class="input-box">
-                            <input type="text" v-model="emailUsuario" placeholder="Digite seu email">
-                        </div>
-                        <br>
-                        <div class="input-box">
-                            <input type="password" v-model="senha" placeholder="Digite sua senha">
-                        </div>
-
-                        <div class="primeiroAcesso">
-                            <a href="../pages/primeiro_acesso.html">Meu primeiro acesso ></a>
-                        </div>
-                        <div class="entrar">
-                            <button type="submit" id="btnEntrar">Entrar</button>
-                        </div>
-                        <br>
-                    </form>
-                </div>
-            </div>
+<body>
+  <div class="mother-div">
+    <div id="app" class="container-login">
+      <div class="img-box-1">
+        <div class="centraliza-imagem">
+          <img src="../assets/images/DataFlow.png" alt="arquivo" id="img-table1" />
+          <br />
+          <img src="../assets/images/domrock2.png" alt="arquivo" id="img-table2" />
         </div>
+      </div>
+      <div class="content-box">
+        <div class="form-box">
+          <h3>Entre na sua conta</h3>
+          <h6>Preencha os campos abaixo</h6>
+          <br />
+          <form @submit.prevent="login">
+            <div class="input-box">
+              <input type="text" v-model="emailUsuario" placeholder="Digite seu email" />
+            </div>
+            <br />
+            <div class="input-box">
+              <input type="password" v-model="senha" placeholder="Digite sua senha" />
+            </div>
+
+            <div class="primeiroAcesso">
+              <a href="../pages/primeiro_acesso.html">Meu primeiro acesso ></a>
+            </div>
+            <div class="entrar">
+              <button type="submit" id="btnEntrar">Entrar</button>
+            </div>
+            <br />
+          </form>
+        </div>
+      </div>
     </div>
-        <script>
-            const app = new Vue({
-                el: "#app",
-                data: {
-                    emailUsuario: null,
-                    senha: null,
-                },
-                methods: {
-                    login() {
-                        let validacaoLogin = {
-                            login: this.emailUsuario,
-                            senha: this.senha,
-                        };
+  </div>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        emailUsuario: null,
+        senha: null,
+      },
+      methods: {
+        login() {
+          let validacaoLogin = {
+            login: this.emailUsuario,
+            senha: this.senha,
+          };
 
-                        fetch("http://localhost:8080/register/login", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(validacaoLogin),
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Erro na requisição');
-                                }
-                                return response.json();
-                            })
-                            .then(responseJson => {
-                                if (responseJson.critica !== "Processamento efetuado com sucesso") {
-                                    Swal.fire({
-                                        title: "Erro",
-                                        text: responseJson.critica,
-                                        icon: "error",
-                                        confirmButtonText: "OK",
-                                    });
-                                    return;
-                                } else {
-                                    Swal.fire({
-                                        title: "Sucesso",
-                                        text: responseJson.critica,
-                                        icon: "success",
-                                        confirmButtonText: "OK",
-                                    }).then(result => {
-                                        // Limpar os campos após o cadastro
-                                        this.emailUsuario = null;
-                                        this.senha = null;
-                                        window.location.href = "home.html"
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Erro:', error);
-                                Swal.fire({
-                                    title: "Erro",
-                                    text: "Erro na requisição",
-                                    icon: "error",
-                                    confirmButtonText: "OK",
-                                });
-                            });
-                    }
-                }
+          fetch("http://localhost:8080/register/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(validacaoLogin),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Erro na requisição");
+              }
+              return response.json();
+            })
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Sucesso",
+                  text: responseJson.critica,
+                  icon: "success",
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  // Limpar os campos após o cadastro
+                  this.emailUsuario = null;
+                  this.senha = null;
+                  window.location.href = "home.html";
+                });
+              }
+            })
+            .catch((error) => {
+              console.error("Erro:", error);
+              Swal.fire({
+                title: "Erro",
+                text: "Erro na requisição",
+                icon: "error",
+                confirmButtonText: "OK",
+              });
             });
-        </script>
-    </body>
+        },
+      },
+    });
+  </script>
+</body>
 
-    </html>
+</html>

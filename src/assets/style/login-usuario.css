@@ -59,11 +59,11 @@
 .content-box .form-box {
     width: 50%;
     background-color: white;
-    display: block;
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
     border-radius: 4%;
-    margin: 30 27px;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -73,9 +73,10 @@
     font-weight: 700;
     font-size: 2em;
     text-transform: initial;
-    margin: 15px;
-    margin-bottom: 5px;
     text-align: left;
+    margin-left: 4.7%;
+    margin-top: 3%;
+
 }
 
 .content-box .form-box h6 {
@@ -83,9 +84,9 @@
     font-weight: 500;
     font-size: small;
     text-transform: initial;
-    margin: 15px;
-    margin-bottom: 8px;
     text-align: left;
+    margin-left: 5%;
+    margin-top: 2%;
 }
 
 .input-box {
@@ -98,8 +99,6 @@
 
 .content-box .form-box .input-box input {
     width: 90%;
-    padding: 8px;
-    margin: 0, 10px;
     outline: none;
     font-weight: 450;
     border: 1px solid #CED4DA;
@@ -115,7 +114,6 @@
     color: white;
     outline: none;
     border: none;
-    padding: 14px 12px;
     border: radius 4px;
     display: block;
     margin: 0 auto;
@@ -158,7 +156,7 @@ button {
 
 
 .primeiroAcesso {
-    margin: 5px 5px 15px 20px;
+    margin: 5%;
 }
 
 .primeiroAcesso>a {
