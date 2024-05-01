@@ -77,6 +77,7 @@
               return response.json();
             })
             .then((responseJson) => {
+              sessionStorage.setItem("authToken", responseJson.response)
               if (
                 responseJson.critica !== "Processamento efetuado com sucesso"
               ) {
@@ -95,8 +96,11 @@
                   confirmButtonText: "OK",
                 }).then((result) => {
                   // Limpar os campos após o cadastro
+                  sessionStorage.setItem("usuario", this.emailUsuario)
+
                   this.emailUsuario = null;
                   this.senha = null;
+
                   window.location.href = "/src/pages/home.html";
                 });
               }
