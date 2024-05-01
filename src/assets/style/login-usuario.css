@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --fonte-padrao: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--fonte-padrao);
+}
+
+.mother-div {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+
+.container-login {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    
+}
+
+.img-box-1 {
+    width: 50%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 1.0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+}
+
+.content-box {
+    background-color: #021F4E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+
+}
+
+.content-box .form-box {
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    border-radius: 4%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.content-box .form-box h3 {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 700;
+    font-size: 2em;
+    text-transform: initial;
+    text-align: left;
+    margin-left: 4.7%;
+    margin-top: 3%;
+
+}
+
+.content-box .form-box h6 {
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+    font-size: small;
+    text-transform: initial;
+    text-align: left;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.input-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.content-box .form-box .input-box input {
+    width: 90%;
+    outline: none;
+    font-weight: 450;
+    border: 1px solid #CED4DA;
+    font-size: 12px;
+    border-radius: 0.15cm;
+    padding: 14px 12px;
+
+
+}
+
+.content-box .form-box .input-box input[type=submit] {
+    background-color: #021F4E;
+    color: white;
+    outline: none;
+    border: none;
+    border: radius 4px;
+    display: block;
+    margin: 0 auto;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 20px;
+    transition: 0.3s;
+
+}
+
+.content-box .form-box .input-box input [type=submit]:hover {
+    background: #021F4E;
+}
+
+button {
+    width: 90%;
+    height: 35px;
+    padding: 8px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  div #buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  
+  #btnEntrar {
+    background-color: #021F4E;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+  }
+
+
+.primeiroAcesso {
+    margin: 5%;
+}
+
+.primeiroAcesso>a {
+    color: #00B4F0;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
+#img-table1 {
+    height: 80px;
+  
+}
+
+#img-table2 {
+    height: 140px;
+ 
+}
