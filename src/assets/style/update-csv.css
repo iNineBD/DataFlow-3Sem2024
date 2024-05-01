@@ -138,18 +138,23 @@ tbody > tr > td > div > abbr > img:hover {
     font-weight: 600;
 }
 
-.container-footer-table {
+.container {
     margin-top: 2%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
+.left-section {
+    flex: 1; 
+    margin-left: 35px;
+}
 
+#buttonsRight-section {
+    justify-content: flex-end; /* Alinha os itens à direita */
+    gap: 10px;
+    margin-right: 35px;
 
-#buttons {
-    display: flex;
-    justify-content: right;
 }
 
 #h1Landing {
