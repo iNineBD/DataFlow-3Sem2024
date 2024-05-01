@@ -71,13 +71,11 @@
             body: JSON.stringify(validacaoLogin),
           })
             .then((response) => {
-              if (!response.ok) {
-                throw new Error("Erro na requisição");
-              }
               return response.json();
             })
             .then((responseJson) => {
               sessionStorage.setItem("authToken", responseJson.response)
+              console.log(responseJson)
               if (
                 responseJson.critica !== "Processamento efetuado com sucesso"
               ) {
@@ -105,15 +103,6 @@
                 });
               }
             })
-            .catch((error) => {
-              console.error("Erro:", error);
-              Swal.fire({
-                title: "Erro",
-                text: "Erro na requisição",
-                icon: "error",
-                confirmButtonText: "OK",
-              });
-            });
         },
       },
     });
