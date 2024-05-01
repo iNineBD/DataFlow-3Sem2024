@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--VUE IMPORT-->
-    <script src="../utils/vue.js"></script>
+    <!-- VUE IMPORT -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!--CSS IMPORT-->
+    <!-- CSS IMPORT -->
     <link rel="stylesheet" href="/src/assets/style/login-usuario.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <title>Login</title>
-
 </head>
 
 <body>
@@ -27,32 +26,28 @@
                 <h3>Entre na sua conta</h3>
                 <h6>Preencha os campos abaixo</h6>
                 <br>
-                <form>
+                <form @submit.prevent="login">
                     <div class="input-box">
-                        <input type="text" placeholder="Digite seu usuário">
+                        <input type="text" v-model="emailUsuario" placeholder="Digite seu email">
                     </div>
                     <br>
                     <div class="input-box">
-                        <input type="password" placeholder="Digite sua senha">
+                        <input type="password" v-model="senha" placeholder="Digite sua senha">
                     </div>
 
                     <div class="primeiroAcesso">
                         <a href="../pages/primeiro_acesso.html">Meu primeiro acesso ></a>
                     </div>
                     <div class="entrar">
-                        <button id="btnEntrar" @click="login()">Entrar</button>
+                        <button type="submit" id="btnEntrar">Entrar</button>
                     </div>
                     <br>
-
-
-
                 </form>
-
             </div>
-
         </div>
     </div>
-    <script> //Minha tela 
+
+    <script>
         const app = new Vue({
             el: "#app",
             data: {
@@ -62,54 +57,58 @@
             methods: {
                 login() {
                     let validacaoLogin = {
-                        emailUsuario: this.emailUsuario,
+                        login: this.emailUsuario,
                         senha: this.senha,
                     };
-                    console.log("Login realizado", validacaoLogin);
-                    //inserir o caminho http do back (localhost) da tela de login (ANA)
-                    fetch("http:", {
+
+                    fetch("http://localhost:8080/register/login", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify(validacaoLogin),
                     })
-                    //eu estou enviando o JSON para o Back
-                    .then((response) => {
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro na requisição');
+                            }
                             return response.json();
                         })
-                        //o que eu recebo de resposta do meu back - JSON
-                        .then((responseJson) => {
-                            if (
-                                responseJson.critica !== "Processamento efetuado com sucesso"
-                            ) {
+                        .then(responseJson => {
+                            if (responseJson.critica !== "Processamento efetuado com sucesso") {
                                 Swal.fire({
                                     title: "Erro",
                                     text: responseJson.critica,
-                                    icon: "error", // Ícone personalizado (success, error, warning, info)
-                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                    icon: "error",
+                                    confirmButtonText: "OK",
                                 });
                                 return;
                             } else {
                                 Swal.fire({
                                     title: "Sucesso",
                                     text: responseJson.critica,
-                                    icon: "success", // Ícone personalizado (success, error, warning, info)
-                                    confirmButtonText: "OK", // Texto do botão de confirmação
-                                }).then((result) => {
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then(result => {
                                     // Limpar os campos após o cadastro
                                     this.emailUsuario = null;
                                     this.senha = null;
-                                    //ir pada index
-                                    window.location.href = "/src/pages/navegation.html";
+                                    window.location.href = "home.html"
                                 });
                             }
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            Swal.fire({
+                                title: "Erro",
+                                text: "Erro na requisição",
+                                icon: "error",
+                                confirmButtonText: "OK",
+                            });
                         });
                 }
             }
-        })
-
-
+        });
     </script>
 </body>
 
