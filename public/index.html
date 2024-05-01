@@ -74,19 +74,21 @@
               return response.json();
             })
             .then((responseJson) => {
-              sessionStorage.setItem("authToken", responseJson.response)
               console.log(responseJson)
               if (
                 responseJson.critica !== "Processamento efetuado com sucesso"
-              ) {
-                Swal.fire({
-                  title: "Erro",
-                  text: responseJson.critica,
-                  icon: "error",
-                  confirmButtonText: "OK",
-                });
-                return;
-              } else {
+                ) {
+                  Swal.fire({
+                    title: "Erro",
+                    text: responseJson.critica,
+                    icon: "error",
+                    confirmButtonText: "OK",
+                  });
+                  return;
+                } else {
+                sessionStorage.setItem("authToken", responseJson.response.token)
+                sessionStorage.setItem("usuario", responseJson.response.email)
+                sessionStorage.setItem("nomeUsuarioSessao", responseJson.response.nomeUsuario)
                 Swal.fire({
                   title: "Sucesso",
                   text: responseJson.critica,
@@ -94,7 +96,6 @@
                   confirmButtonText: "OK",
                 }).then((result) => {
                   // Limpar os campos após o cadastro
-                  sessionStorage.setItem("usuario", this.emailUsuario)
 
                   this.emailUsuario = null;
                   this.senha = null;
