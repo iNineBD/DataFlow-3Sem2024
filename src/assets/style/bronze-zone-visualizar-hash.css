@@ -103,7 +103,7 @@ th {
     /* Cor de fundo para linhas ímpares */
 }
 
-#btnVoltar {
+#btnCancelar {
     background-color: #ADB5BD;
     color: #fff;
     padding: 10px 20px;
@@ -115,7 +115,7 @@ th {
     font-weight: 600;
 }
 
-#btnSalvar {
+#btnEditar {
     background-color: #021F4E;
     color: #fff;
     padding: 10px 25px;
@@ -186,4 +186,3 @@ th {
 .apagado {
     opacity: 0.6;
 }
-
