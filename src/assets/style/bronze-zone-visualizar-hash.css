@@ -72,7 +72,7 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #CED4DA;
     word-wrap: break-word;
-    width: 41%;
+    width: 40%;
 }
 
 th {
@@ -108,6 +108,12 @@ th {
     align-items: center;
 }
 
+#alinhamentos {
+    display: flex;
+    flex-direction: row;
+    margin: 0px 450px;
+}
+
 #checkbox-cell {
     padding-left: 70px;
 }
@@ -128,7 +134,7 @@ th {
     /* Cor de fundo para linhas ímpares */
 }
 
-#btnVoltar {
+#btnCancelar {
     background-color: #ADB5BD;
     color: #fff;
     padding: 10px 20px;
@@ -140,7 +146,7 @@ th {
     font-weight: 600;
 }
 
-#btnSalvar {
+#btnEditar {
     background-color: #021F4E;
     color: #fff;
     padding: 10px 25px;
@@ -155,37 +161,10 @@ th {
 #buttons {
     display: flex;
     justify-content: right;
-}
-
-#alinhamentos {
-    display: flex;
-    flex-direction: row;
-    margin: 0px 450px;
-}
-
-#container {
-    display: flex;
-    align-items: center;
     padding-top: 20px;
     margin: 0px 450px;
-}
-
-#sectionObs {
-    flex: 1;
-}
-
-#sectionObs textarea[id="inputObs"] {
-    padding: 6px;
-}
-
-#inputObs {
-    display: flex;
-    width: 500px;
-    height: 60px;
 }
 
 .apagado {
     opacity: 0.6;
 }
-
-

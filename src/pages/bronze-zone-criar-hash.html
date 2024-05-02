@@ -1,212 +1,200 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../utils/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="../assets/style/bronze-zone-criar-hash.css" />
-    <title>Bronze Zone Hash</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <header>
-        <img
-          src="../assets/images/logo-dom-rock.png"
-          alt="logo-dom-rock"
-          id="logo"
-        />
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="#"
-            ><img
-              src="../assets/images/foto-perfil-branco.png"
-              alt="foto-perfil-branco"
-              id="fotoPerfilIcon"
-          /></a>
-        </nav>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="../utils/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" href="../assets/style/bronze-zone-criar-hash.css" />
+  <title>Bronze Zone Hash</title>
+</head>
 
-      <main>
-        <h1 id="h1BronzeHash">Bronze Zone - Criar Hash</h1>
+<body>
+  <div id="app">
+    <header>
+      <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
+            id="fotoPerfilIcon" /></a>
+      </nav>
+    </header>
 
-        <p id="pBronzeHash">
-          Marque o(s) checkbox da coluna "Agrupar colunas" que serão usados para
-          gerar o hash
-        </p>
+    <main>
+      <h1 id="h1BronzeHash">Bronze Zone - Criar Hash</h1>
 
-        <div id="alinhamentos">
-          <h2 id="h2BronzeHash">Nome do arquivo:</h2>
-          <p id="parchive" v-text="nameFile"></p>
-        </div>
-        <div id="table-container" style="overflow-x: auto">
-          <table>
-            <thead>
-              <tr>
-                <th v-for="(head, index) in headTabela" :key="index">
-                  {{ head }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(item, index) in dataFiltrada"
-                :key="index"
-                :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }"
-              >
-                <td>{{ item.nome }}</td>
-                <td>{{ item.ativo }}</td>
-                <td>{{ item.tipo }}</td>
-                <td>{{ item.valorPadrao }}</td>
-                <td>{{ item.descricao }}</td>
-                <td id="checkbox-cell">
-                  <input type="checkbox" v-model="item.agrupar" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <p id="pBronzeHash">
+        Marque o(s) checkbox da coluna "Agrupar colunas" que serão usados para
+        gerar o hash
+      </p>
 
-        <div id="container">
-          <div id="buttons">
-            <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
-            <button id="btnSalvar" @click="salvarHash()">Salvar</button>
-          </div>
-        </div>
-      </main>
-    </div>
+      <div id="alinhamentos">
+        <h2 id="h2BronzeHash">Nome do arquivo:</h2>
+        <p id="parchive" v-text="nameFile"></p>
+      </div>
+      <div id="table-container" style="overflow-x: auto">
+        <table>
+          <thead>
+            <tr>
+              <th v-for="(head, index) in headTabela" :key="index">
+                {{ head }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in dataFiltrada" :key="index"
+              :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
+              <td>{{ item.nome }}</td>
+              <td>{{ item.ativo }}</td>
+              <td>{{ item.tipo }}</td>
+              <td>{{ item.valorPadrao }}</td>
+              <td>{{ item.descricao }}</td>
+              <td id="checkbox-cell">
+                <input type="checkbox" v-model="item.agrupar" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <script>
-      const app = new Vue({
-        el: "#app",
-        data: {
-          nameFile: "",
-          userFile: "",
-          data: [],
-          observacao: "",
-          colunasDisponiveis: [],
-          headTabela: [
-            "Nome",
-            "Ativo",
-            "Tipo",
-            "Valor Padrão",
-            "Descrição",
-            "Agrupar colunas",
-          ],
+      <div id="buttons">
+        <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
+        <button id="btnSalvar" @click="salvarHash()">Salvar</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        nameFile: "",
+        userFile: "",
+        data: [],
+        colunasDisponiveis: [],
+        headTabela: [
+          "Nome",
+          "Ativo",
+          "Tipo",
+          "Valor Padrão",
+          "Descrição",
+          "Agrupar colunas",
+        ],
+      },
+      computed: {
+        dataFiltrada() {
+          return this.data.filter((item) => item.ativo);
         },
-        computed: {
-          dataFiltrada() {
-            return this.data.filter((item) => item.ativo);
-          },
-        },
-        mounted() {
-          this.nameFile = localStorage.getItem("fileName") || "";
-          this.userFile = sessionStorage.getItem("usuario") || "";
+      },
+      mounted() {
+        this.nameFile = localStorage.getItem("fileName") || "";
+        this.userFile = sessionStorage.getItem("usuario") || "";
 
-          this.adicionarMetadados();
-        },
-        methods: {
-          adicionarMetadados() {
-            const objetoCompleto = {
-              nomeArquivo: this.nameFile,
-              usuario: this.userFile,
-            };
+        this.adicionarMetadados();
+      },
+      methods: {
+        adicionarMetadados() {
+          const objetoCompleto = {
+            nomeArquivo: this.nameFile,
+            usuario: this.userFile,
+          };
 
-            // Enviar requisição para a criação do hash
-            fetch("http://localhost:8080/bronze/createHash", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-              },
-              body: JSON.stringify(objetoCompleto),
+          // Enviar requisição para a criação do hash
+          fetch("http://localhost:8080/bronze/createHash", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                console.log(
+                  Error + " erro na requisição: " + response.status
+                );
+              }
+              console.log("Requisição feita com sucesso: " + response.status);
+              return response.json();
             })
-              .then((response) => {
-                if (!response.ok) {
-                  console.log(
-                    Error + " erro na requisição: " + response.status
-                  );
-                }
-                console.log("Requisição feita com sucesso: " + response.status);
-                return response.json();
-              })
-              .then((data) => {
-                if (data && data.response && data.response.meta) {
-                  this.data = data.response.meta.map((coluna) => ({
-                    ...coluna,
-                    agrupar: false,
-                  }));
-                  console.log(data.response);
-                } else {
-                  console.log(Error + " Resposta da requisição inválida");
-                }
-              })
-              .catch((error) => {
-                console.error("Erro ao criar hash:", error);
-              });
-          },
-          salvarHash() {
-            const metadadosSelecionados = this.dataFiltrada
-              .filter((item) => item.agrupar)
-              .map(({ nome, valorPadrao }) => ({
-                nome,
-                valorPadrao: valorPadrao || "",
-              }));
-
-            const objetoParaEnviar = {
-              nomeArquivo: this.nameFile,
-              usuario: this.userFile,
-              metadados: metadadosSelecionados,
-            };
-
-            console.log(objetoParaEnviar);
-
-            // Enviar requisição para salvar hash
-            fetch("http://localhost:8080/bronze/saveHash", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-              },
-              body: JSON.stringify(objetoParaEnviar),
+            .then((data) => {
+              if (data && data.response && data.response.meta) {
+                this.data = data.response.meta.map((coluna) => ({
+                  ...coluna,
+                  agrupar: false,
+                }));
+                console.log(data.response);
+              } else {
+                console.log(Error + " Resposta da requisição inválida");
+              }
             })
-              .then((response) => {
-                return response.json();
-              })
-              .then((responseJson) => {
-                if (
-                  responseJson.critica !== "Processamento efetuado com sucesso"
-                ) {
-                  console.log(
-                    Error + " erro na requisição: " + responseJson.critica
-                  );
-
-                  Swal.fire({
-                    title: "Erro",
-                    text: responseJson.critica,
-                    icon: "error",
-                    confirmButtonText: "OK",
-                  });
-                  return;
-                } else {
-                  Swal.fire({
-                    title: "Sucesso",
-                    text: responseJson.critica,
-                    icon: "success",
-                    confirmButtonText: "OK",
-                  }).then((result) => {
-                    window.location.href = "home.html";
-                  });
-                }
-                console.log("Requisição feita com sucesso");
-              })
-              .catch((error) => {
-                console.error("Erro ao salvar hash:", error);
-              });
-          },
+            .catch((error) => {
+              console.error("Erro ao criar hash:", error);
+            });
         },
-      });
-    </script>
-  </body>
+        salvarHash() {
+          const metadadosSelecionados = this.dataFiltrada
+            .filter((item) => item.agrupar)
+            .map(({ nome, valorPadrao }) => ({
+              nome,
+              valorPadrao: valorPadrao || "",
+            }));
+
+          const objetoParaEnviar = {
+            nomeArquivo: this.nameFile,
+            usuario: this.userFile,
+            metadados: metadadosSelecionados,
+          };
+
+          console.log(objetoParaEnviar);
+
+          // Enviar requisição para salvar hash
+          fetch("http://localhost:8080/bronze/saveHash", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoParaEnviar),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                console.log(
+                  Error + " erro na requisição: " + responseJson.critica
+                );
+
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Sucesso",
+                  text: responseJson.critica,
+                  icon: "success",
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  window.location.href = "home.html";
+                });
+              }
+              console.log("Requisição feita com sucesso");
+            })
+            .catch((error) => {
+              console.error("Erro ao salvar hash:", error);
+            });
+        },
+      },
+    });
+  </script>
+</body>
+
 </html>
