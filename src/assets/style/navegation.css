@@ -68,7 +68,7 @@ body {
     display: flex;
     flex-direction: column; /* exibir botões um abaixo do outro */
     align-items: center; /* centralizar os botões horizontalmente */
-    margin-top: 50px; /* espaço entre o título e os botões */
+    margin-top: 40px; /* espaço entre o título e os botões */
 }
 
 button {
@@ -81,6 +81,8 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
+    height: 100%;
+    width: 100%;
 }
 
   

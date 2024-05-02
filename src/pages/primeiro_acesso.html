@@ -62,7 +62,7 @@
                     <input type="text" id="token" v-model="token" required />
                 </div>
                 <div id="buttons">
-                    <a href="home.html">
+                    <a href="/public/index.html">
                         <button id="btnCancelar">Cancelar</button>
                     </a>
                     <button id="btnCadastrar" :disabled="senha !== confirmarSenha"
@@ -117,7 +117,6 @@
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
                         },
                         body: JSON.stringify(validacaoUsuario),
                     })
@@ -148,7 +147,7 @@
                                     this.senha = null;
                                     this.token = null;
                                     //voltar pada index
-                                    window.location.href = "navegation.html";
+                                    window.location.href = "../public/index.html";
                                 });
                             }
                         });

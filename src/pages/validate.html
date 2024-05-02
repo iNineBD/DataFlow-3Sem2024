@@ -180,7 +180,7 @@
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ` + sessionStorage.getItem("authToken"),
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
             },
             body: JSON.stringify(objetoCompleto),
           })
@@ -188,17 +188,6 @@
               return response.json();
             })
             .then((responseJson) => {
-              // Verifica se o campo observacao está vazio
-              if (!this.observacao.trim()) {
-                // Se estiver vazio, exibe uma mensagem de erro
-                Swal.fire({
-                  title: "Erro",
-                  text: "Por favor, forneça uma observação antes de aprovar o arquivo.",
-                  icon: "error",
-                  confirmButtonText: "OK",
-                });
-                return; // Retorna sem continuar a execução do método
-              }
               if (
                 responseJson.critica !== "Processamento efetuado com sucesso"
               ) {

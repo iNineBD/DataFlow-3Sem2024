@@ -121,8 +121,8 @@ tbody > tr > td > div > abbr > img:hover {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    margin-right: 20px;
     cursor: pointer;
-    margin: 15px 10px 10px 35px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -134,14 +134,26 @@ tbody > tr > td > div > abbr > img:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 35px 10px 10px;
     font-size: 15px;
     font-weight: 600;
 }
 
-#buttons {
+.container {
+    margin-top: 2%;
     display: flex;
-    justify-content: right;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.left-section {
+    flex: 1; 
+    margin-left: 35px;
+}
+
+#buttonsRight-section {
+    justify-content: flex-end; /* Alinha os itens à direita */
+    gap: 10px;
+    margin-right: 35px;
 }
 
 #h1Landing {
@@ -157,7 +169,6 @@ tbody > tr > td > div > abbr > img:hover {
     align-items: center;
 }
 
-
 #parchive {
     display: flex;
     align-items: center;
@@ -168,3 +179,16 @@ tbody > tr > td > div > abbr > img:hover {
     display:flex;
     flex-direction: row;
 }
+
+#inputObs {
+    width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
+    height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
+}
+
+#buttons {
+    display: flex;
+    justify-content: flex-end; /* Alinha os itens à direita */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin-top: 20px;
+    margin-right: 35px;
+  }
