@@ -73,6 +73,19 @@ th {
     background-color: #f2f2f2;
 }
 
+tbody > tr > td > div > abbr > img {
+    height: 25px;
+}
+
+tbody > tr > td > div > abbr > img:hover {
+    cursor: pointer;
+}
+
+.material-symbols-outlined {
+    color: rgb(221, 24, 24);
+    padding-left: 15px;
+}
+
 #img-table {
     height: 16px;
     margin: 0 6px 0 0;
@@ -81,14 +94,6 @@ th {
 #centralizar {
     display: flex;
     align-items: center;
-}
-
-tbody > tr > td > div > abbr > img {
-    height: 25px;
-}
-
-tbody > tr > td > div > abbr > img:hover {
-    cursor: pointer;
 }
 
 .status-cell {
@@ -100,7 +105,7 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table th:nth-child(2), #table td:nth-child(2) {
-    width: 35%; /* Defina a largura desejada para a segunda coluna */
+    width: 30%; /* Defina a largura desejada para a segunda coluna */
 }
 
 #table th:nth-child(3), #table td:nth-child(3) {

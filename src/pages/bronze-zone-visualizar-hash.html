@@ -52,27 +52,13 @@
                 </table>
             </div>
 
-            <div id="container">
-                <div id="sectionObs">
-                    Observações:
-                    <textarea 
-                        id="inputObs" 
-                        v-model="observacao" 
-                        readonly 
-                        cols="30" 
-                        rows="10" 
-                        class="apagado">
-                    </textarea>
-                </div>
-      
-                <div id="buttons">
-                    <a href="home.html">
-                        <button id="btnCancelar">Cancelar</button>
-                    </a>
-                    <a href="bronze-zone-editar-hash.html">
-                        <button id="btnEditar">Editar<button>
-                    </a>
-                </div>
+            <div id="buttons">
+                <a href="home.html">
+                    <button id="btnCancelar">Cancelar</button>
+                </a>
+                <a href="bronze-zone-editar-hash.html">
+                    <button id="btnEditar">Editar<button>
+                </a>
             </div>
         </main>
     </div>
@@ -84,7 +70,6 @@
                 nameFile: "",
                 userFile: "",
                 data: [],
-                observacao: "",
                 metadadosNoHash: [],
                 headTabela: ["Nome", "Valor Padrão", "Colunas agrupadas"]
             },
@@ -124,10 +109,7 @@
                                     nome: meta.nome,
                                     valorPadrao: meta.valorPadrao || "",
                                 }));
-                                this.observacao =
-                                    data.response.observacao || "Nenhuma observação disponível";
                                 console.log("Metadados:", this.metadadosNoHash);
-                                console.log("Observação:", this.observacao);
                             } else {
                                 console.log(
                                     Error + " Resposta da requisição inválida: ",

@@ -72,6 +72,7 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #CED4DA;
     word-wrap: break-word;
+    width: 40%;
 }
 
 th {
@@ -84,13 +85,13 @@ th {
 }
 
 #checkbox-cell {
-    padding-left: 65px;
+    padding-left: 70px;
 }
 
 #table-container {
     max-height: 310px;
     overflow-y: auto;
-    margin: 0px 220px;
+    margin: 0px 450px;
 }
 
 .even-row {
@@ -130,6 +131,8 @@ th {
 #buttons {
     display: flex;
     justify-content: right;
+    padding-top: 20px;
+    margin: 0px 450px;
 }
 
 #h1BronzeHash {
@@ -159,28 +162,7 @@ th {
 #alinhamentos {
     display: flex;
     flex-direction: row;
-    margin: 0px 250px;
-}
-
-#container {
-    display: flex;
-    align-items: center;
-    padding-top: 20px;
-    margin: 0px 220px;
-}
-
-#sectionObs {
-    flex: 1;
-}
-
-#sectionObs textarea[id="inputObs"] {
-    padding: 6px;
-}
-
-#inputObs {
-    display: flex;
-    width: 500px;
-    height: 80px;
+    margin: 0px 450px;
 }
 
 .apagado {

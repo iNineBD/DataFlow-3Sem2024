@@ -7,12 +7,12 @@
     <script src="../utils/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!--CSS IMPORT-->
-    <link rel="stylesheet" href="/src/assets/style/validate.css" />
+    <link rel="stylesheet" href="/src/assets/style/bronze-zone-validar-arquivo.css" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <title>Validação - Bronze</title>
+    <title>Bronze Zone - Validar Arquivo</title>
   </head>
 
   <body>
@@ -36,26 +36,24 @@
         </nav>
       </header>
 
-      <h1 id="h1Landing">Validação de Arquivo</h1>
+      <h1 id="h1Landing">Bronze Zone - Validar Arquivo</h1>
 
       <div id="alinhamentos">
         <h2 id="h2Landing">Nome do arquivo:</h2>
-        <h2 id="parchive" v-text="nameFile"></h2>
+        <p id="parchive" v-text="nameFile"></p>
       </div>
 
       <div id="table-container" style="overflow-x: auto">
         <table>
           <thead>
             <tr>
-              <!--cabeçalho da tabela-->
               <th v-for="(head, index) in headTabela" :key="index">
                 {{ head }}
               </th>
             </tr>
           </thead>
           <tbody>
-            <!--coluna nome-->
-            <tr v-for="(item, index) in data" :key="index">
+            <tr v-for="(item, index) in data" :key="index" :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
               <td>
                 <!--campo ativo-->
                 <input
@@ -103,19 +101,19 @@
           </tbody>
         </table>
       </div>
-      <div class="container">
-        <div class="left-section">
+
+      <div id="container">
+        <div id="sectionObs">
           Observações:
-          <input type="text" id="inputObs" v-model="observacao" />
+            <textarea id="inputObs" v-model="observacao" cols="30" rows="10" class="apagado">
+            </textarea>
         </div>
-        <div class="right-section">
+        <div id="buttons">
           <a href="home.html">
             <button id="btnCancelar">Cancelar</button>
           </a>
-          <button id="btnReprovado" @click="reprovarArquivo()">
-            Reprovado
-          </button>
-          <button id="btnSalvar" @click="aprovarArquivo()">Aprovado</button>
+          <button id="btnReprovado" @click="reprovarArquivo()">Reprovado</button>
+          <button id="btnAprovado" @click="aprovarArquivo()">Aprovado</button>
         </div>
       </div>
     </div>

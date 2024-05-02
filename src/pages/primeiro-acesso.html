@@ -17,13 +17,6 @@
     <div id="app">
         <header>
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
-            <nav>
-                <a href="home.html">Home</a>
-                <a href="upload-csv.html">Importar novo Arquivo</a>
-                <a href="#">
-                    <img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon">
-                </a>
-            </nav>
         </header>
 
         <main>
@@ -62,7 +55,7 @@
                     <input type="text" id="token" v-model="token" required />
                 </div>
                 <div id="buttons">
-                    <a href="home.html">
+                    <a href="/public/index.html">
                         <button id="btnCancelar">Cancelar</button>
                     </a>
                     <button id="btnCadastrar" :disabled="senha !== confirmarSenha"

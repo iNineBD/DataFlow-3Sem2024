@@ -67,21 +67,16 @@ thead {
   z-index: 1;
 }
 
-th,
-td {
+th, td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ced4da;
   word-wrap: break-word;
+  width: 8%;
 }
 
 th {
   background-color: #cdcdcd;
-}
-
-#centralizar {
-  display: flex;
-  align-items: center;
 }
 
 tbody > tr > td > div > abbr > img {
@@ -103,7 +98,7 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table-container {
-  max-height: 520px;
+  max-height: 450px;
   overflow-y: auto;
   margin: 0px 35px;
 }
@@ -133,11 +128,17 @@ tbody > tr > td > div > abbr > img:hover {
   display: flex;
   align-items: center;
   font-size: 20px;
+  padding: 3px;
 }
 
 #alinhamentos {
   display: flex;
   flex-direction: row;
+}
+
+#centralizar {
+  display: flex;
+  align-items: center;
 }
 
 #btnCancelar {
@@ -147,7 +148,7 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 15px 10px 20px;
+  margin: 0px 10px 0px 20px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -159,19 +160,19 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 15px 10px 20px;
+  margin: 0px 10px 0px 15px;
   font-size: 15px;
   font-weight: 600;
 }
 
-#btnSalvar {
+#btnAprovado {
   background-color: #0bad2e;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 35px 10px 20px;
+  margin: 0px 0px 0px 10px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -182,23 +183,27 @@ tbody > tr > td > div > abbr > img:hover {
   margin: 10px 20px 15px 35px;
 }
 
-.container {
+#container {
   display: flex;
-  align-items: center; /* Alinha os itens verticalmente */
+  align-items: center;
+  padding-top: 20px;
+  margin: 0px 35px;
 }
 
-.left-section {
-  flex: 1; /* Ocupa todo o espaço disponível */
-  margin-left: 35px; /* Adiciona margem à esquerda */
+#sectionObs {
+  flex: 1;
 }
 
-.right-section {
-  display: flex;
-  justify-content: flex-end; /* Alinha os itens à direita */
-  gap: 10px; /* Espaçamento entre os botões */
+#sectionObs textarea[id="inputObs"] {
+  padding: 6px;
 }
 
 #inputObs {
-  width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
-  height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
+  display: flex;
+  width: 500px;
+  height: 60px;
+}
+
+.apagado {
+  opacity: 0.6;
 }

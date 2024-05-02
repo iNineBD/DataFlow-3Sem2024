@@ -72,15 +72,11 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #CED4DA;
     word-wrap: break-word;
+    width: 8%;
 }
 
 th {
     background-color: #cdcdcd;
-}
-
-#centralizar {
-    display: flex;
-    align-items: center;
 }
 
 tbody > tr > td > div > abbr > img {
@@ -97,12 +93,12 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 .checkboxObrigatorio {
-    margin: 0px 0px 0px 32px;
+    margin: 0px 0px 0px 40px;
     display: block;
 }
 
 #table-container {
-    max-height: 520px;
+    max-height: 420px;
     overflow-y: auto;
     margin: 0px 35px;
 }
@@ -121,8 +117,8 @@ tbody > tr > td > div > abbr > img:hover {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    margin-right: 20px;
     cursor: pointer;
+    margin: 0px 10px 10px 35px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -134,22 +130,14 @@ tbody > tr > td > div > abbr > img:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0px 0px 10px 10px;
     font-size: 15px;
     font-weight: 600;
 }
 
-.container-footer-table {
-    margin-top: 2%;
+#centralizar {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-
-
-#buttons {
-    display: flex;
-    justify-content: right;
+    align-items: center;
 }
 
 #h1Landing {
@@ -165,10 +153,10 @@ tbody > tr > td > div > abbr > img:hover {
     align-items: center;
 }
 
-
 #parchive {
     display: flex;
     align-items: center;
+    padding-top: 3px;
     font-size: 20px;
 }
 
@@ -177,7 +165,32 @@ tbody > tr > td > div > abbr > img:hover {
     flex-direction: row;
 }
 
+#buttons {
+    display: flex;
+    justify-content: right;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    margin: 0px 35px;
+}
+
+#sectionObs {
+    flex: 1;
+}
+
+#sectionObs textarea[id="inputObs"] {
+    padding: 6px;
+}
+
 #inputObs {
-    width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
-    height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
-  }
+    display: flex;
+    width: 500px;
+    height: 60px;
+}
+
+.apagado {
+    opacity: 0.6;
+}

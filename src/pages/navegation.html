@@ -113,14 +113,14 @@
             console.log(this.status);
             if (etapa == "Landing") {
               if (this.status == "NÃO APROVADO PELA BRONZE") {
-                window.location.href = "update_csv.html";
+                window.location.href = "update-csv.html";
               } else {
-                window.location.href = "visualiza-landing.html";
+                window.location.href = "landing-zone-visualizar.html";
               }
             }
             if (etapa == "Bronze") {
               if (this.status == "AGUARDANDO APROVAÇÃO DA BRONZE") {
-                window.location.href = "validate.html";
+                window.location.href = "bronze-zone-validar-arquivo.html";
               } else if (this.status == "BRONZE ZONE") {
                 window.location.href = "bronze-zone-criar-hash.html";
               } else if (this.status == "NÂO APROVADO PELA SILVER") {
