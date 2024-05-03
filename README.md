@@ -93,13 +93,13 @@
         <td>7</td>
         <td>Alta</td>
         <td>Como Parceiro Silver, quero poder aplicar minhas regras de negócio para personalizar a apresentação dos resultados</td>
-        <td>4</td>
+        <td>3</td>
     </tr>
     <tr>
         <td>8</td>
         <td>Média</td>
         <td>Como parceiro da Silver, quero que as regras de negócio personalizadas sejam modificáveis e removíveis, caso as necessidades da empresa mudem ao longo do tempo.</td>
-        <td>4</td>
+        <td>3</td>
     </tr>
     <tr>
         <td>9</td>
@@ -111,19 +111,19 @@
         <td>10</td>
         <td>Baixa</td>
         <td>Como administrador, quero poder monitorar os acessos realizados pelos parceiros e as modificações feitas sobre todos os projetos cadastrados.</td>
-        <td>3</td>
+        <td>4</td>
     </tr>
     <tr>
         <td>11</td>
         <td>Média</td>
         <td>Como administrador, desejo um painel que exiba informações quantitativas configuradas, incluindo dados sobre clientes, tipos de fontes de dados e contagens de campos, para facilitar a análise e gestão do sistema.</td>
-        <td>3</td>
+        <td>4</td>
     </tr>
     <tr>
         <td>12</td>
         <td>Baixa</td>
         <td>Como administrador, desejo uma interface que me permita gerar um arquivo de configuração no formato YAML por estágio a partir de uma base de dados, para que eu possa utilizar este arquivo como configurador de uma aplicação terceira.</td>
-        <td>3</td>
+        <td>4</td>
     </tr>
     <tr>
         <td>13</td>
@@ -143,8 +143,8 @@
 |:-------:|:-----:|:---------:|
 | [Sprint 1](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-1)| 25/03/2024 à 14/04/2024 | Landing Zone |
 | [Sprint 2](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-2) | 15/04/2024 à 05/05/2024 | Bronze Zone |
-| [Sprint 3](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-3) | 06/05/2024 à 26/05/2024 | Dashboard e controle de usuários |
-| [Sprint 4](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-4) | 27/05/2024 à 16/06/2024 | Silver Zone |
+| [Sprint 3](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-3) | 06/05/2024 à 26/05/2024 | Silver Zone |
+| [Sprint 4](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-4) | 27/05/2024 à 16/06/2024 | Dashboard e controle de usuários |
 
 <div align="left"><hr width=70%></div>
 
