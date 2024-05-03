@@ -29,11 +29,11 @@
         gerar o hash
       </p>
 
-      <div id="alinhamentos">
-        <h2 id="h2BronzeHash">Nome do arquivo:</h2>
-        <p id="parchive" v-text="nameFile"></p>
-      </div>
       <div id="table-container" style="overflow-x: auto">
+        <div id="alinhamentos">
+          <h2 id="h2BronzeHash">Nome do arquivo:</h2>
+          <p id="parchive" v-text="nameFile"></p>
+        </div>
         <table>
           <thead>
             <tr>
@@ -56,11 +56,10 @@
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div id="buttons">
-        <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
-        <button id="btnSalvar" @click="salvarHash()">Salvar</button>
+        <div id="buttons">
+          <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
+          <button id="btnSalvar" @click="salvarHash()">Salvar</button>
+        </div>
       </div>
     </main>
   </div>

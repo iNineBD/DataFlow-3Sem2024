@@ -82,7 +82,7 @@ th {
 #h1BronzeHash {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 #pBronzeHash {
@@ -91,10 +91,7 @@ th {
 }
 
 #h2BronzeHash {
-    padding: 20px 10px 20px 0px;
-    display: flex;
-    align-items: center;
-    margin-left: 350px;
+    padding: 20px 10px 10px 0;
 }
 
 #parchive {
@@ -105,8 +102,11 @@ th {
 }
 
 #alinhamentos {
-    display: flex;
-    flex-direction: row;
+    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
+    align-items: baseline; /* Alinhar os elementos pela linha de base */
+    margin: 0 auto; /* Centralizar */
+    max-width: 800px; /* Largura máxima */
+    margin-left: 0px;
 }
 
 #centralizar {
@@ -119,10 +119,10 @@ th {
 }
 
 #table-container {
-    max-height: 480px;
+    max-height: 400px; /* altura máxima */
     overflow-y: auto;
-    margin: 0px 350px;
-}
+    margin: 0 auto; /* centralizar */
+    max-width: 1000px; /* largura máxima */
 
 .even-row {
     background-color: #ffffff;
@@ -141,7 +141,7 @@ th {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 10px 10px 35px;
+    margin: 0px 10px 10px 35px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -153,13 +153,13 @@ th {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 0px 10px 10px;
+    margin: 0px 0px 10px 10px;
     font-size: 15px;
     font-weight: 600;
 }
 
 #buttons {
+    margin-top: 20px;
     display: flex;
     justify-content: right;
-    margin-right: 350px;
-}
+}}

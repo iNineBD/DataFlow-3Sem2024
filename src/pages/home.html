@@ -25,6 +25,7 @@
         <nav>
           <a href="home.html">Home</a>
           <a href="upload-csv.html">Importar novo Arquivo</a>
+          <a href="cadastro_master.html" v-if="emailbtn === 'master@gmail.com'">Cadastrar Novo Usuario</a>
           <a href="#"
             ><img
               src="/src/assets/images/foto-perfil-branco.png"
@@ -82,7 +83,6 @@
                 </div>
               </td>
               <td>
-                <div id="centralizar">
                   <a href="#" @click="checkExclud(file)">
                     <span
                       class="material-symbols-outlined"
@@ -91,7 +91,6 @@
                       delete
                     </span>
                   </a>
-                </div>
               </td>
             </tr>
           </tbody>
@@ -105,6 +104,7 @@
         data: {
           files: [],
           userName: sessionStorage.getItem("nomeUsuarioSessao"),
+          emailbtn: sessionStorage.getItem("usuario")
         },
         mounted() {
           // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto

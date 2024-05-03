@@ -96,7 +96,7 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table th:nth-child(1), #table td:nth-child(1) {
-    width: 40%; /* Defina a largura desejada para a primeira coluna */
+    width: 30%; /* Defina a largura desejada para a primeira coluna */
 }
 
 #table th:nth-child(2), #table td:nth-child(2) {
@@ -104,5 +104,11 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table th:nth-child(3), #table td:nth-child(3) {
-    width: 25%; /* Defina a largura desejada para a terceira coluna */
+    width: 35%; /* Defina a largura desejada para a terceira coluna */
+}
+
+#table td:nth-child(4) {
+    align-items: center;
+    text-align: center; /* Alinha o texto horizontalmente no centro */
+    vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
 }

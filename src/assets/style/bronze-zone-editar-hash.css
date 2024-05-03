@@ -7,8 +7,8 @@
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: var(--fonte-padrao);
 }
 
@@ -52,13 +52,16 @@ body {
 }
 
 main > h1 {
-    margin: 20px 35px 20px 35px;
+    margin: 20px 35px;
+    text-align: center;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     overflow-x: auto;
+    margin: 0 auto; /* centralizar a tabela */
+    text-align: center;
 }
 
 thead {
@@ -67,16 +70,20 @@ thead {
     z-index: 1;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
+td {
+    padding: 12px;
+    text-align: center;
     border-bottom: 1px solid #CED4DA;
     word-wrap: break-word;
-    width: 41%;
 }
 
 th {
+    padding: 12px;
+    text-align: center; /* Alinhamento à esquerda */
+    border-bottom: 1px solid #CED4DA;
+    word-wrap: break-word;
     background-color: #cdcdcd;
+    width: calc(100% / 3); /* Divide igualmente o espaço disponível entre as três colunas */
 }
 
 #h1BronzeHash {
@@ -86,9 +93,7 @@ th {
 }
 
 #h2BronzeHash {
-    padding: 30px 10px 20px 0px;
-    display: flex;
-    align-items: center;
+    padding: 20px 10px 10px 0;
 }
 
 #pBronzeHash {
@@ -97,8 +102,6 @@ th {
 }
 
 #parchive {
-    display: flex;
-    align-items: center;
     padding-top: 14px;
     font-size: 20px;
 }
@@ -108,14 +111,11 @@ th {
     align-items: center;
 }
 
-#checkbox-cell {
-    padding-left: 70px;
-}
-
 #table-container {
-    max-height: 310px;
+    max-height: 400px; /* altura máxima */
     overflow-y: auto;
-    margin: 0px 450px;
+    margin: 0 auto; /* centralizar */
+    max-width: 1000px; /* largura máxima */
 }
 
 .even-row {
@@ -153,14 +153,17 @@ th {
 }
 
 #buttons {
+    margin-top: 20px;
     display: flex;
     justify-content: right;
 }
 
 #alinhamentos {
-    display: flex;
-    flex-direction: row;
-    margin: 0px 450px;
+    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
+    align-items: baseline; /* Alinhar os elementos pela linha de base */
+    margin: 0 auto; /* Centralizar */
+    max-width: 800px; /* Largura máxima */
+    margin-left: 0px;
 }
 
 #container {
@@ -187,5 +190,3 @@ th {
 .apagado {
     opacity: 0.6;
 }
-
-
