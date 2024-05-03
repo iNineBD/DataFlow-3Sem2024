@@ -1,114 +1,150 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 :root {
-    --fonte-padrao: 'Inter', sans-serif;
+  --fonte-padrao: "Inter", sans-serif;
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: var(--fonte-padrao);
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--fonte-padrao);
 }
 
 header {
-    background-color: #021F4E;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: #021f4e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 header #logo {
-    margin: 30px;
+  margin: 30px;
 }
 
 nav {
-    margin-right: 20px;
-    align-items: center;
-    display: flex;
+  margin-right: 20px;
+  align-items: center;
+  display: flex;
 }
 
 nav a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 20px;
-    font-weight: 600;
-    font-size: large;
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: large;
 }
 
 nav a img {
-    height: 50px;
+  height: 50px;
 }
 
 nav > a:hover {
-    color: #02BBCA;
+  color: #02bbca;
 }
 
 body {
-    background: white;
+  background: white;
 }
 
-main > h1,h2,h3 {
-    margin: 20px 35px 20px 35px;
+main > h1,
+h2,
+h3 {
+  margin: 20px 35px 20px 35px;
 }
 
 table {
-    width: calc(100% - 70px);
-    border-collapse: collapse;
-    margin: 0 35px;
-    overflow-x: auto;
+  width: calc(100% - 70px);
+  border-collapse: collapse;
+  margin: 0 35px;
+  overflow-x: auto;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #CED4DA;
-    word-wrap: break-word;
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ced4da;
+  word-wrap: break-word;
 }
 
 th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 #img-table {
-    height: 16px;
-    margin: 0 6px 0 0;
+  height: 16px;
+  margin: 0 6px 0 0;
 }
 
 #centralizar {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 tbody > tr > td > div > abbr > img {
-    height: 25px;
+  height: 25px;
 }
 
 tbody > tr > td > div > abbr > img:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .status-cell {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-#table th:nth-child(1), #table td:nth-child(1) {
-    width: 30%; /* Defina a largura desejada para a primeira coluna */
+#table th:nth-child(1),
+#table td:nth-child(1) {
+  width: 30%; /* Defina a largura desejada para a primeira coluna */
 }
 
-#table th:nth-child(2), #table td:nth-child(2) {
-    width: 35%; /* Defina a largura desejada para a segunda coluna */
+#table th:nth-child(2),
+#table td:nth-child(2) {
+  width: 35%; /* Defina a largura desejada para a segunda coluna */
 }
 
-#table th:nth-child(3), #table td:nth-child(3) {
-    width: 35%; /* Defina a largura desejada para a terceira coluna */
+#table th:nth-child(3),
+#table td:nth-child(3) {
+  width: 35%; /* Defina a largura desejada para a terceira coluna */
 }
 
 #table td:nth-child(4) {
-    align-items: center;
-    text-align: center; /* Alinha o texto horizontalmente no centro */
-    vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
+  align-items: center;
+  text-align: center; /* Alinha o texto horizontalmente no centro */
+  vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
+}
+
+.dropdown {
+  position: relative;
+  display: flex; /* Usando flexbox */
+  align-items: center; /* Centralizando verticalmente */
+}
+
+.dropdown-menu {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    top: 50px;
+    left: -50px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px black;
+    background-color: white;
+    padding: 5px;
+    display: flex; /* Usando flexbox para centralizar verticalmente */
+    justify-content: center; /* Centralizando horizontalmente */
+    align-items: center; /* Centralizando verticalmente */
+}
+
+.dropdown-menu a {
+  font-size: 15px;
+  display: block;
+  color: black;
+  padding: 5px 10px;
+  text-decoration: none;
+  width: 10px;
 }
