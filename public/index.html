@@ -89,19 +89,10 @@
                 sessionStorage.setItem("authToken", responseJson.response.token)
                 sessionStorage.setItem("usuario", responseJson.response.email)
                 sessionStorage.setItem("nomeUsuarioSessao", responseJson.response.nomeUsuario)
-                Swal.fire({
-                  title: "Sucesso",
-                  text: responseJson.critica,
-                  icon: "success",
-                  confirmButtonText: "OK",
-                }).then((result) => {
-                  // Limpar os campos após o cadastro
+                this.emailUsuario = null;
+                this.senha = null;
 
-                  this.emailUsuario = null;
-                  this.senha = null;
-
-                  window.location.href = "/src/pages/home.html";
-                });
+                window.location.href = "/src/pages/home.html";
               }
             })
         },
