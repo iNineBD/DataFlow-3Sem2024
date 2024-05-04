@@ -30,11 +30,13 @@
             <p id="pBronzeHash">Você está visualizando os metadados que foram utilizados para criar o hash!</p>
             <p id="pBronzeHash">Para editá-los, clique no botão "Editar".</p>
 
+            <div id="alinhamentos">
+                <h2 id="h2BronzeHash">Nome do arquivo:</h2>
+                <p id="parchive" v-text="nameFile"></p>
+            </div>
+
             <div id="table-container" style="overflow-x: auto">
-                <div id="alinhamentos">
-                    <h2 id="h2BronzeHash">Nome do arquivo:</h2>
-                    <p id="parchive" v-text="nameFile"></p>
-                </div>
+
                 <table class="apagado">
                     <thead>
                         <tr>
@@ -52,17 +54,15 @@
                         </tr>
                     </tbody>
                 </table>
-                <div id="buttons">
-                    <a href="home.html">
-                        <button id="btnCancelar">Cancelar</button>
-                    </a>
-                    <a href="bronze-zone-editar-hash.html">
-                        <button id="btnEditar">Editar</button>
-                    </a>
-                </div>
             </div>
-
-
+            <div id="buttons">
+                <a href="navegation.html">
+                    <button id="btnCancelar">Voltar</button>
+                </a>
+                <a href="bronze-zone-editar-hash.html">
+                    <button id="btnEditar">Editar</button>
+                </a>
+            </div>
         </main>
     </div>
 

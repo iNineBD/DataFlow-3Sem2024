@@ -157,6 +157,7 @@ th {
     margin-top: 20px;
     display: flex;
     justify-content: right;
+    margin-right: 260px;
 }
 
 #alinhamentos {
@@ -164,7 +165,7 @@ th {
     align-items: baseline; /* Alinhar os elementos pela linha de base */
     margin: 0 auto; /* Centralizar */
     max-width: 800px; /* Largura máxima */
-    margin-left: 0px;
+    margin-left: 267px;
 }
 
 #container {

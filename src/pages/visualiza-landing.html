@@ -51,7 +51,7 @@
           <tr v-for="(item, index) in data" :key="index">
             <td>
               <!--campo ativo-->
-              <input type="checkbox" value="true" checked v-model="item.ativo" disabled />
+              <input class="checkboxAtivo" type="checkbox" value="true" checked v-model="item.ativo" disabled />
             </td>
             <!--campo exemplo-->
             <td><input type="text" v-model="item.nome" disabled /></td>
@@ -67,7 +67,7 @@
             </td>
             <!--coluna obrigatoprio-->
             <td>
-              <input type="checkbox" value="" v-model="item.obrigatorio" disabled />
+              <input type="checkbox" value="" v-model="item.obrigatorio" disabled class="checkboxObrigatorio" />
             </td>
             <!--coluna tamanho maximo-->
             <td>

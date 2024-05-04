@@ -50,7 +50,7 @@
           <tr v-for="(item, index) in data" :key="index">
             <td>
               <!--campo ativo-->
-              <input type="checkbox" value="true" checked v-model="item.ativo" disabled />
+              <input type="checkbox" value="true" checked v-model="item.ativo" class="checkboxAtivo" disabled />
             </td>
             <!--campo exemplo-->
             <td><input type="text" v-model="item.nome" disabled /></td>
@@ -66,7 +66,7 @@
             </td>
             <!--coluna obrigatoprio-->
             <td>
-              <input type="checkbox" value="" v-model="item.obrigatorio" disabled />
+              <input type="checkbox" value="" v-model="item.obrigatorio" class="checkboxObrigatorio" disabled />
             </td>
             <!--coluna tamanho maximo-->
             <td>
@@ -86,8 +86,8 @@
         <input type="text" id="inputObs" v-model="observacao" />
       </div>
       <div class="right-section">
-        <a href="home.html">
-          <button id="btnCancelar">Cancelar</button>
+        <a href="navegation.html">
+          <button id="btnCancelar">Voltar</button>
         </a>
         <button id="btnReprovado" @click="reprovarArquivo()">
           Reprovado

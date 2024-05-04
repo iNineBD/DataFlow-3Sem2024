@@ -109,7 +109,7 @@ th {
     align-items: baseline; /* Alinhar os elementos pela linha de base */
     margin: 0 auto; /* Centralizar */
     max-width: 800px; /* Largura máxima */
-    margin-left: 0px;
+    margin-left: 268px;
 }
 
 #table-container {
@@ -156,7 +156,8 @@ th {
 #buttons {
     display: flex;
     justify-content: right;
-    padding-top: 20px;
+    margin-top: 20px;
+    margin-right: 260px;
 }
 
 .apagado {
