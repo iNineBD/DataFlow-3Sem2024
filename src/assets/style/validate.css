@@ -37,6 +37,7 @@ nav a {
   margin-right: 20px;
   font-weight: 600;
   font-size: large;
+  cursor: pointer;
 }
 
 nav a img {
@@ -123,7 +124,7 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #h2Landing {
-  margin-left: 40px;
+  margin-left: 35px;
   padding: 20px 10px 20px 0px;
   display: flex;
   align-items: center;
