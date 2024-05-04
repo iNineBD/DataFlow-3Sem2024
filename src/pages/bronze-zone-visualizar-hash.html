@@ -82,6 +82,10 @@
                 this.visualizarMetadadosDoHash();
             },
             methods: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "../../public/index.html"
+                },
                 visualizarMetadadosDoHash() {
                     const objetoParaEnviar = {
                         nomeArquivo: this.nameFile,

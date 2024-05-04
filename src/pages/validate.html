@@ -139,6 +139,10 @@
       this.importarDadosHome();
     },
     methods: {
+      deslogar() {
+        sessionStorage.removeItem("usuario")
+        window.location.href = "../../public/index.html"
+      },
       //função para acionar a extrasão de dados
       aprovarArquivo() {
         // Construindo o objeto completo

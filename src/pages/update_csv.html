@@ -24,8 +24,8 @@
         <a href="home.html">Home</a>
         <a href="upload-csv.html">Importar Arquivo</a>
         <a @click="deslogar()"><span class="material-symbols-outlined">
-          logout
-        </span></a>
+            logout
+          </span></a>
       </nav>
     </header>
 
@@ -135,6 +135,10 @@
         this.importarDadosHome();
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         //função para acionar a extrasão de dados
         adicionarMetadados() {
           let metadados = [];

@@ -22,8 +22,8 @@
       <nav>
         <a href="home.html">Home</a>
         <a @click="deslogar()"><span class="material-symbols-outlined">
-          logout
-        </span></a>
+            logout
+          </span></a>
       </nav>
     </header>
 
@@ -66,6 +66,10 @@
         this.importScreenNavegation();
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         importScreenNavegation() {
           const objetoNav = {
             email: sessionStorage.getItem("usuario"),

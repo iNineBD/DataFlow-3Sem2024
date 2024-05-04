@@ -126,6 +126,10 @@
         data: test,
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         //função para acionar a extrasão de dados
         adicionarMetadados() {
           let metadados = [];

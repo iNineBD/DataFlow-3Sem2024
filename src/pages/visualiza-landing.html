@@ -132,6 +132,10 @@
       this.importarDadosHome();
     },
     methods: {
+      deslogar() {
+        sessionStorage.removeItem("usuario")
+        window.location.href = "../../public/index.html"
+      },
       importarDadosHome() {
         fetch("http://localhost:8080/landing/search", {
           method: "POST",
