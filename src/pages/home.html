@@ -1,221 +1,202 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/src/utils/vue.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="/src/assets/style/index-home.css" />
-    <title>Home</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <header>
-        <img
-          src="/src/assets/images/logo-dom-rock.png"
-          alt="logo-dom-rock"
-          id="logo"
-        />
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="upload-csv.html">Importar novo Arquivo</a>
-          <a href="#"
-            ><img
-              src="/src/assets/images/foto-perfil-branco.png"
-              alt="foto-perfil-branco"
-              id="fotoPerfilIcon"
-          /></a>
-        </nav>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/src/utils/vue.js"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" href="/src/assets/style/index-home.css" />
+  <title>Home</title>
+</head>
 
-      <main>
-        <h1>Bem-Vindo, <span v-text="userName"></span></h1>
-        <h3>Clique no arquivo desejado, e escolha a proxima etapa</h3>
+<body>
+  <div id="app">
+    <header>
+      <img src="/src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a href="cadastro_master.html" v-if="emailbtn === 'master@gmail.com'">Cadastrar Usuario</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+          logout
+          </span></a>
+      </nav>
+    </header>
 
-        <table id="table">
-          <thead>
-            <tr>
-              <th>Nome do Arquivo</th>
-              <th>Organização</th>
-              <th>Status</th>
-              <th>Excluir</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(file, index) in files" :key="index">
-              <td>
-                <div id="centralizar">
-                  <img
-                    src="/src/assets/images/arquivo.png"
-                    alt="arquivo"
-                    id="img-table"
-                  />
-                  <a href="#" @click="viewFileDetails(file)"
-                    >{{ file.nomeArquivo }}</a
-                  >
-                </div>
-              </td>
-              <td>
-                <div id="centralizar">
-                  <img
-                    src="/src/assets/images/organizacao.png"
-                    alt="organizacao"
-                    id="img-table"
-                  />
-                  {{ file.organizacao }}
-                </div>
-              </td>
-              <td class="status-cell">
-                <div id="centralizar">
-                  <img
-                    src="/src/assets/images/status-amarelo.png"
-                    alt="status-amarelo"
-                    id="img-table"
-                  />
-                  {{ file.status }}
-                </div>
-              </td>
-              <td>
-                <div id="centralizar">
-                  <a href="#" @click="checkExclud(file)">
-                    <span
-                      class="material-symbols-outlined"
-                      style="color: rgb(221, 24, 24)"
-                    >
-                      delete
-                    </span>
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </main>
-    </div>
+    <main>
+      <h1>Bem-Vindo, <span v-text="userName"></span></h1>
+      <h3>Clique no arquivo desejado, e escolha a proxima etapa</h3>
 
-    <script>
-      const app = new Vue({
-        el: "#app",
-        data: {
-          files: [],
-          userName: sessionStorage.getItem("nomeUsuarioSessao"),
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Nome do Arquivo</th>
+            <th>Organização</th>
+            <th>Status</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(file, index) in files" :key="index">
+            <td>
+              <div id="centralizar">
+                <img src="/src/assets/images/arquivo.png" alt="arquivo" id="img-table" />
+                <a href="#" @click="viewFileDetails(file)">{{ file.nomeArquivo }}</a>
+              </div>
+            </td>
+            <td>
+              <div id="centralizar">
+                <img src="/src/assets/images/organizacao.png" alt="organizacao" id="img-table" />
+                {{ file.organizacao }}
+              </div>
+            </td>
+            <td class="status-cell">
+              <div id="centralizar">
+                <img src="/src/assets/images/status-amarelo.png" alt="status-amarelo" id="img-table" />
+                {{ file.status }}
+              </div>
+            </td>
+            <td>
+              <a href="#" @click="checkExclud(file)">
+                <span class="material-symbols-outlined" style="color: rgb(221, 24, 24)">
+                  delete
+                </span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        files: [],
+        userName: sessionStorage.getItem("nomeUsuarioSessao"),
+        emailbtn: sessionStorage.getItem("usuario"),
+        showDropdown: false
+      },
+      mounted() {
+        // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto
+        this.loadUserData(sessionStorage.getItem("usuario"));
+      },
+      methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
         },
-        mounted() {
-          // Carregar os dados do usuário ao abrir a página, usuário fixo por enquanto
-          this.loadUserData(sessionStorage.getItem("usuario"));
-        },
-        methods: {
-          loadUserData(email) {
-            console.log(sessionStorage.getItem("usuario"))
-            console.log(sessionStorage.getItem("authToken"))
+        loadUserData(email) {
+          console.log(sessionStorage.getItem("usuario"))
+          console.log(sessionStorage.getItem("authToken"))
 
-            fetch("http://localhost:8080/home/files/find", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-              },
-              body: JSON.stringify({ email: email }),
-            })
+          fetch("http://localhost:8080/home/files/find", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify({ email: email }),
+          })
 
-              .then((response) => response.json())
+            .then((response) => response.json())
 
-              .then((data) => {
-                if (data && data.response) {
-                  // Concatenar as listas de arquivos de todas as categorias
-                  const allFiles = [...data.response.allArquivos];
+            .then((data) => {
+              if (data && data.response) {
+                // Concatenar as listas de arquivos de todas as categorias
+                const allFiles = [...data.response.allArquivos];
 
-                  // Mapear os arquivos para o formato desejado
-                  this.files = allFiles.map((arquivo) => {
-                    return {
-                      nomeArquivo: arquivo.nome,
-                      organizacao: arquivo.organizacao,
-                      status: arquivo.status,
-                    };
-                  });
-                }
-              })
-              .catch((error) => {
-                console.error("Erro ao carregar os dados do usuário:", error);
-              });
-          },
-          viewFileDetails(file) {
-            localStorage.setItem("fileName", file.nomeArquivo);
-            localStorage.setItem("status", file.status);
-
-            window.location.href = "navegation.html";
-          },
-          checkExclud(file) {
-            Swal.fire({
-              title: "Tem certeza?",
-              text: "Esta ação não pode ser desfeita!",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Sim",
-              cancelButtonText: "Cancelar",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                this.excludeFile(file);
+                // Mapear os arquivos para o formato desejado
+                this.files = allFiles.map((arquivo) => {
+                  return {
+                    nomeArquivo: arquivo.nome,
+                    organizacao: arquivo.organizacao,
+                    status: arquivo.status,
+                  };
+                });
               }
-            });
-          },
-          excludeFile(file) {
-            console.log(file);
-
-            // Construindo o objeto completo
-            const objetoCompleto = {
-              nomeArquivo: file.nomeArquivo,
-              usuario: sessionStorage.getItem("usuario"),
-              usuarioOrg: file.organizacao,
-            };
-
-            //Enviar dados para o backend
-            fetch("http://localhost:8080/home/files", {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-              },
-              body: JSON.stringify(objetoCompleto),
             })
-              .then((response) => {
-                return response.json();
-              })
-              .then((responseJson) => {
-                if (
-                  responseJson.critica !== "Processamento efetuado com sucesso"
-                ) {
-                  Swal.fire({
-                    title: "Erro",
-                    text: responseJson.critica,
-                    icon: "error", // Ícone personalizado (success, error, warning, info)
-                    confirmButtonText: "OK", // Texto do botão de confirmação
-                  });
-                  return;
-                } else {
-                  Swal.fire({
-                    title: "Sucesso",
-                    text: responseJson.critica,
-                    icon: "success", // Ícone personalizado (success, error, warning, info)
-                    confirmButtonText: "OK", // Texto do botão de confirmação
-                  }).then((result) => {
-                    window.location.href = "home.html";
-                  });
-                }
-                // Lidar com a resposta do backend aqui se necessário
-              });
-          },
+            .catch((error) => {
+              console.error("Erro ao carregar os dados do usuário:", error);
+            });
         },
-      });
-    </script>
-    <script src="/src/utils/hover-icon-change-home.js"></script>
-  </body>
+        viewFileDetails(file) {
+          localStorage.setItem("fileName", file.nomeArquivo);
+          localStorage.setItem("status", file.status);
+
+          window.location.href = "navegation.html";
+        },
+        checkExclud(file) {
+          Swal.fire({
+            title: "Tem certeza?",
+            text: "Esta ação não pode ser desfeita!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.excludeFile(file);
+            }
+          });
+        },
+        excludeFile(file) {
+          console.log(file);
+
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            nomeArquivo: file.nomeArquivo,
+            usuario: sessionStorage.getItem("usuario"),
+            usuarioOrg: file.organizacao,
+          };
+
+          //Enviar dados para o backend
+          fetch("http://localhost:8080/home/files", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  window.location.href = "home.html";
+                });
+              }
+              // Lidar com a resposta do backend aqui se necessário
+            });
+        },
+      },
+    });
+  </script>
+  <script src="/src/utils/hover-icon-change-home.js"></script>
+</body>
+
 </html>

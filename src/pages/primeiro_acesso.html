@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../assets/style/primeiro-acesso.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Primeiro Acesso</title>
 </head>
 
@@ -18,11 +20,9 @@
         <header>
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
             <nav>
-                <a href="home.html">Home</a>
-                <a href="upload-csv.html">Importar novo Arquivo</a>
-                <a href="#">
-                    <img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon">
-                </a>
+                <a @click="deslogar()"><span class="material-symbols-outlined">
+                        close
+                    </span></a>
             </nav>
         </header>
 
@@ -47,16 +47,20 @@
                 <div class="campoPassword">
                     <label>Nova senha <font color="red">*</font></label>
                     <input type="password" id="senha" v-model="senha" class="senha" required />
-                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png" class="eyeSenha1">
+                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png"
+                        class="eyeSenha1">
                 </div>
                 <div class="campoPassword">
                     <label>Confirmar senha <font color="red">*</font></label>
-                    <input type="password" id="confirmarSenha" v-model="confirmarSenha" class="confirmarSenha" required />
-                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png" class="eyeSenha2">
+                    <input type="password" id="confirmarSenha" v-model="confirmarSenha" class="confirmarSenha"
+                        required />
+                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png"
+                        class="eyeSenha2">
                 </div>
                 <p v-if="senha !== '' && senha !== confirmarSenha" class="alertaSenha">As senhas não coincidem</p>
-                <p v-if="confirmarSenha !== null && confirmarSenha !== '' && confirmarSenha.length < 8" class="alertaMin">A senha deve ter no mínimo 8 caracteres</p>
-                
+                <p v-if="confirmarSenha !== null && confirmarSenha !== '' && confirmarSenha.length < 8"
+                    class="alertaMin">A senha deve ter no mínimo 8 caracteres</p>
+
                 <div class="campoTexto">
                     <label>Token<font color="red">*</font></label>
                     <input type="text" id="token" v-model="token" required />
@@ -73,19 +77,19 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var input = document.querySelector('.senha');
             var img = document.querySelector('.eyeSenha1');
-            
+
             img.addEventListener('click', function () {
                 input.type = input.type === 'password' ? 'text' : 'password';
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var input = document.querySelector('.confirmarSenha');
             var img = document.querySelector('.eyeSenha2');
-            
+
             img.addEventListener('click', function () {
                 input.type = input.type === 'password' ? 'text' : 'password';
             });
@@ -102,6 +106,10 @@
                 token: null,
             },
             methods: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "../../public/index.html"
+                },
                 adicionarDados() {
                     // Criar um objeto para armazenar os dados do usuário
                     let validacaoUsuario = {
@@ -147,7 +155,7 @@
                                     this.senha = null;
                                     this.token = null;
                                     //voltar pada index
-                                    window.location.href = "../public/index.html";
+                                    window.location.href = "../../public/index.html";
                                 });
                             }
                         });

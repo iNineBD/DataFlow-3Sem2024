@@ -20,14 +20,14 @@
       <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
       <nav>
         <a href="home.html">Home</a>
-        <a href="upload-csv.html">Importar novo Arquivo</a>
-        <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
-            id="fotoPerfilIcon" /></a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+            logout
+          </span></a>
       </nav>
     </header>
 
     <main>
-      <h1 id="h1Cadastrar">Cadastrar usuário</h1>
+      <h1 id="h1Cadastrar">Cadastrar Usuário</h1>
       <div id="instrucoes">
         <p>
           Para cadastrar um usuário é necessário preencher corretamente os
@@ -66,12 +66,12 @@
             <label class="checkNivel">Silver</label>
           </div>
         </div>
-        <div class="campoTexto">
+        <div class="campoTexto" id="org">
           <label>CNPJ da organização <font color="red">*</font></label>
           <input type="text" id="cnpj" v-model="cnpjOrg" />
           <p v-if="!cnpjValido && cnpjOrg !== ''">CNPJ inválido</p>
         </div>
-        <div class="campoTexto">
+        <div class="campoTexto" id="org2">
           <label>Razão social <font color="red">*</font></label>
           <input type="text" id="nome" v-model="razaoSocial" />
         </div>
@@ -99,6 +99,14 @@
         cnpjValido: true,
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         adicionarDados() {
           // Criar um objeto para armazenar os dados do usuário
           let novoUsuario = {
@@ -180,21 +188,18 @@
             outrasCaixasSelecao.forEach((caixaSelecao) => {
               caixaSelecao.checked = false;
             });
+            document.querySelector('#org').style.display = 'none';
+            document.querySelector('#org2').style.display = 'none';
           } else {
+            document.querySelector('#org').style.display = 'block';
+            document.querySelector('#org2').style.display = 'block';
             // Verifica se todas as outras caixas de seleção foram marcadas
             const todasAsOutrasMarcadas = Array.from(
               outrasCaixasSelecao
             ).every((caixaSelecao) => caixaSelecao.checked);
 
             // Se todas as outras caixas de seleção foram marcadas
-            if (todasAsOutrasMarcadas) {
-              // Marca a caixa de seleção "Full" e desmarca as outras
-              caixaSelecaoFull.checked = true;
-              outrasCaixasSelecao.forEach((caixaSelecao) => {
-                caixaSelecao.checked = false;
-                
-              });
-            } else {
+            if (!todasAsOutrasMarcadas)  {
               // Habilita todas as outras caixas de seleção
               outrasCaixasSelecao.forEach((caixaSelecao) => {
                 caixaSelecao.disabled = false;

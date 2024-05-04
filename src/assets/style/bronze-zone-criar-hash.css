@@ -7,8 +7,8 @@
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: var(--fonte-padrao);
 }
 
@@ -37,28 +37,25 @@ nav a {
     margin-right: 20px;
     font-weight: 600;
     font-size: large;
+    cursor: pointer;
 }
 
 nav a img {
     height: 50px;
 }
 
-nav>a:hover {
+nav a:hover {
     color: #02BBCA;
 }
 
-body {
-    background: white;
-}
-
-main>h1 {
-    margin: 20px 35px 20px 35px;
+main h1 {
+    margin: 20px 35px;
+    text-align: center; /* Centralizando o texto */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    overflow-x: auto;
 }
 
 thead {
@@ -72,29 +69,20 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #CED4DA;
     word-wrap: break-word;
-    width: 17%;
 }
 
 th {
     background-color: #cdcdcd;
 }
 
-#h1BronzeHash {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
+#h1BronzeHash,
 #pBronzeHash {
-    display: flex;
-    justify-content: center;
+    text-align: center; /* Centralizando o texto */
+    margin-bottom: 20px;
 }
 
 #h2BronzeHash {
-    padding: 20px 10px 20px 0px;
-    display: flex;
-    align-items: center;
-    margin-left: 350px;
+    padding: 20px 10px 10px 0;
 }
 
 #parchive {
@@ -105,13 +93,15 @@ th {
 }
 
 #alinhamentos {
-    display: flex;
-    flex-direction: row;
+    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
+    align-items: baseline; /* Alinhar os elementos pela linha de base */
+    margin: 0 auto; /* Centralizar */
+    max-width: 800px; /* Largura máxima */
+    margin-left: 267px;
 }
 
-#centralizar {
-    display: flex;
-    align-items: center;
+#parchive {
+    font-size: 20px;
 }
 
 #checkbox-cell {
@@ -119,19 +109,18 @@ th {
 }
 
 #table-container {
-    max-height: 480px;
+    max-height: 400px;
     overflow-y: auto;
-    margin: 0px 350px;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 .even-row {
     background-color: #ffffff;
-    /* Cor de fundo para linhas pares */
 }
 
 .odd-row {
     background-color: #f2f2f2;
-    /* Cor de fundo para linhas ímpares */
 }
 
 #btnCancelar {
@@ -141,7 +130,7 @@ th {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 10px 10px 35px;
+    margin: 0 10px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -153,13 +142,14 @@ th {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 0px 10px 10px;
+    margin: 0 10px;
     font-size: 15px;
     font-weight: 600;
 }
 
 #buttons {
+    margin-top: 20px;
     display: flex;
-    justify-content: right;
-    margin-right: 350px;
+    justify-content: right; /* Centralizando os botões horizontalmente */
+    margin-right: 259px;
 }

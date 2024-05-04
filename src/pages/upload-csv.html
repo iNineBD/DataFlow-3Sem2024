@@ -1,189 +1,179 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../utils/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="../assets/style/upload-csv.css" />
-    <title>Upload Arquivo</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <header>
-        <img
-          src="../assets/images/logo-dom-rock.png"
-          alt="logo-dom-rock"
-          id="logo"
-        />
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="upload-csv.html">Importar novo Arquivo</a>
-          <a href="#"
-            ><img
-              src="../assets/images/foto-perfil-branco.png"
-              alt="foto-perfil-branco"
-              id="fotoPerfilIcon"
-          /></a>
-        </nav>
-      </header>
-      <main>
-        <form
-          @submit.prevent="submitForm"
-          enctype="multipart/form-data"
-          @dragover.prevent
-          @drop="handleDrop"
-        >
-          <div id="fileUploadModal">
-            <div class="retangulo-align">
-              <div class="retangulo">
-                <label for="cabecalhoDropdown">O Arquivo tem Cabeçalho?</label
-                ><br />
-                <select id="cabecalhoDropdown" v-model="cabecalho">
-                  <option value="true">Sim</option>
-                  <option value="false">Não</option>
-                </select>
-              </div>
-              <div class="retangulo">
-                <label for="delimitadorDropdown">Delimitador das Colunas:</label
-                ><br /><br />
-                <select id="delimitadorDropdown" v-model="delimiter">
-                  <option value=",">Vírgula (,)</option>
-                  <option value=".">Ponto (.)</option>
-                  <option value="/">Barra (/)</option>
-                  <option value=";">Ponto e Vírgula (;)</option>
-                </select>
-              </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="../utils/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link rel="stylesheet" href="../assets/style/upload-csv.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <title>Upload Arquivo - Landing Zone</title>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+            logout
+          </span></a>
+      </nav>
+    </header>
+    <main>
+      <form @submit.prevent="submitForm" enctype="multipart/form-data" @dragover.prevent @drop="handleDrop">
+        <div id="fileUploadModal">
+          <div class="retangulo-align">
+            <div class="retangulo">
+              <label for="cabecalhoDropdown">O Arquivo tem Cabeçalho?</label><br />
+              <select id="cabecalhoDropdown" v-model="cabecalho">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+              </select>
             </div>
-            <input
-              type="file"
-              name="csvfile"
-              accept=".csv, .xlsx"
-              hidden
-              id="fileInput"
-              @change="updateUploadArea"
-            />
-            <label for="fileInput">
-              <div id="uploadArea">
-                <img src="../assets/images/csv-azul.png" alt="csv-azul" />
-                <h2>
-                  {{ fileName || 'Clique para selecionar um arquivo Arquivo' }}
-                </h2>
-                <p>{{ paragraph || 'ou arraste e solte aqui' }}</p>
-              </div>
-            </label>
-            <button type="button" @click="cancelUpload">Cancelar</button>
-            <button type="submit">Fazer Upload</button>
+            <div class="retangulo">
+              <label for="delimitadorDropdown">Delimitador das Colunas:</label><br /><br />
+              <select id="delimitadorDropdown" v-model="delimiter">
+                <option value=",">Vírgula (,)</option>
+                <option value=".">Ponto (.)</option>
+                <option value="/">Barra (/)</option>
+                <option value=";">Ponto e Vírgula (;)</option>
+              </select>
+            </div>
           </div>
-        </form>
-      </main>
-    </div>
+          <input type="file" name="csvfile" accept=".csv, .xlsx" hidden id="fileInput" @change="updateUploadArea" />
+          <label for="fileInput">
+            <div id="uploadArea">
+              <img src="../assets/images/csv-azul.png" alt="csv-azul" />
+              <h2>
+                {{ fileName || 'Clique para selecionar um arquivo Arquivo' }}
+              </h2>
+              <p>{{ paragraph || 'ou arraste e solte aqui' }}</p>
+            </div>
+          </label>
+          <button type="button" @click="cancelUpload">Cancelar</button>
+          <button type="submit">Fazer Upload</button>
+        </div>
+      </form>
+    </main>
+  </div>
 
-    <script>
-      const app = new Vue({
-        el: "#app",
-        data: {
-          fileName: null,
-          file: null,
-          paragraph: null,
-          cabecalho: null,
-          delimiter: null,
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        fileName: null,
+        file: null,
+        paragraph: null,
+        cabecalho: null,
+        delimiter: null,
+      },
+      mounted: console.log(sessionStorage.getItem("usuario")),
+      methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
         },
-        methods: {
-          submitForm() {
-            const formData = new FormData();
-            formData.append("multipartFile", this.file);
+        submitForm() {
+          const formData = new FormData();
+          formData.append("multipartFile", this.file);
 
-            // Verificar a extensão do arquivo
-            const fileExtension = this.file.name.split(".").pop().toLowerCase();
-            let contentType = "";
-            if (fileExtension === "csv") {
-              contentType = "text/csv";
-            } else if (fileExtension === "xlsx") {
-              contentType =
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+          // Verificar a extensão do arquivo
+          const fileExtension = this.file.name.split(".").pop().toLowerCase();
+          let contentType = "";
+          if (fileExtension === "csv") {
+            contentType = "text/csv";
+          } else if (fileExtension === "xlsx") {
+            contentType =
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+          }
+
+          console.log("cabeca: ", this.cabecalho);
+
+          fetch(
+            "http://localhost:8080/landing/upload?delimiter=" +
+            this.delimiter +
+            "&header=" +
+            this.cabecalho +
+            "&email=" +
+            sessionStorage.getItem("usuario"),
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+              },
             }
-
-            console.log("cabeca: ", this.cabecalho);
-
-            fetch(
-              "http://localhost:8080/landing/upload?delimiter=" +
-                this.delimiter +
-                "&header=" +
-                this.cabecalho,
-              {
-                method: "POST",
-                body: formData,
-                headers: {
-                  'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-                },
+          )
+            .then((response) => {
+              console.log("STATUS: " + response.status);
+              return response.json();
+            })
+            .then((data) => {
+              if (data.critica != "Processamento efetuado com sucesso") {
+                Swal.fire({
+                  title: "Erro",
+                  text: data.critica,
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                console.log(data.critica);
+                return;
               }
-            )
-              .then((response) => {
-                console.log("STATUS: " + response.status);
-                return response.json();
-              })
-              .then((data) => {
-                if (data.critica != "Processamento efetuado com sucesso") {
-                  Swal.fire({
-                    title: "Erro",
-                    text: data.critica,
-                    icon: "error",
-                    confirmButtonText: "OK",
-                  });
-                  console.log(data.critica);
-                  return;
-                }
-                console.log("Arquivo carregado com sucesso!");
+              console.log("Arquivo carregado com sucesso!");
 
-                const arquivo = {
-                  nome: {
-                    fileName: data.response.fileName,
-                    fileSize: data.response.fileSize,
-                    columns: data.response.columns,
-                  },
-                };
-                localStorage.setItem("arquivoCSV", JSON.stringify(arquivo));
+              const arquivo = {
+                nome: {
+                  fileName: data.response.fileName,
+                  fileSize: data.response.fileSize,
+                  columns: data.response.columns,
+                },
+              };
+              localStorage.setItem("arquivoCSV", JSON.stringify(arquivo));
 
-                console.log(localStorage);
-                console.log("Arquivo salvo no localStorage");
+              console.log(localStorage);
+              console.log("Arquivo salvo no localStorage");
 
-                window.location.href = "landing_zone.html";
-              })
-              .catch((error) => {
-                console.error("Erro:", error);
-              });
-          },
-          cancelUpload() {
-            console.log("Upload cancelado");
-            window.location.href = "home.html";
-          },
-          updateUploadArea(event) {
-            this.fileName = event.target.files[0].name;
-            this.file = event.target.files[0];
-
-            const uploadArea = document.getElementById("uploadArea");
-            const textParagraphElement = uploadArea.querySelector("p");
-
-            textParagraphElement.textContent =
-              this.paragraph || "Clique para selecionar outro ou arraste aqui";
-          },
-          handleDrop(event) {
-            event.preventDefault();
-            const file = event.dataTransfer.files[0];
-            const textParagraphElement = uploadArea.querySelector("p");
-            if (file) {
-              this.fileName = file.name;
-              this.file = file;
-              textParagraphElement.textContent =
-                this.paragraph ||
-                "Clique para selecionar outro ou arraste aqui";
-            }
-          },
+              window.location.href = "landing_zone.html";
+            })
+            .catch((error) => {
+              console.error("Erro:", error);
+            });
         },
-      });
-    </script>
-    <script src="../utils/hover-icon-change-upload-csv.js"></script>
-  </body>
+        cancelUpload() {
+          console.log("Upload cancelado");
+          window.location.href = "home.html";
+        },
+        updateUploadArea(event) {
+          this.fileName = event.target.files[0].name;
+          this.file = event.target.files[0];
+
+          const uploadArea = document.getElementById("uploadArea");
+          const textParagraphElement = uploadArea.querySelector("p");
+
+          textParagraphElement.textContent =
+            this.paragraph || "Clique para selecionar outro ou arraste aqui";
+        },
+        handleDrop(event) {
+          event.preventDefault();
+          const file = event.dataTransfer.files[0];
+          const textParagraphElement = uploadArea.querySelector("p");
+          if (file) {
+            this.fileName = file.name;
+            this.file = file;
+            textParagraphElement.textContent =
+              this.paragraph ||
+              "Clique para selecionar outro ou arraste aqui";
+          }
+        },
+      },
+    });
+  </script>
+  <script src="../utils/hover-icon-change-upload-csv.js"></script>
+</body>
+
 </html>
