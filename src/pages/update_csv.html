@@ -1,265 +1,254 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--VUE IMPORT-->
-    <script src="../utils/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!--CSS IMPORT-->
-    <link rel="stylesheet" href="../assets/style/update-csv.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <title>Landing Zone - Update</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <header>
-        <!--Toolbar-->
-        <img
-          src="../assets/images/logo-dom-rock.png"
-          alt="logo-dom-rock"
-          id="logo"
-        />
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="upload-csv.html">Importar novo Arquivo</a>
-          <a href="#"
-            ><img
-              src="../assets/images/foto-perfil-branco.png"
-              alt="foto-perfil-branco"
-              id="fotoPerfilIcon"
-          /></a>
-        </nav>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--VUE IMPORT-->
+  <script src="../utils/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!--CSS IMPORT-->
+  <link rel="stylesheet" href="../assets/style/update-csv.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <title>Update - Landing Zone</title>
+</head>
 
-      <h1 id="h1Landing">Edite seu Arquivo</h1>
+<body>
+  <div id="app">
+    <header>
+      <!--Toolbar-->
+      <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+          logout
+        </span></a>
+      </nav>
+    </header>
 
-      <div id="alinhamentos">
-        <h2 id="h2Landing">Nome do arquivo:</h2>
-        <h2 id="parchive" v-text="nameFile"></h2>
-      </div>
+    <h1 id="h1Landing">Edite o Arquivo - Landing Zone</h1>
 
-      <div id="table-container" style="overflow-x: auto">
-        <table>
-          <thead>
-            <tr>
-              <!--cabeçalho da tabela-->
-              <th v-for="(head, index) in headTabela" :key="index">
-                {{ head }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <!--coluna nome-->
-            <tr v-for="(item, index) in data" :key="index">
-              <td>
-                <!--campo ativo-->
-                <input
-                  type="checkbox"
-                  value="true"
-                  checked
-                  v-model="item.ativo"
-                />
-              </td>
-              <td><input type="text" v-model="item.nome" /></td>
-              <td>{{ item.exemplo }}</td>
-              <td>
-                <!--coluna tipo-->
-                <select v-model="item.tipo">
-                  <option value="" disabled>Selecione um Tipo</option>
-                  <option v-for="(tipo, index) in tipoDadoTabela" :key="index">
-                    {{ tipo }}
-                  </option>
-                </select>
-              </td>
-              <!--coluna obrigatoprio-->
-              <td>
-                <input type="checkbox" value="" v-model="item.obrigatorio" />
-              </td>
-              <!--coluna tamanho maximo-->
-              <td><input type="text" v-model="item.tamanhoMaximo" /></td>
-              <!--coluna valor padrão-->
-              <td><input type="text" v-model="item.valorPadrao" /></td>
-              <!--coluna descrição-->
-              <td><input type="text" v-model="item.descricao" /></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!--Botão salvar-->
-      <div class="container">
-        <div class="left-section">
-          Observações:
-          <input type="text" id="inputObs" v-model="observacao" />
-        </div>
-        <div id="buttonsRight-section">
-          <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
-          <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
-        </div>
-      </div>
+    <div id="alinhamentos">
+      <h2 id="h2Landing">Nome do arquivo:</h2>
+      <h2 id="parchive" v-text="nameFile"></h2>
     </div>
 
-    <!-- script Vue.js -->
-    <script>
-      // instancia do Vue
-      const vm = new Vue({
-        el: "#app",
-        data: {
-          // nome do arquivo
-          nameFile: "",
-          // nome do usuario
-          userFile: "",
-          // cabeçalho da tabela
-          headTabela: [
-            "Ativo",
-            "Nome",
-            "Exemplo",
-            "Tipo de Dado",
-            "Obrigatório",
-            "Tamanho Máximo",
-            "Valor Padrão",
-            "Descrição",
-          ],
-          // tipos a serem inseridos no arquivo
-          tipoDadoTabela: [
-            "Inteiro",
-            "Decimal",
-            "Booleano",
-            "Texto",
-            "Data",
-            "Hora",
-            "Data e Hora",
-          ],
-          //objeto pegado da tela anterior
-          data: [],
+    <div id="table-container" style="overflow-x: auto">
+      <table>
+        <thead>
+          <tr>
+            <!--cabeçalho da tabela-->
+            <th v-for="(head, index) in headTabela" :key="index">
+              {{ head }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--coluna nome-->
+          <tr v-for="(item, index) in data" :key="index">
+            <td>
+              <!--campo ativo-->
+              <input type="checkbox" value="true" checked v-model="item.ativo" />
+            </td>
+            <td><input type="text" v-model="item.nome" /></td>
+            <td>{{ item.exemplo }}</td>
+            <td>
+              <!--coluna tipo-->
+              <select v-model="item.tipo">
+                <option value="" disabled>Selecione um Tipo</option>
+                <option v-for="(tipo, index) in tipoDadoTabela" :key="index">
+                  {{ tipo }}
+                </option>
+              </select>
+            </td>
+            <!--coluna obrigatoprio-->
+            <td>
+              <input type="checkbox" value="" v-model="item.obrigatorio" />
+            </td>
+            <!--coluna tamanho maximo-->
+            <td><input type="text" v-model="item.tamanhoMaximo" /></td>
+            <!--coluna valor padrão-->
+            <td><input type="text" v-model="item.valorPadrao" /></td>
+            <!--coluna descrição-->
+            <td><input type="text" v-model="item.descricao" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--Botão salvar-->
+    <div class="container">
+      <div class="left-section">
+        Observações:
+        <input type="text" id="inputObs" v-model="observacao" />
+      </div>
+      <div id="buttonsRight-section">
+        <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
+        <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- script Vue.js -->
+  <script>
+    // instancia do Vue
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // nome do arquivo
+        nameFile: "",
+        // nome do usuario
+        userFile: "",
+        // cabeçalho da tabela
+        headTabela: [
+          "Ativo",
+          "Nome",
+          "Exemplo",
+          "Tipo de Dado",
+          "Obrigatório",
+          "Tamanho Máximo",
+          "Valor Padrão",
+          "Descrição",
+        ],
+        // tipos a serem inseridos no arquivo
+        tipoDadoTabela: [
+          "Inteiro",
+          "Decimal",
+          "Booleano",
+          "Texto",
+          "Data",
+          "Hora",
+          "Data e Hora",
+        ],
+        //objeto pegado da tela anterior
+        data: [],
         observacao: "",
 
-        },
-        created() {
-          let test = [];
-          let metadado = [];
-        },
-        mounted() {
-          this.importarDadosHome();
-        },
-        methods: {
-          //função para acionar a extrasão de dados
-          adicionarMetadados() {
-            let metadados = [];
+      },
+      created() {
+        let test = [];
+        let metadado = [];
+      },
+      mounted() {
+        this.importarDadosHome();
+      },
+      methods: {
+        //função para acionar a extrasão de dados
+        adicionarMetadados() {
+          let metadados = [];
 
-            this.data.forEach((item) => {
-              let restricoes = [];
+          this.data.forEach((item) => {
+            let restricoes = [];
 
-              // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
-              restricoes.push(
-                {
-                  nome: "tamanhoMaximo",
-                  valor: item.tamanhoMaximo,
-                },
-                {
-                  nome: "obrigatorio",
-                  valor: item.obrigatorio,
-                }
-              );
-              metadados.push({
-                ativo: item.ativo,
-                nome: item.nome,
-                sampleValue: item.exemplo,
-                valorPadrao: item.valorPadrao,
-                descricao: item.descricao,
-                restricoes: restricoes,
-                nomeTipo: item.tipo,
-              });
+            // Verifica se item e item.restricoes estão definidos e se item.restricoes é um array
+            restricoes.push(
+              {
+                nome: "tamanhoMaximo",
+                valor: item.tamanhoMaximo,
+              },
+              {
+                nome: "obrigatorio",
+                valor: item.obrigatorio,
+              }
+            );
+            metadados.push({
+              ativo: item.ativo,
+              nome: item.nome,
+              sampleValue: item.exemplo,
+              valorPadrao: item.valorPadrao,
+              descricao: item.descricao,
+              restricoes: restricoes,
+              nomeTipo: item.tipo,
             });
-            // Construindo o objeto completo
-            const objetoCompleto = {
-              nomeArquivo: this.nameFile,
-              usuario: sessionStorage.getItem("usuario"),
-              metadados: metadados,
-            };
-            console.log(objetoCompleto);
-            //Enviar dados para o backend
-            fetch("http://localhost:8080/landing/upsert", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-              },
-              body: JSON.stringify(objetoCompleto),
+          });
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            nomeArquivo: this.nameFile,
+            usuario: sessionStorage.getItem("usuario"),
+            metadados: metadados,
+          };
+          console.log(objetoCompleto);
+          //Enviar dados para o backend
+          fetch("http://localhost:8080/landing/upsert", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
             })
-              .then((response) => {
-                return response.json();
-              })
-              .then((responseJson) => {
-                if (
-                  responseJson.critica !== "Processamento efetuado com sucesso"
-                ) {
-                  Swal.fire({
-                    title: "Erro",
-                    text: responseJson.critica,
-                    icon: "error", // Ícone personalizado (success, error, warning, info)
-                    confirmButtonText: "OK", // Texto do botão de confirmação
-                  });
-                  return;
-                } else {
-                  Swal.fire({
-                    title: "Sucesso",
-                    text: responseJson.critica,
-                    icon: "success", // Ícone personalizado (success, error, warning, info)
-                    confirmButtonText: "OK", // Texto do botão de confirmação
-                  }).then((result) => {
-                    localStorage.removeItem("arquivoCSV");
-                    window.location.href = "home.html";
-                  });
-                }
-              });
-          },
-          importarDadosHome() {
-            fetch("http://localhost:8080/landing/search", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-              },
-              body: JSON.stringify({
-                usuario: sessionStorage.getItem("usuario"),
-                nomeArquivo: localStorage.getItem("fileName"),
-              }),
-            })
-              .then((response) => response.json())
-              .then((responseData) => {
-                const response = responseData.response.aboutMetadados;
-                console.log(responseData);
-
-                this.nameFile = response.nomeArquivo;
-                this.userFile = response.usuario;
-                this.observacao = responseData.response.lastObs;
-                this.data = response.metadados.map((coluna) => {
-                  return {
-                    nome: coluna.nome,
-                    ativo: coluna.ativo,
-                    tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
-                    obrigatorio: coluna.restricoes.some(
-                      (r) => r.nome === "obrigatorio" && r.valor === "true"
-                    ), // Verifica se há restrições obrigatórias
-                    tamanhoMaximo:
-                      coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
-                        ?.valor || "", // Encontra o valor da restrição de tamanho máximo
-                    valorPadrao: coluna.valorPadrao || "",
-                    descricao: coluna.descricao || "",
-                    exemplo: coluna.sampleValue || "",
-                  };
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
                 });
-                return response;
-              });
-          },
+                return;
+              } else {
+                Swal.fire({
+                  title: "Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
+                });
+              }
+            });
         },
-      });
-    </script>
-    <script src="../utils/hover-icon-change-upload-csv.js"></script>
-  </body>
+        importarDadosHome() {
+          fetch("http://localhost:8080/landing/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify({
+              usuario: sessionStorage.getItem("usuario"),
+              nomeArquivo: localStorage.getItem("fileName"),
+            }),
+          })
+            .then((response) => response.json())
+            .then((responseData) => {
+              const response = responseData.response.aboutMetadados;
+              console.log(responseData);
+
+              this.nameFile = response.nomeArquivo;
+              this.userFile = response.usuario;
+              this.observacao = responseData.response.lastObs;
+              this.data = response.metadados.map((coluna) => {
+                return {
+                  nome: coluna.nome,
+                  ativo: coluna.ativo,
+                  tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
+                  obrigatorio: coluna.restricoes.some(
+                    (r) => r.nome === "obrigatorio" && r.valor === "true"
+                  ), // Verifica se há restrições obrigatórias
+                  tamanhoMaximo:
+                    coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
+                      ?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                  valorPadrao: coluna.valorPadrao || "",
+                  descricao: coluna.descricao || "",
+                  exemplo: coluna.sampleValue || "",
+                };
+              });
+              return response;
+            });
+        },
+      },
+    });
+  </script>
+  <script src="../utils/hover-icon-change-upload-csv.js"></script>
+</body>
+
 </html>

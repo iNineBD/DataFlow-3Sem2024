@@ -19,16 +19,11 @@
       <img src="/src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
       <nav>
         <a href="home.html">Home</a>
-        <a href="upload-csv.html">Importar novo Arquivo</a>
-        <a href="cadastro_master.html" v-if="emailbtn === 'master@gmail.com'">Cadastrar Novo Usuario</a>
-        <div class="dropdown" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
-          <a href="#">
-            <img src="/src/assets/images/foto-perfil-branco.png" alt="foto-perfil-branco" id="fotoPerfilIcon" />
-          </a>
-          <div class="dropdown-menu" v-show="showDropdown">
-            <a @click="deslogar()">Sair</a>
-          </div>
-        </div>        
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a href="cadastro_master.html" v-if="emailbtn === 'master@gmail.com'">Cadastrar Usuario</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+          logout
+          </span></a>
       </nav>
     </header>
 
@@ -92,7 +87,7 @@
         this.loadUserData(sessionStorage.getItem("usuario"));
       },
       methods: {
-        deslogar(){
+        deslogar() {
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
         },

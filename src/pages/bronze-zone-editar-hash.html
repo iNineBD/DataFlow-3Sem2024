@@ -7,7 +7,9 @@
     <script src="../utils/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../assets/style/bronze-zone-editar-hash.css" />
-    <title>Bronze Zone - Editar Hash</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Editar Hash - Bronze Zone</title>
 </head>
 
 <body>
@@ -16,12 +18,13 @@
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
             <nav>
                 <a href="home.html">Home</a>
-                <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
-                        id="fotoPerfilIcon" /></a>
+                <a @click="deslogar()"><span class="material-symbols-outlined">
+                    logout
+                  </span></a>
             </nav>
         </header>
         <main>
-            <h1 id="h1BronzeHash">Bronze Zone - Editar Hash</h1>
+            <h1 id="h1BronzeHash">Editar Hash - Bronze Zone</h1>
             <p id="pBronzeHash">Você está editando os metadados que foram utilizados para criar o hash!</p>
             <p id="pBronzeHash">Após editá-los clique em "Salvar".</p>
 

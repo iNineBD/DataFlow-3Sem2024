@@ -20,14 +20,14 @@
       <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
       <nav>
         <a href="home.html">Home</a>
-        <a href="upload-csv.html">Importar novo Arquivo</a>
-        <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
-            id="fotoPerfilIcon" /></a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+            logout
+          </span></a>
       </nav>
     </header>
 
     <main>
-      <h1 id="h1Cadastrar">Cadastrar usuário</h1>
+      <h1 id="h1Cadastrar">Cadastrar Usuário</h1>
       <div id="instrucoes">
         <p>
           Para cadastrar um usuário é necessário preencher corretamente os
@@ -99,6 +99,10 @@
         cnpjValido: true,
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         adicionarDados() {
           // Criar um objeto para armazenar os dados do usuário
           let novoUsuario = {
@@ -192,7 +196,7 @@
               caixaSelecaoFull.checked = true;
               outrasCaixasSelecao.forEach((caixaSelecao) => {
                 caixaSelecao.checked = false;
-                
+
               });
             } else {
               // Habilita todas as outras caixas de seleção
