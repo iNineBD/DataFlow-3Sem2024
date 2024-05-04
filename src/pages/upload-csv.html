@@ -72,6 +72,7 @@
         cabecalho: null,
         delimiter: null,
       },
+      mounted: console.log(sessionStorage.getItem("usuario")),
       methods: {
         deslogar() {
           sessionStorage.removeItem("usuario")
@@ -97,7 +98,9 @@
             "http://localhost:8080/landing/upload?delimiter=" +
             this.delimiter +
             "&header=" +
-            this.cabecalho,
+            this.cabecalho +
+            "&email=" +
+            sessionStorage.getItem("usuario"),
             {
               method: "POST",
               body: formData,
