@@ -7,8 +7,8 @@
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: var(--fonte-padrao);
 }
 
@@ -44,22 +44,18 @@ nav a img {
     height: 50px;
 }
 
-nav > a:hover {
+nav a:hover {
     color: #02BBCA;
 }
 
-body {
-    background: white;
-}
-
-main > h1 {
-    margin: 20px 35px 20px 35px;
+main h1 {
+    margin: 20px 35px;
+    text-align: center; /* Centralizando o texto */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    overflow-x: auto;
 }
 
 thead {
@@ -79,41 +75,52 @@ th {
     background-color: #cdcdcd;
 }
 
-#centralizar {
+#h1BronzeHash,
+#pBronzeHash {
+    text-align: center; /* Centralizando o texto */
+    margin-bottom: 20px;
+}
+
+#h2BronzeHash {
+    padding: 20px 10px 10px 0;
+}
+
+#parchive {
     display: flex;
     align-items: center;
+    padding-top: 4px;
+    font-size: 20px;
 }
 
-tbody > tr > td > div > abbr > img {
-    height: 25px;
+#alinhamentos {
+    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
+    align-items: baseline; /* Alinhar os elementos pela linha de base */
+    margin: 0 auto; /* Centralizar */
+    max-width: 800px; /* Largura máxima */
+    margin-left: 267px;
 }
 
-tbody > tr > td > div > abbr > img:hover {
-    cursor: pointer;
+#parchive {
+    font-size: 20px;
 }
 
-.checkboxAtivo {
-    margin: 0px 0px 0px 12px;
-    display: block;
-}
-
-.checkboxObrigatorio {
-    margin: 0px 0px 0px 32px;
-    display: block;
+#checkbox-cell {
+    padding-left: 65px;
 }
 
 #table-container {
-    max-height: 520px;
+    max-height: 400px;
     overflow-y: auto;
-    margin: 0px 35px;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 .even-row {
-    background-color: #ffffff; /* Cor de fundo para linhas pares */
+    background-color: #ffffff;
 }
-  
+
 .odd-row {
-    background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
+    background-color: #f2f2f2;
 }
 
 #btnCancelar {
@@ -122,8 +129,8 @@ tbody > tr > td > div > abbr > img:hover {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    margin-right: 20px;
     cursor: pointer;
+    margin: 0 10px;
     font-size: 15px;
     font-weight: 600;
 }
@@ -135,55 +142,14 @@ tbody > tr > td > div > abbr > img:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0 10px;
     font-size: 15px;
     font-weight: 600;
 }
 
-.container {
-    margin-top: 2%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.left-section {
-    flex: 1; 
-    margin-left: 35px;
-}
-
-#buttonsRight-section {
-    justify-content: flex-end; /* Alinha os itens à direita */
-    gap: 10px;
-    margin-right: 35px;
-
-}
-
-#h1Landing {
-    display: flex;
-    justify-content: center;
+#buttons {
     margin-top: 20px;
-}
-
-#h2Landing {
-    margin-left: 35px;
-    padding: 20px 10px 20px 0px;
     display: flex;
-    align-items: center;
+    justify-content: right; /* Centralizando os botões horizontalmente */
+    margin-right: 259px;
 }
-
-
-#parchive {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-}
-
-#alinhamentos {
-    display:flex;
-    flex-direction: row;
-}
-
-#inputObs {
-    width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
-    height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
-  }

@@ -7,8 +7,8 @@
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: var(--fonte-padrao);
 }
 
@@ -37,6 +37,7 @@ nav a {
     margin-right: 20px;
     font-weight: 600;
     font-size: large;
+    cursor: pointer;
 }
 
 nav a img {
@@ -52,13 +53,16 @@ body {
 }
 
 main > h1 {
-    margin: 20px 35px 20px 35px;
+    margin: 20px 35px;
+    text-align: center;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     overflow-x: auto;
+    margin: 0 auto; /* centralizar a tabela */
+    text-align: center;
 }
 
 thead {
@@ -67,52 +71,62 @@ thead {
     z-index: 1;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
+td {
+    padding: 12px;
+    text-align: center;
     border-bottom: 1px solid #CED4DA;
     word-wrap: break-word;
 }
 
 th {
+    padding: 12px;
+    text-align: center; /* Alinhamento à esquerda */
+    border-bottom: 1px solid #CED4DA;
+    word-wrap: break-word;
     background-color: #cdcdcd;
+    width: calc(100% / 3); /* Divide igualmente o espaço disponível entre as três colunas */
 }
 
-#centralizar {
-    display: flex;
-    align-items: center;
+#h1BronzeHash {
+    margin-top: 30px;
 }
 
-tbody > tr > td > div > abbr > img {
-    height: 25px;
+#h2BronzeHash {
+    padding: 20px 10px 10px 0;
 }
 
-tbody > tr > td > div > abbr > img:hover {
-    cursor: pointer;
+#pBronzeHash {
+    text-align: center;
 }
 
-.checkboxAtivo {
-    margin: 0px 0px 0px 12px;
-    display: block;
+#parchive {
+    padding-top: 14px;
+    font-size: 20px;
 }
 
-.checkboxObrigatorio {
-    margin: 0px 0px 0px 32px;
-    display: block;
+#alinhamentos {
+    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
+    align-items: baseline; /* Alinhar os elementos pela linha de base */
+    margin: 0 auto; /* Centralizar */
+    max-width: 800px; /* Largura máxima */
+    margin-left: 268px;
 }
 
 #table-container {
-    max-height: 520px;
+    max-height: 400px; /* altura máxima */
     overflow-y: auto;
-    margin: 0px 35px;
+    margin: 0 auto; /* centralizar */
+    max-width: 1000px; /* largura máxima */
 }
 
 .even-row {
-    background-color: #ffffff; /* Cor de fundo para linhas pares */
+    background-color: #ffffff;
+    /* Cor de fundo para linhas pares */
 }
-  
+
 .odd-row {
-    background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
+    background-color: #f2f2f2;
+    /* Cor de fundo para linhas ímpares */
 }
 
 #btnCancelar {
@@ -122,19 +136,19 @@ tbody > tr > td > div > abbr > img:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 10px 10px 35px;
+    margin: 10px 10px 10px auto; /* ajuste de margens */
     font-size: 15px;
     font-weight: 600;
 }
 
-#btnSalvar {
+#btnEditar {
     background-color: #021F4E;
     color: #fff;
     padding: 10px 25px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px 35px 10px 10px;
+    margin: 10px auto 10px 10px; /* ajuste de margens */
     font-size: 15px;
     font-weight: 600;
 }
@@ -142,29 +156,10 @@ tbody > tr > td > div > abbr > img:hover {
 #buttons {
     display: flex;
     justify-content: right;
-}
-
-#h1Landing {
-    display: flex;
-    justify-content: center;
     margin-top: 20px;
+    margin-right: 260px;
 }
 
-#h2Landing {
-    margin-left: 40px;
-    padding: 20px 10px 20px 0px;
-    display: flex;
-    align-items: center;
-}
-
-
-#parchive {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-}
-
-#alinhamentos {
-    display:flex;
-    flex-direction: row;
+.apagado {
+    opacity: 0.6;
 }

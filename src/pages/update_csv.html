@@ -8,38 +8,42 @@
   <script src="../utils/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!--CSS IMPORT-->
-  <link rel="stylesheet" href="/src/assets/style/update-csv.css" />
+  <link rel="stylesheet" href="../assets/style/update-csv.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <title>Landing Zone - Update</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <title>Update - Landing Zone</title>
 </head>
 
 <body>
   <div id="app">
-    
     <header>
       <!--Toolbar-->
       <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
       <nav>
-        <a href="/public/index.html">Home</a>
-        <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
-        <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
-            id="fotoPerfilIcon" /></a>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+            logout
+          </span></a>
       </nav>
     </header>
 
-    <h1 id="h1Landing">Edite seu Arquivo</h1>
+    <h1 id="h1Landing">Edite o Arquivo - Landing Zone</h1>
 
     <div id="alinhamentos">
       <h2 id="h2Landing">Nome do arquivo:</h2>
       <h2 id="parchive" v-text="nameFile"></h2>
     </div>
 
-    <div id="table-container" style="overflow-x: auto;">
+    <div id="table-container" style="overflow-x: auto">
       <table>
         <thead>
           <tr>
             <!--cabeçalho da tabela-->
-            <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
+            <th v-for="(head, index) in headTabela" :key="index">
+              {{ head }}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -49,7 +53,8 @@
               <!--campo ativo-->
               <input type="checkbox" value="true" checked v-model="item.ativo" />
             </td>
-            <td>{{ item.nome }}</td>
+            <td><input type="text" v-model="item.nome" /></td>
+            <td>{{ item.exemplo }}</td>
             <td>
               <!--coluna tipo-->
               <select v-model="item.tipo">
@@ -73,13 +78,17 @@
         </tbody>
       </table>
     </div>
-
     <!--Botão salvar-->
-    <div id="buttons">
-      <a href="../../public/index.html"><button id="btnCancelar">Cancelar</button></a>
-      <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
+    <div class="container">
+      <div class="left-section">
+        Observações:
+        <input type="text" id="inputObs" v-model="observacao" />
+      </div>
+      <div id="buttonsRight-section">
+        <a href="navegation.html"><button id="btnCancelar">Voltar</button></a>
+        <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
+      </div>
     </div>
-
   </div>
 
   <!-- script Vue.js -->
@@ -96,6 +105,7 @@
         headTabela: [
           "Ativo",
           "Nome",
+          "Exemplo",
           "Tipo de Dado",
           "Obrigatório",
           "Tamanho Máximo",
@@ -114,6 +124,8 @@
         ],
         //objeto pegado da tela anterior
         data: [],
+        observacao: "",
+
       },
       created() {
         let test = [];
@@ -123,6 +135,10 @@
         this.importarDadosHome();
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         //função para acionar a extrasão de dados
         adicionarMetadados() {
           let metadados = [];
@@ -144,6 +160,7 @@
             metadados.push({
               ativo: item.ativo,
               nome: item.nome,
+              sampleValue: item.exemplo,
               valorPadrao: item.valorPadrao,
               descricao: item.descricao,
               restricoes: restricoes,
@@ -153,7 +170,7 @@
           // Construindo o objeto completo
           const objetoCompleto = {
             nomeArquivo: this.nameFile,
-            usuario: "usuario1@email.com",
+            usuario: sessionStorage.getItem("usuario"),
             metadados: metadados,
           };
           console.log(objetoCompleto);
@@ -162,6 +179,7 @@
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
             },
             body: JSON.stringify(objetoCompleto),
           })
@@ -173,21 +191,21 @@
                 responseJson.critica !== "Processamento efetuado com sucesso"
               ) {
                 Swal.fire({
-                  title: 'Erro',
+                  title: "Erro",
                   text: responseJson.critica,
-                  icon: 'error', // Ícone personalizado (success, error, warning, info)
-                  confirmButtonText: 'OK' // Texto do botão de confirmação
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
                 });
                 return;
               } else {
                 Swal.fire({
-                  title: 'Sucesso',
+                  title: "Sucesso",
                   text: responseJson.critica,
-                  icon: 'success', // Ícone personalizado (success, error, warning, info)
-                  confirmButtonText: 'OK' // Texto do botão de confirmação
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
                 }).then((result) => {
-                  localStorage.removeItem('arquivoCSV');
-                  window.location.href = "/public/index.html";
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
                 });
               }
             });
@@ -197,33 +215,40 @@
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
             },
             body: JSON.stringify({
-              "usuario": "usuario1@email.com",
-              "nomeArquivo": localStorage.getItem('fileName')
+              usuario: sessionStorage.getItem("usuario"),
+              nomeArquivo: localStorage.getItem("fileName"),
             }),
           })
             .then((response) => response.json())
             .then((responseData) => {
-              const response = responseData.response;
-              console.log(response);
+              const response = responseData.response.aboutMetadados;
+              console.log(responseData);
 
               this.nameFile = response.nomeArquivo;
               this.userFile = response.usuario;
+              this.observacao = responseData.response.lastObs;
               this.data = response.metadados.map((coluna) => {
                 return {
                   nome: coluna.nome,
                   ativo: coluna.ativo,
                   tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
-                  obrigatorio: coluna.restricoes.some(r => r.nome === "obrigatorio" && r.valor === "true"), // Verifica se há restrições obrigatórias
-                  tamanhoMaximo: coluna.restricoes.find(r => r.nome === "tamanhoMaximo")?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                  obrigatorio: coluna.restricoes.some(
+                    (r) => r.nome === "obrigatorio" && r.valor === "true"
+                  ), // Verifica se há restrições obrigatórias
+                  tamanhoMaximo:
+                    coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
+                      ?.valor || "", // Encontra o valor da restrição de tamanho máximo
                   valorPadrao: coluna.valorPadrao || "",
-                  descricao: coluna.descricao || ""
+                  descricao: coluna.descricao || "",
+                  exemplo: coluna.sampleValue || "",
                 };
               });
               return response;
             });
-        }
+        },
       },
     });
   </script>

@@ -8,21 +8,23 @@
   <script src="../utils/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!--CSS IMPORT-->
-  <link rel="stylesheet" href="/src/assets/style/update-csv.css" />
+  <link rel="stylesheet" href="/src/assets/style/landing_zone.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <title>Landing Zone</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <title>Criar Metadado - Landing Zone</title>
 </head>
 
 <body>
   <div id="app">
-
     <header>
       <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
       <nav>
-        <a href="/public/index.html">Home</a>
-        <a href="../pages/upload-csv.html">Importar novo Arquivo</a>
-        <a href="#"><img src="../assets/images/foto-perfil-branco.png" alt="foto-perfil-branco"
-            id="fotoPerfilIcon" /></a>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+            logout
+          </span></a>
       </nav>
     </header>
 
@@ -33,18 +35,24 @@
       <p id="parchive" v-text="nameFile"></p>
     </div>
 
-    <div id="table-container" style="overflow-x:auto;">
+    <div id="table-container" style="overflow-x: auto">
       <table>
         <thead>
           <tr>
             <!--cabeçalho da tabela-->
-            <th v-for="(head, index) in headTabela" :key="index">{{ head }}</th>
+            <th v-for="(head, index) in headTabela" :key="index">
+              {{ head }}
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in data" :key="index" :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
-            <td><input type="checkbox" value="true" checked v-model="item.ativo" class="checkboxAtivo"></td>
-            <td>{{ item.nome }}</td>
+          <tr v-for="(item, index) in data" :key="index"
+            :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
+            <td>
+              <input type="checkbox" value="true" checked v-model="item.ativo" class="checkboxAtivo" />
+            </td>
+            <td><input type="text" v-model="item.nome" /></td>
+            <td>{{ item.exemplo }}</td>
             <td>
               <select v-model="item.tipo">
                 <option value="" disabled>Selecione um Tipo</option>
@@ -53,20 +61,21 @@
                 </option>
               </select>
             </td>
-            <td><input type="checkbox" value="true" v-model.lazy="item.obrigatorio" class="checkboxObrigatorio"></td>
-            <td><input type="text" v-model="item.tamanhoMaximo"></td>
-            <td><input type="text" v-model="item.valorPadrao"></td>
-            <td><input type="text" v-model="item.descricao"></td>
+            <td>
+              <input type="checkbox" value="true" v-model.lazy="item.obrigatorio" class="checkboxObrigatorio" />
+            </td>
+            <td><input type="text" v-model="item.tamanhoMaximo" /></td>
+            <td><input type="text" v-model="item.valorPadrao" /></td>
+            <td><input type="text" v-model="item.descricao" /></td>
           </tr>
         </tbody>
       </table>
     </div>
-    
-    <div id="buttons">
-      <a href="../../public/index.html"><button id="btnCancelar">Cancelar</button></a>
-     <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
-    </div>
 
+    <div id="buttons">
+      <a href="home.html"><button id="btnCancelar">Cancelar</button></a>
+      <button id="btnSalvar" @click="adicionarMetadados()">Salvar</button>
+    </div>
   </div>
 
   <script>
@@ -77,7 +86,11 @@
     let test = []; // referenciar a variavel que vai receber o objeto e desmembrar com um for
 
     dados.nome.columns.forEach((coluna) => {
-      test.push({ nome: coluna.nome, ativo: true });
+      test.push({
+        nome: coluna.nome,
+        ativo: true,
+        exemplo: coluna.sampleValue,
+      });
     });
 
     // instancia do Vue
@@ -92,6 +105,7 @@
         headTabela: [
           "Ativo",
           "Nome",
+          "Exemplo",
           "Tipo de Dado",
           "Obrigatório",
           "Tamanho Máximo",
@@ -112,6 +126,10 @@
         data: test,
       },
       methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
         //função para acionar a extrasão de dados
         adicionarMetadados() {
           let metadados = [];
@@ -138,12 +156,13 @@
               descricao: item.descricao,
               restricoes: restricoes,
               nomeTipo: item.tipo,
+              sampleValue: item.exemplo,
             });
           });
           // Construindo o objeto completo
           const objetoCompleto = {
             nomeArquivo: this.nameFile,
-            usuario: "usuario1@email.com",
+            usuario: sessionStorage.getItem("usuario"),
             metadados: metadados,
           };
           //Enviar dados para o backend
@@ -151,6 +170,7 @@
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
             },
             body: JSON.stringify(objetoCompleto),
           })
@@ -175,8 +195,8 @@
                   icon: "success", // Ícone personalizado (success, error, warning, info)
                   confirmButtonText: "OK", // Texto do botão de confirmação
                 }).then((result) => {
-                  localStorage.removeItem('arquivoCSV');
-                  window.location.href = "/public/index.html";
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
                 });
               }
               // Lidar com a resposta do backend aqui se necessário

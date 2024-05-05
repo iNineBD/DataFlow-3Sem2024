@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+  --fonte-padrao: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--fonte-padrao);
+}
+
+header {
+  background-color: #021F4E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: fixed; /* Adiciona a posição fixa */
+  width: 100%; /* Define a largura para ocupar toda a largura da janela */
+  top: 0; /* Alinha o cabeçalho ao topo da janela */
+  z-index: 1000; /* Garante que o cabeçalho esteja acima de outros elementos */
+}
+
+main {
+  margin-top: 100px; /* Ajuste conforme a altura do cabeçalho */
+}
+
+header #logo {
+  margin: 30px;
+}
+
+nav {
+  margin-right: 20px;
+  align-items: center;
+  display: flex;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: large;
+  cursor: pointer;
+}
+
+nav a img {
+  height: 50px;
+}
+
+nav>a:hover {
+  color: #02BBCA;
+}
+
+body {
+  background: white;
+}
+
+
+main > h1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+#instrucoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+main>div>p {
+  text-align: left;
+  width: 630px;
+  overflow-wrap: break-word;
+}
+
+.dados-cadastro {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.campoTexto,
+.campoPassword {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  width: 95%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 110px;
+  height: 35px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+div #buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 18px;
+}
+
+#btnCadastrar {
+  background-color: #021F4E;
+}
+
+#btnCancelar {
+  background-color: #ADB5BD;
+  margin-right: 30px;
+}
+
+.alertaSenha, .alertaMin {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+.campoPassword {
+  position: relative; /* Adiciona posição relativa para o elemento pai */
+}
+
+.campoPassword .eyeSenha1 {
+  height: 25px;
+  position: absolute; /* Posição absoluta para o ícone */
+  right: 25px; /* Ajusta a posição do ícone à direita */
+  top: 73%; /* Alinha o ícone verticalmente no centro */
+  transform: translateY(-50%); /* Ajusta o ícone verticalmente */
+  cursor: pointer; /* Altera o cursor para indicar que é clicável */
+}
+
+.campoPassword .eyeSenha2 {
+  height: 25px;
+  position: absolute;
+  right: 25px;
+  top: 73%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

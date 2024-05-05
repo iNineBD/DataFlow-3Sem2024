@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../utils/vue.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../assets/style/primeiro-acesso.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Primeiro Acesso</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo">
+            <nav>
+                <a @click="deslogar()"><span class="material-symbols-outlined">
+                        close
+                    </span></a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 id="h1Cadastrar">Bem-vindo!</h1>
+            <div id="instrucoes">
+                <p>Antes de prosseguir, precisamos de algumas informações básicas para configurar sua conta. Após
+                    preencher
+                    essas informações, você estará pronto para começar a utilizar nosso sistema.
+                </p><br>
+                <p>Os campos com <font color="red">*</font> são de preenchimento obrigatório.</p>
+            </div>
+            <div class="dados-cadastro">
+                <div class="campoTexto">
+                    <label>Nome <font color="red">*</font></label>
+                    <input type="text" id="nome" v-model="nome" required />
+                </div>
+                <div class="campoTexto">
+                    <label>Email <font color="red">*</font></label>
+                    <input type="email" id="email" v-model="emailUser" required />
+                </div>
+                <div class="campoPassword">
+                    <label>Nova senha <font color="red">*</font></label>
+                    <input type="password" id="senha" v-model="senha" class="senha" required />
+                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png"
+                        class="eyeSenha1">
+                </div>
+                <div class="campoPassword">
+                    <label>Confirmar senha <font color="red">*</font></label>
+                    <input type="password" id="confirmarSenha" v-model="confirmarSenha" class="confirmarSenha"
+                        required />
+                    <img src="https://cdn1.iconfinder.com/data/icons/general-icons2/128/eye-open2-512.png"
+                        class="eyeSenha2">
+                </div>
+                <p v-if="senha !== '' && senha !== confirmarSenha" class="alertaSenha">As senhas não coincidem</p>
+                <p v-if="confirmarSenha !== null && confirmarSenha !== '' && confirmarSenha.length < 8"
+                    class="alertaMin">A senha deve ter no mínimo 8 caracteres</p>
+
+                <div class="campoTexto">
+                    <label>Token<font color="red">*</font></label>
+                    <input type="text" id="token" v-model="token" required />
+                </div>
+                <div id="buttons">
+                    <a href="/public/index.html">
+                        <button id="btnCancelar">Cancelar</button>
+                    </a>
+                    <button id="btnCadastrar" :disabled="senha !== confirmarSenha"
+                        @click="adicionarDados()">Cadastrar</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var input = document.querySelector('.senha');
+            var img = document.querySelector('.eyeSenha1');
+
+            img.addEventListener('click', function () {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var input = document.querySelector('.confirmarSenha');
+            var img = document.querySelector('.eyeSenha2');
+
+            img.addEventListener('click', function () {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            });
+        });
+    </script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                nome: null,
+                emailUser: null,
+                senha: null,
+                confirmarSenha: null,
+                token: null,
+            },
+            methods: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "../../public/index.html"
+                },
+                adicionarDados() {
+                    // Criar um objeto para armazenar os dados do usuário
+                    let validacaoUsuario = {
+                        nome: this.nome,
+                        emailUsuario: this.emailUser,
+                        senha: this.senha,
+                        token: this.token
+                    };
+                    console.log("Primeiro acesso:", validacaoUsuario);
+
+                    //Enviar dados para o backend
+                    fetch("http://localhost:8080/register/validacao", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(validacaoUsuario),
+                    })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error", // Ícone personalizado (success, error, warning, info)
+                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success", // Ícone personalizado (success, error, warning, info)
+                                    confirmButtonText: "OK", // Texto do botão de confirmação
+                                }).then((result) => {
+                                    // Limpar os campos após o cadastro
+                                    this.nome = null;
+                                    this.emailUser = null;
+                                    this.senha = null;
+                                    this.token = null;
+                                    //voltar pada index
+                                    window.location.href = "../../public/index.html";
+                                });
+                            }
+                        });
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
