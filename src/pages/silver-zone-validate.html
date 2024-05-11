@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--VUE IMPORT-->
+  <script src="../utils/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!--CSS IMPORT-->
+  <link rel="stylesheet" href="/src/assets/style/validate.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <title>Validação - Bronze Zone</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+          <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+          <nav>
+            <a href="home.html">Home</a>
+            <a href="upload-csv.html">Importar Arquivo</a>
+            <a @click="deslogar()"><span class="material-symbols-outlined">
+                logout
+              </span></a>
+          </nav>
+        </header>
+        <!--alterar apartir daqui-->
+        <h1 id="h1Landing">Silver Zone: Validação do Hash</h1>
+
+        <div id="alinhamentos">
+            <h2 id="h2Landing">Nome do arquivo:</h2>
+            <h2 id="parchive" v-text="nameFile"></h2>
+          </div>
+          <div id="table-container" style="overflow-x: auto">
+            <table>
+              <thead>
+                <tr>
+                  <!--cabeçalho da tabela-->
+                  <th v-for="(head, index) in headTabela" :key="index">
+                    {{ head }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--coluna nome-->
+                <tr v-for="(item, index) in data" :key="index">
+                  <!--coluna descrição-->
+                  <td><input type="text" v-model="item.descricao" disabled /></td>
+                  <!--coluna agrupar-->
+                  <td><input type="checkbox" v-model="item.agrupar" disabled /></td>
+              </tbody>
+            </table>
+        
+        
+          <!--Botões de cancelar, aprovar e reprovar-->
+          <div class="container">
+            <div class="left-section">
+              Observações:
+              <input type="text" id="inputObs" v-model="observacao" />
+            </div>
+            <div class="right-section">
+              <a href="navegation.html">
+                <button id="btnCancelar">Voltar</button>
+              </a>
+              <button id="btnReprovado" @click="reprovarArquivo()">
+                Reprovado
+              </button>
+              <button id="btnSalvar" @click="aprovarArquivo()">Aprovado</button>
+            </div>
+          </div>
+        </div>
+
+</body>
+
+<!--ALTERAR MEU LOCALHOST-->
+<!-- script Vue.js -->
+<script>
+    // instancia do Vue
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // nome do arquivo
+        nameFile: "",
+        // nome do usuario
+        userFile: "",
+        // cabeçalho da tabela  <!--verificar como está o Agrupar Colunas-->
+        headTabela: [
+          "Nome",
+          "Valor Padrão",
+          "Descrição",
+          "Agrupar Colunas..."
+        ],
+
+        //objeto pegado da tela anterior <!--REVISAR-->
+        data: [],
+        observacao: "",
+        aprovado: "",
+      },
+      created() {
+        let test = [];
+        let metadado = [];
+      },
+      mounted() {
+        this.importarDadosHome(); 
+      },
+      methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
+        //função para acionar a extrasão de dados
+        aprovarArquivo() {
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            arquivo: this.nameFile,
+            usuario: sessionStorage.getItem("usuario"),
+            aprovado: (this.aprovado = true),
+            observacao: this.observacao,
+          };
+
+          console.log(objetoCompleto);
+          //Enviar dados para o backend
+          fetch(" INSERIR LOCALHOST", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Aprovado com Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
+                });
+              }
+            });
+        },
+        reprovarArquivo() {
+          // Construindo o objeto completo
+          const objetoCompleto = {
+            arquivo: this.nameFile,
+            usuario: sessionStorage.getItem("usuario"),
+            aprovado: (this.aprovado = false),
+            observacao: this.observacao,
+          };
+          console.log(objetoCompleto);
+          //Enviar dados para o backend
+          fetch(" INSERIR LOCALHOST", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoCompleto),
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((responseJson) => {
+              // Verifica se o campo observacao está vazio
+              if (!this.observacao.trim()) {
+                // Se estiver vazio, exibe uma mensagem de erro
+                Swal.fire({
+                  title: "Erro",
+                  text: "Por favor, forneça uma observação antes de reprovar o arquivo.",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                return; // Retorna sem continuar a execução do método
+              }
+              if (
+                responseJson.critica !== "Processamento efetuado com sucesso"
+              ) {
+                Swal.fire({
+                  title: "Erro",
+                  text: responseJson.critica,
+                  icon: "error", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                });
+                return;
+              } else {
+                Swal.fire({
+                  title: "Reprovado com Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
+                });
+              }
+            });
+        },
+        importarDadosHome() {
+          fetch("http://localhost:8080/landing/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify({
+              usuario: sessionStorage.getItem("usuario"),
+              nomeArquivo: localStorage.getItem("fileName"),
+            }),
+          })
+            .then((response) => response.json())
+            .then((responseData) => {
+              const response = responseData.response.aboutMetadados;
+              console.log(response);
+  
+              this.nameFile = response.nomeArquivo;
+              this.userFile = response.usuario;
+              this.data = response.metadados.map((coluna) => {
+                return {
+                  nome: coluna.nome,
+                  valorPadrao: coluna.valorPadrao || "",
+                  descricao: coluna.descricao || "",
+                  agrupar: coluna.agrupar || "",
+                };
+              });
+              return response;
+            });
+        },
+      },
+    });
+  </script>
+  <script src="../utils/hover-icon-change-upload-csv.js"></script>
+
+
+</html>
