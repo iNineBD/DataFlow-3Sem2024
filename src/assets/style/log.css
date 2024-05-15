@@ -93,16 +93,6 @@ tbody > tr > td > div > abbr > img:hover {
   cursor: pointer;
 }
 
-.checkboxAtivo {
-  margin: 0px 0px 0px 12px;
-  display: block;
-}
-
-.checkboxObrigatorio {
-  margin: 0px 0px 0px 32px;
-  display: block;
-}
-
 #table-container {
   max-height: 520px;
   overflow-y: auto;
@@ -156,20 +146,10 @@ tbody > tr > td > div > abbr > img:hover {
 .container {
   display: flex;
   align-items: center; /* Alinha os itens verticalmente */
-}
-
-.left-section {
-  flex: 1; /* Ocupa todo o espaço disponível */
-  margin-left: 35px; /* Adiciona margem à esquerda */
+  justify-content: flex-end;
 }
 
 .right-section {
   display: flex;
   justify-content: flex-end; /* Alinha os itens à direita */
-  gap: 10px; /* Espaçamento entre os botões */
-}
-
-#inputObs {
-  width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
-  height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
 }
