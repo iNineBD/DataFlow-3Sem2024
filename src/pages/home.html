@@ -37,6 +37,7 @@
             <th>Nome do Arquivo</th>
             <th>Organização</th>
             <th>Status</th>
+            <th>Histórico</th>
             <th>Excluir</th>
           </tr>
         </thead>
@@ -59,6 +60,13 @@
                 <img src="/src/assets/images/status-amarelo.png" alt="status-amarelo" id="img-table" />
                 {{ file.status }}
               </div>
+            </td>
+            <td>
+              <a href="log.html">
+                <span class="material-symbols-outlined" style="color: rgb(0, 0, 0)">
+                  history
+                </span>
+              </a>
             </td>
             <td>
               <a href="#" @click="checkExclud(file)">
