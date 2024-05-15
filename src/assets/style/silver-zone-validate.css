@@ -99,6 +99,7 @@ tbody > tr > td > div > abbr > img:hover {
 .checkboxObrigatorio {
   margin: 0px 0px 0px 32px;
   display: block;
+  
 }
 
 #table-container {
@@ -146,7 +147,7 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 15px 10px 20px;
+  margin: 15px 0px 10px 20px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -158,19 +159,19 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 15px 10px 20px;
+  margin: 15px 0px 10px 20px;
   font-size: 15px;
   font-weight: 600;
 }
 
-#btnAprovado {
+#btnSalvar {
   background-color: #0bad2e;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 35px 10px 20px;
+  margin: 15px 0px 10px 20px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -195,6 +196,8 @@ tbody > tr > td > div > abbr > img:hover {
   display: flex;
   justify-content: flex-end; /* Alinha os itens à direita */
   gap: 10px; /* Espaçamento entre os botões */
+  margin: 10px 0px 15px 35px;
+
 }
 
 #inputObs {
