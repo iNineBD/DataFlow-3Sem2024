@@ -68,7 +68,7 @@
               <button id="btnReprovado" @click="reprovarArquivo()">
                 Reprovado
               </button>
-              <button id="btnSalvar" @click="aprovarArquivo()">Aprovado</button>
+              <button id="btnAprovado" @click="aprovarArquivo()">Aprovado</button>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@
         let metadado = [];
       },
       mounted() {
-        this.importarDadosHome(); 
+        this.importarDadosBronze(); 
       },
       methods: {
         deslogar() {
@@ -214,8 +214,8 @@
               }
             });
         },
-        importarDadosHome() {
-          fetch("http://localhost:8080/landing/search", {
+        importarDadosBronze() {
+          fetch("localhost:8080/bronze/visualize", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

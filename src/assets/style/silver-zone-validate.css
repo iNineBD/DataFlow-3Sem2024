@@ -11,3 +11,193 @@
   padding: 0px;
   font-family: var(--fonte-padrao);
 }
+
+header {
+  background-color: #021f4e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+header #logo {
+  margin: 30px;
+}
+nav {
+  margin-right: 20px;
+  align-items: center;
+  display: flex;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: large;
+  cursor: pointer;
+}
+nav a img {
+  height: 50px;
+}
+
+nav > a:hover {
+  color: #02bbca;
+}
+
+body {
+  background: white;
+}
+
+main > h1 {
+  margin: 20px 35px 20px 35px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ced4da;
+  word-wrap: break-word;
+}
+
+th {
+  background-color: #cdcdcd;
+}
+
+#centralizar {
+  display: flex;
+  align-items: center;
+}
+
+tbody > tr > td > div > abbr > img {
+  height: 25px;
+}
+
+tbody > tr > td > div > abbr > img:hover {
+  cursor: pointer;
+}
+
+.checkboxAtivo {
+  margin: 0px 0px 0px 12px;
+  display: block;
+}
+
+.checkboxObrigatorio {
+  margin: 0px 0px 0px 32px;
+  display: block;
+}
+
+#table-container {
+  max-height: 520px;
+  overflow-y: auto;
+  margin: 0px 35px;
+}
+
+.even-row {
+  background-color: #ffffff; /* Cor de fundo para linhas pares */
+}
+
+.odd-row {
+  background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
+}
+
+#h1Landing {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#h2Landing {
+  margin-left: 35px;
+  padding: 20px 10px 20px 0px;
+  display: flex;
+  align-items: center;
+}
+
+#parchive {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+#alinhamentos {
+  display: flex;
+  flex-direction: row;
+}
+
+#btnCancelar {
+  background-color: #adb5bd;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px 15px 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#btnReprovado {
+  background-color: #ff0000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px 15px 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#btnAprovado {
+  background-color: #0bad2e;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px 35px 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.observacoes {
+  display: flex;
+  justify-content: left;
+  margin: 10px 20px 15px 35px;
+}
+
+.container {
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente */
+}
+
+.left-section {
+  flex: 1; /* Ocupa todo o espaço disponível */
+  margin-left: 35px; /* Adiciona margem à esquerda */
+}
+
+.right-section {
+  display: flex;
+  justify-content: flex-end; /* Alinha os itens à direita */
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+#inputObs {
+  width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
+  height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
+}
