@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../utils/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../assets/style/log.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Histórico Log</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+            <nav>
+                <a href="home.html">Home</a>
+                <a @click="deslogar()"><span class="material-symbols-outlined">
+                        logout
+                    </span></a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 id="h1Log">Histórico de Modificações</h1>
+
+            <div id="alinhamentos">
+                <h2 id="h2Log">Nome do arquivo:</h2>
+                <h2 id="parchive" v-text="nameFile"></h2>
+              </div>
+          
+              <div id="table-container" style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <!--cabeçalho da tabela-->
+                      <th v-for="(head, index) in headTabela" :key="index">
+                        {{ head }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!--coluna nome-->
+                    <tr v-for="(item, index) in data" :key="index">
+                      <td>
+                        <!--campo ativo-->
+                        <input type="checkbox" value="true" checked v-model="item.ativo" class="checkboxAtivo" disabled />
+                      </td>
+                      <!--campo exemplo-->
+                      <td><input type="text" v-model="item.nome" disabled /></td>
+                      <td>{{ item.exemplo }}</td>
+                      <td>
+                        <!--coluna tipo-->
+                        <select v-model="item.tipo" disabled>
+                          <option value="">Selecione um Tipo</option>
+                          <option v-for="(tipo, index) in tipoDadoTabela" :key="index" disabled>
+                            {{ tipo }}
+                          </option>
+                        </select>
+                      </td>
+                      <!--coluna obrigatoprio-->
+                      <td>
+                        <input type="checkbox" value="" v-model="item.obrigatorio" class="checkboxObrigatorio" disabled />
+                      </td>
+                      <!--coluna tamanho maximo-->
+                      <td>
+                        <input type="text" v-model="item.tamanhoMaximo" disabled />
+                      </td>
+                      <!--coluna valor padrão-->
+                      <td><input type="text" v-model="item.valorPadrao" disabled /></td>
+                      <!--coluna descrição-->
+                      <td><input type="text" v-model="item.descricao" disabled /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="container">
+                
+                <div class="right-section">
+                  <a href="navegation.html">
+                    <button id="btnVoltar">Voltar</button>
+                  </a>
+                </div>
+              </div>
+
+        </main>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                nameFile: "",
+                userFile: "",
+                data: [],
+                metadadosNoHash: [],
+                headTabela: ["Usuário", "Estágio", "Ação", "Observação", "Data/Hora"]
+            },
+            mounted() {
+                this.nameFile = localStorage.getItem("fileName") || "";
+                this.userFile = sessionStorage.getItem("usuario") || "";
+                this.visualizarMetadadosDoHash();
+            },
+            methods: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "../../public/index.html"
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
