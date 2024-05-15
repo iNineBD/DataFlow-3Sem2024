@@ -189,7 +189,7 @@ tbody > tr > td > div > abbr > img:hover {
 
 .left-section {
   flex: 1; /* Ocupa todo o espaço disponível */
-  margin-left: 35px; /* Adiciona margem à esquerda */
+  margin-left: 0px; /* Adiciona margem à esquerda */
 }
 
 .right-section {
