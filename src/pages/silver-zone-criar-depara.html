@@ -208,15 +208,16 @@
                     if (this.tabelas[tableIndex].data.length === 0) {
                         this.tabelas.splice(tableIndex, 1)
                     }
+                    this.atualizarMetadadosDisponiveis();
                 },
                 atualizarMetadadosDisponiveis(metadadoSelecionado) {
+                    const metadadosSelecionados = this.tabelas.map(tabela => ({ nome: tabela.data[0].metadado }));
+
                     const objetoParaEnviar = {
                         email: this.user,
                         arquivo: this.nameFile,
                         cnpj: this.cnpj,
-                        metadados: [
-                            { nome: metadadoSelecionado }
-                        ]
+                        metadados: metadadosSelecionados
                     };
 
                     fetch("http://localhost:8080/silver/create", {
