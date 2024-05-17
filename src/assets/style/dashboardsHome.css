@@ -83,7 +83,14 @@ body {
 
 .chart-wrap {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente o gráfico */
-  align-items: center; /* Centraliza verticalmente o gráfico */
-  height: 100%; /* Garante que a div ocupe toda a altura */
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-left: 95px;
 }
+
+.apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
+  justify-content: flex-start;
+  visibility: hidden;
+}
+

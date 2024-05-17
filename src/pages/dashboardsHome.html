@@ -34,89 +34,88 @@
         <div>
           <div class="chart-wrap">
             <div id="chart">
-              <apexchart type="donut" width="380" :options="chartOptions1" :series="series1"></apexchart>
+              <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
             </div>
           </div>
           <button>Dashboards Usuarios</button>
         </div>
       </div>
 
-        <div class="right">
-          <div>
-            <div class="chart-wrap">
-              <div id="chart">
-                <apexchart type="donut" width="380" :options="chartOptions2" :series="series2"></apexchart>
-              </div>
+      <div class="right">
+        <div>
+          <div class="chart-wrap">
+            <div id="chart">
+              <apexchart type="donut" width="380" :options="chartOptions2" :series="series"></apexchart>
             </div>
-            <button>Dashboards Arquivos</button>
           </div>
+          <button>Dashboards Arquivos</button>
         </div>
       </div>
     </div>
   </div>
+  </div>
 
 
   <script>
-      // Certifique-se de importar VueApexCharts corretamente
-      Vue.use(VueApexCharts);
+    // Certifique-se de importar VueApexCharts corretamente
+    Vue.use(VueApexCharts);
 
-      new Vue({
-        el: '#app',
-        components: {
-          apexchart: VueApexCharts,
-        },
-        data: {
-          series1: [50, 50, 50, 50],
-          series2: [50, 50, 50, 50],
-          chartOptions1: {
-            chart: {
-              width: 380,
-              type: 'donut',
-            },
-            dataLabels: {
-              enabled: false // Define como false para desabilitar os rótulos de dados
-            },
-            responsive: [{
-              breakpoint: 480,
-              options: {
-                chart: {
-                  width: 200
-                },
-                legend: {
-                  show: false
-                }
-              }
-            }],
+    new Vue({
+      el: '#app',
+      components: {
+        apexchart: VueApexCharts,
+      },
+      data: {
+        series: [50,50,50,50], visible: false,
+        chartOptions1: {
+          chart: {
+            width: 380,
+            type: 'donut',
           },
-          chartOptions2: {
-            chart: {
-              width: 380,
-              type: 'donut',
-            },
-            dataLabels: {
-              enabled: false // Define como false para desabilitar os rótulos de dados
-            },
-            responsive: [{
-              breakpoint: 480,
-              options: {
-                chart: {
-                  width: 200
-                },
-                legend: {
-                  show: false
-                }
+          dataLabels: {
+            enabled: false // Define como false para desabilitar os rótulos de dados
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                show: false
               }
-            }],
-          }
+            }
+          }],
         },
-        methods: {
-          deslogar() {
-            sessionStorage.removeItem("usuario")
-            window.location.href = "../../public/index.html"
-          }
+        chartOptions2: {
+          chart: {
+            width: 380,
+            type: 'donut',
+          },
+          dataLabels: {
+            enabled: false // Define como false para desabilitar os rótulos de dados
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                show: false
+              }
+            }
+          }],
         }
-      });
-    </script>
+      },
+      methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        }
+      }
+    });
+  </script>
 
 </body>
 
