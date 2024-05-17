@@ -52,6 +52,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 #app {
@@ -67,12 +68,22 @@ body {
 .right {
   flex-grow: 1;
   text-align: center;
+  align-items: center;
 }
 
 .left {
-  background-color: rgb(255, 255, 255);
+  align-content: center;
+  background-color: rgb(204, 48, 48);
 }
 
 .right {
-  background-color: rgb(255, 255, 255);
+  align-content: center;
+  background-color: rgb(186, 230, 29);
+}
+
+.chart-wrap {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente o gráfico */
+  align-items: center; /* Centraliza verticalmente o gráfico */
+  height: 100%; /* Garante que a div ocupe toda a altura */
 }

@@ -37,97 +37,87 @@
               <apexchart type="donut" width="380" :options="chartOptions1" :series="series1"></apexchart>
             </div>
           </div>
-          
-        <button>Dashboards Usuarios</button>
+          <button>Dashboards Usuarios</button>
+        </div>
       </div>
-      <div class="right">
-        <div>
-          <div class="chart-wrap">
-            <div id="chart">
-              <apexchart type="donut" width="380" :options="chartOptions2" :series="series2"></apexchart>
+
+        <div class="right">
+          <div>
+            <div class="chart-wrap">
+              <div id="chart">
+                <apexchart type="donut" width="380" :options="chartOptions2" :series="series2"></apexchart>
+              </div>
             </div>
+            <button>Dashboards Arquivos</button>
           </div>
-          
-        <button>Dashboards Arquivos</button>
+        </div>
       </div>
     </div>
   </div>
-  <script>
-    // Certifique-se de importar VueApexCharts corretamente
-    Vue.use(VueApexCharts);
 
-    new Vue({
-      el: '#app',
-      components: {
-        apexchart: VueApexCharts,
-      },
-      data: {
-        series1: [{name: 'mock1', data:[50, 50, 50, 50],  visible: false}],
-        series2: [{name: 'mock2', data:[50, 50, 50, 50],  visible: false}],
-        chartOptions1: {
-          chart: {
-            width: 380,
-            type: 'donut',
-          },
-          dataLabels: {
-            enabled: false // Define como false para desabilitar os rótulos de dados
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                show: false
-              }
-            }
-          }],
+
+  <script>
+      // Certifique-se de importar VueApexCharts corretamente
+      Vue.use(VueApexCharts);
+
+      new Vue({
+        el: '#app',
+        components: {
+          apexchart: VueApexCharts,
         },
-        chartOptions2: {
-          chart: {
-            width: 380,
-            type: 'donut',
-          },
-          dataLabels: {
-            enabled: false // Define como false para desabilitar os rótulos de dados
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                show: false
+        data: {
+          series1: [50, 50, 50, 50],
+          series2: [50, 50, 50, 50],
+          chartOptions1: {
+            chart: {
+              width: 380,
+              type: 'donut',
+            },
+            dataLabels: {
+              enabled: false // Define como false para desabilitar os rótulos de dados
+            },
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  show: false
+                }
               }
-            }
-          }],
-        }
-        },
-        methods: {
-          appendData: function () {
-            var arr = this.series2.slice();
-            arr.push(Math.floor(Math.random() * (100 - 1 + 1)) + 1);
-            this.series2 = arr;
+            }],
           },
-          removeData: function () {
-            if (this.series2.length === 1) return;
-            var arr = this.series2.slice();
-            arr.pop();
-            this.series2 = arr;
-          },
-          randomize: function () {
-            this.series2 = this.series2.map(function () {
-              return Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-            });
-          },
-          reset: function () {
-            this.series2 = [44, 55, 13, 33];
+          chartOptions2: {
+            chart: {
+              width: 380,
+              type: 'donut',
+            },
+            dataLabels: {
+              enabled: false // Define como false para desabilitar os rótulos de dados
+            },
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  show: false
+                }
+              }
+            }],
           }
         },
+        methods: {
+          deslogar() {
+            sessionStorage.removeItem("usuario")
+            window.location.href = "../../public/index.html"
+          }
+        }
       });
-  </script>
+    </script>
+
 </body>
 
 </html>
