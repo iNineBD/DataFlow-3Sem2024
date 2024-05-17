@@ -73,12 +73,12 @@ body {
 
 .left {
   align-content: center;
-  background-color: rgb(204, 48, 48);
+  background-color: rgb(255, 255, 255);
 }
 
 .right {
   align-content: center;
-  background-color: rgb(186, 230, 29);
+  background-color: rgb(255, 255, 255);
 }
 
 .chart-wrap {
@@ -92,5 +92,19 @@ body {
 .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
   justify-content: flex-start;
   visibility: hidden;
+}
+
+button {
+  /* Estilos adicionais para o botão, se necessário */
+  margin: 25px; /* espaço entre os botões */
+  padding: 25px;
+  background-color: #021F4E;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  height: 100%;
+  margin-bottom: 100px;
 }
 
