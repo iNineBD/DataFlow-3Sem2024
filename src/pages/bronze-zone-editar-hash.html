@@ -93,6 +93,7 @@
                     const objetoParaEnviar = {
                         nomeArquivo: this.nameFile,
                         usuario: this.userFile,
+                        cnpj: localStorage.getItem("cnpjFile"),
                     };
                     fetch("http://localhost:8080/bronze/visualize", {
                         method: "POST",
