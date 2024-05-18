@@ -12,7 +12,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <title>Validação - Bronze Zone</title>
+  <title>Silver Zone: Validação do Hash</title>
 </head>
 
 <body>
@@ -28,10 +28,10 @@
           </nav>
         </header>
         <!--alterar apartir daqui-->
-        <h1 id="h1Landing">Silver Zone: Validação do Hash</h1>
+        <h1 id="h1SilverValidate">Silver Zone: Validação do Hash</h1>
 
         <div id="alinhamentos">
-            <h2 id="h2Landing">Nome do arquivo:</h2>
+            <h2 id="h2SilverValidate">Nome do arquivo:</h2>
             <h2 id="parchive" v-text="nameFile"></h2>
           </div>
           <div id="table-container" style="overflow-x: auto">
@@ -46,9 +46,12 @@
               </thead>
               <tbody>
                 <!--coluna nome-->
-                <tr v-for="(item, index) in data" :key="index">
-                  <!--coluna descrição-->
-                  <td><input type="text" v-model="item.descricao" disabled /></td>
+                
+                <tr v-for="(item, index) in dataFiltrada" :key="index">
+                  <!--coluna nome-->
+                  <td><input type="text" v-model="item.nome" disabled></td>
+                  <!--coluna valor padrão-->
+                  <td><input type="text" v-model="item.ValorPadrao" disabled></td>
                   <!--coluna agrupar-->
                   <td><input type="checkbox" v-model="item.agrupar" disabled /></td>
               </tbody>
@@ -90,8 +93,7 @@
         headTabela: [
           "Nome",
           "Valor Padrão",
-          "Descrição",
-          "Agrupar Colunas..."
+          "Agrupar colunas...",
         ],
 
         //objeto pegado da tela anterior <!--REVISAR-->
