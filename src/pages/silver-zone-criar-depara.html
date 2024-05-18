@@ -113,7 +113,7 @@
             mounted() {
                 this.nameFile = localStorage.getItem("fileName") || "";
                 this.user = sessionStorage.getItem("usuario") || "";
-                this.cnpj = sessionStorage.getItem("cnpj") || "30284678000104";
+                this.cnpj = sessionStorage.getItem("cnpjFile");
                 this.visualizarMetadadosAtivos();
                 console.log(this.nameFile, this.user, this.cnpj)
             },
@@ -122,7 +122,7 @@
                     const objetoParaEnviar = {
                         email: this.user,
                         arquivo: this.nameFile,
-                        cnpj: this.cnpj,
+                        cnpj: localStorage.getItem("cnpjFile"),
                         metadados: []
                     };
 
@@ -218,7 +218,7 @@
                     const objetoParaEnviar = {
                         email: this.user,
                         arquivo: this.nameFile,
-                        cnpj: this.cnpj,
+                        cnpj: localStorage.getItem("cnpjFile"),
                         metadados: metadadosSelecionados
                     };
 
@@ -269,7 +269,7 @@
                     const objetoCompleto = {
                         email: this.user,
                         arquivo: this.nameFile,
-                        cnpj: this.cnpj,
+                        cnpj: localStorage.getItem("cnpjFile"),
                         metadados: metadados
                     };
 
