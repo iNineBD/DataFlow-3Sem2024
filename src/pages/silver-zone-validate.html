@@ -16,240 +16,184 @@
 </head>
 
 <body>
-    <div id="app">
-        <header>
-          <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
-          <nav>
-            <a href="home.html">Home</a>
-            <a href="upload-csv.html">Importar Arquivo</a>
-            <a @click="deslogar()"><span class="material-symbols-outlined">
-                logout
-              </span></a>
-          </nav>
-        </header>
-        <!--alterar apartir daqui-->
-        <h1 id="h1SilverValidate">Silver Zone: Validação do Hash</h1>
+  <div id="app">
+    <header>
+      <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">
+            logout
+          </span></a>
+      </nav>
+    </header>
+    <!--alterar apartir daqui-->
+    <h1 id="h1SilverValidate">Silver Zone: Validação do Hash</h1>
 
-        <div id="alinhamentos">
-            <h2 id="h2SilverValidate">Nome do arquivo:</h2>
-            <h2 id="parchive" v-text="nameFile"></h2>
-          </div>
-          <div id="table-container" style="overflow-x: auto">
-            <table>
-              <thead>
-                <tr>
-                  <!--cabeçalho da tabela-->
-                  <th v-for="(head, index) in headTabela" :key="index">
-                    {{ head }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <!--coluna nome-->
-                
-                <tr v-for="(item, index) in dataFiltrada" :key="index">
-                  <!--coluna nome-->
-                  <td><input type="text" v-model="item.nome" disabled></td>
-                  <!--coluna valor padrão-->
-                  <td><input type="text" v-model="item.ValorPadrao" disabled></td>
-                  <!--coluna agrupar-->
-                  <td><input type="checkbox" v-model="item.agrupar" disabled /></td>
-              </tbody>
-            </table>
-        
-        
-          <!--Botões de cancelar, aprovar e reprovar-->
-          <div class="container">
-            <div class="left-section">
-              Observações:
-              <input type="text" id="inputObs" v-model="observacao" />
-            </div>
-            <div class="right-section">
-              <a href="navegation.html">
-                <button id="btnCancelar">Voltar</button>
-              </a>
-              <button id="btnReprovado" @click="reprovarArquivo()">
-                Reprovado
-              </button>
-              <button id="btnSalvar" @click="aprovarArquivo()">Aprovado</button>
-            </div>
-          </div>
+    <div id="alinhamentos">
+      <h2 id="h2SilverValidate">Nome do arquivo:</h2>
+      <h2 id="parchive" v-text="nameFile"></h2>
+    </div>
+    <div id="table-container" style="overflow-x: auto">
+      <table>
+        <thead>
+          <tr>
+            <!--cabeçalho da tabela-->
+            <th v-for="(head, index) in headTabela" :key="index">
+              {{ head }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--coluna nome-->
+
+          <tr v-for="(item, index) in metadadosNoHash" :key="index">
+            <!--coluna nome-->
+            <td><input type="text" v-model="item.nome" disabled></td>
+            <!--coluna valor padrão-->
+            <td><input type="text" v-model="item.ValorPadrao" disabled></td>
+            <!--coluna agrupar-->
+            <td><input type="checkbox" v-model="item.agrupar" checked="true" disabled /></td>
+        </tbody>
+      </table>
+
+
+      <!--Botões de cancelar, aprovar e reprovar-->
+      <div class="container">
+        <div class="left-section">
+          Observações:
+          <input type="text" id="inputObs" v-model="observacao" />
         </div>
-
+        <div class="right-section">
+          <a href="navegation.html">
+            <button id="btnCancelar">Voltar</button>
+          </a>
+          <button id="btnReprovado" @click="alteraSituacao(false)">
+            Reprovado
+          </button>
+          <button id="btnSalvar" @click="alteraSituacao(true)">Aprovado</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <!--ALTERAR MEU LOCALHOST-->
 <!-- script Vue.js -->
 <script>
-    // instancia do Vue
-    const vm = new Vue({
-      el: "#app",
-      data: {
-        // nome do arquivo
-        nameFile: "",
-        // nome do usuario
-        userFile: "",
-        // cabeçalho da tabela  <!--verificar como está o Agrupar Colunas-->
-        headTabela: [
-          "Nome",
-          "Valor Padrão",
-          "Agrupar colunas...",
-        ],
-
-        //objeto pegado da tela anterior <!--REVISAR-->
-        data: [],
-        observacao: "",
-        aprovado: "",
+  const app = new Vue({
+    el: "#app",
+    data: {
+      nameFile: "",
+      userFile: "",
+      observacao: "",
+      data: [],
+      metadadosNoHash: [],
+      headTabela: ["Nome", "Valor Padrão", "Colunas agrupadas"]
+    },
+    mounted() {
+      this.nameFile = localStorage.getItem("fileName") || "";
+      this.userFile = sessionStorage.getItem("usuario") || "";
+      this.visualizarMetadadosDoHash();
+    },
+    methods: {
+      deslogar() {
+        sessionStorage.removeItem("usuario")
+        window.location.href = "../../public/index.html"
       },
-      created() {
-        let test = [];
-        let metadado = [];
-      },
-      mounted() {
-        this.importarDadosBronze(); 
-      },
-      methods: {
-        deslogar() {
-          sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
-        },
-        //função para acionar a extrasão de dados
-        aprovarArquivo() {
-          // Construindo o objeto completo
-          const objetoCompleto = {
-            arquivo: this.nameFile,
-            usuario: sessionStorage.getItem("usuario"),
-            aprovado: (this.aprovado = true),
-            observacao: this.observacao,
-          };
-
-          console.log(objetoCompleto);
-          //Enviar dados para o backend
-          fetch("localhost:8080/silver/validation", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-            },
-            body: JSON.stringify(objetoCompleto),
+      alteraSituacao(situacao) {
+        // Construindo o objeto completo
+        const objetoCompleto = {
+          arquivo: this.nameFile,
+          usuario: sessionStorage.getItem("usuario"),
+          aprovado: situacao,
+          cnpj: "12345678901234",
+          observacao: this.observacao,
+        };
+        console.log(objetoCompleto);
+        //Enviar dados para o backend
+        fetch("http://localhost:8080/silver/validation", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+          },
+          body: JSON.stringify(objetoCompleto),
+        })
+          .then((response) => {
+            return response.json();
           })
-            .then((response) => {
-              return response.json();
-            })
-            .then((responseJson) => {
-              if (
-                responseJson.critica !== "Processamento efetuado com sucesso"
-              ) {
-                Swal.fire({
-                  title: "Erro",
-                  text: responseJson.critica,
-                  icon: "error", // Ícone personalizado (success, error, warning, info)
-                  confirmButtonText: "OK", // Texto do botão de confirmação
-                });
-                return;
-              } else {
-                Swal.fire({
-                  title: "Aprovado com Sucesso",
-                  text: responseJson.critica,
-                  icon: "success", // Ícone personalizado (success, error, warning, info)
-                  confirmButtonText: "OK", // Texto do botão de confirmação
-                }).then((result) => {
-                  localStorage.removeItem("arquivoCSV");
-                  window.location.href = "home.html";
-                });
-              }
-            });
-        },
-        reprovarArquivo() {
-          // Construindo o objeto completo
-          const objetoCompleto = {
-            arquivo: this.nameFile,
-            usuario: sessionStorage.getItem("usuario"),
-            aprovado: (this.aprovado = false),
-            observacao: this.observacao,
-          };
-          console.log(objetoCompleto);
-          //Enviar dados para o backend
-          fetch("localhost:8080/silver/validation", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-            },
-            body: JSON.stringify(objetoCompleto),
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((responseJson) => {
-              // Verifica se o campo observacao está vazio
-              if (!this.observacao.trim()) {
-                // Se estiver vazio, exibe uma mensagem de erro
-                Swal.fire({
-                  title: "Erro",
-                  text: "Por favor, forneça uma observação antes de reprovar o arquivo.",
-                  icon: "error",
-                  confirmButtonText: "OK",
-                });
-                return; // Retorna sem continuar a execução do método
-              }
-              if (
-                responseJson.critica !== "Processamento efetuado com sucesso"
-              ) {
-                Swal.fire({
-                  title: "Erro",
-                  text: responseJson.critica,
-                  icon: "error", // Ícone personalizado (success, error, warning, info)
-                  confirmButtonText: "OK", // Texto do botão de confirmação
-                });
-                return;
-              } else {
-                Swal.fire({
-                  title: "Reprovado com Sucesso",
-                  text: responseJson.critica,
-                  icon: "success", // Ícone personalizado (success, error, warning, info)
-                  confirmButtonText: "OK", // Texto do botão de confirmação
-                }).then((result) => {
-                  localStorage.removeItem("arquivoCSV");
-                  window.location.href = "home.html";
-                });
-              }
-            });
-        },
-        importarDadosBronze() {
-          fetch("localhost:8080/bronze/visualize", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-            },
-            body: JSON.stringify({
-              usuario: sessionStorage.getItem("usuario"),
-              nomeArquivo: localStorage.getItem("fileName"),
-            }),
-          })
-            .then((response) => response.json())
-            .then((responseData) => {
-              const response = responseData.response.aboutMetadados;
-              console.log(response);
-  
-              this.nameFile = response.nomeArquivo;
-              this.userFile = response.usuario;
-              this.data = response.metadados.map((coluna) => {
-                return {
-                  nome: coluna.nome,
-                  valorPadrao: coluna.valorPadrao || "",
-                  descricao: coluna.descricao || "",
-                  agrupar: coluna.agrupar || "",
-                };
+          .then((responseJson) => {
+            console.log(responseJson)
+            if (
+              responseJson.critica !== "Processamento efetuado com sucesso"
+            ) {
+              Swal.fire({
+                title: "Erro",
+                text: responseJson.critica,
+                icon: "error", // Ícone personalizado (success, error, warning, info)
+                confirmButtonText: "OK", // Texto do botão de confirmação
               });
-              return response;
-            });
-        },
+              return;
+            } else {
+              Swal.fire({
+                title: "Aprovado com Sucesso",
+                text: responseJson.critica,
+                icon: "success", // Ícone personalizado (success, error, warning, info)
+                confirmButtonText: "OK", // Texto do botão de confirmação
+              }).then((result) => {
+                localStorage.removeItem("arquivoCSV");
+                window.location.href = "home.html";
+              });
+            }
+          });
       },
-    });
-  </script>
-  <script src="../utils/hover-icon-change-upload-csv.js"></script>
+      visualizarMetadadosDoHash() {
+        const objetoParaEnviar = {
+          nomeArquivo: this.nameFile,
+          usuario: this.userFile,
+        };
+
+        fetch("http://localhost:8080/bronze/visualize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+          },
+          body: JSON.stringify(objetoParaEnviar),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log(
+                Error + " Erro na requisição: " + response.status
+              );
+            }
+            console.log("Requisição feita com sucesso: " + response.status);
+            return response.json();
+          })
+          .then(data => {
+            console.log("Dados recebidos:", data);
+            if (data && data.response && data.response.metadadosNoHash) {
+              this.metadadosNoHash = data.response.metadadosNoHash.map((meta) => ({
+                nome: meta.nome,
+                valorPadrao: meta.valorPadrao || "",
+              }));
+              console.log("Metadados:", this.metadadosNoHash);
+            } else {
+              console.log(
+                Error + " Resposta da requisição inválida: ",
+                data
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Erro ao criar hash:", error);
+          });
+      }
+    }
+  });
+</script>
+<script src="../utils/hover-icon-change-upload-csv.js"></script>
 
 
 </html>
