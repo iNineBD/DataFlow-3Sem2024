@@ -116,6 +116,7 @@
                   return {
                     nomeArquivo: arquivo.nome,
                     organizacao: arquivo.organizacao,
+                    cnpj: arquivo.cnpj,
                     status: arquivo.status,
                   };
                 });
@@ -128,6 +129,7 @@
         viewFileDetails(file) {
           localStorage.setItem("fileName", file.nomeArquivo);
           localStorage.setItem("status", file.status);
+          localStorage.setItem("cnpjFile", file.cnpj);
 
           window.location.href = "navegation.html";
         },
@@ -154,7 +156,7 @@
           const objetoCompleto = {
             nomeArquivo: file.nomeArquivo,
             usuario: sessionStorage.getItem("usuario"),
-            usuarioOrg: file.organizacao,
+            usuarioOrg: file.cnpj,
           };
 
           //Enviar dados para o backend

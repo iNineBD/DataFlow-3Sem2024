@@ -51,7 +51,7 @@
             <!--coluna nome-->
             <td><input type="text" v-model="item.nome" disabled></td>
             <!--coluna valor padrão-->
-            <td><input type="text" v-model="item.ValorPadrao" disabled></td>
+            <td><input type="text" v-model="item.valorPadrao" disabled></td>
             <!--coluna agrupar-->
             <td><input type="checkbox" v-model="item.agrupar" checked="true" disabled /></td>
         </tbody>
@@ -107,7 +107,7 @@
           arquivo: this.nameFile,
           usuario: sessionStorage.getItem("usuario"),
           aprovado: situacao,
-          cnpj: "12345678901234",
+          cnpj: localStorage.getItem("cnpjFile"),
           observacao: this.observacao,
         };
         console.log(objetoCompleto);
@@ -152,6 +152,7 @@
         const objetoParaEnviar = {
           nomeArquivo: this.nameFile,
           usuario: this.userFile,
+          cnpj: localStorage.getItem("cnpjFile")
         };
 
         fetch("http://localhost:8080/bronze/visualize", {
