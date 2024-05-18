@@ -78,7 +78,9 @@
                 </button>
             </div>
             <div id="buttons">
-                <a href="navegation.html"><button id="btnVoltar">Voltar</button></a>
+                <a href="navegation.html">
+                    <button id="btnVoltar">Voltar</button>
+                </a>
                 <button id="btnSalvar" @click="salvar">Salvar</button>
             </div>
         </main>
@@ -156,7 +158,7 @@
                             }
                         })
                         .catch((error) => {
-                            console.error("Erro ao criar hash:", error);
+                            console.error("Erro ao criar DePara:", error);
                         });
                 },
                 mostrarModalSelecaoMetadado() {
@@ -310,7 +312,9 @@
                                 });
                             }
                             console.log("Requisição feita com sucesso");
-                        })
+                        }).catch((error) => {
+                            console.error("Erro ao criar DePara:", error);
+                        });
                 }
             }
         });
