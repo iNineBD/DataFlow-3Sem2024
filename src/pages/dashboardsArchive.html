@@ -68,28 +68,10 @@
       },
       data: {
         organizations: [],
-        series: [50, 50, 50, 50], visible: false,
+        series: [1,1,1], visible: false,
+        
         chartOptions1: {
-          chart: {
-            width: 380,
-            type: 'donut',
-          },
-          dataLabels: {
-            enabled: false // Define como false para desabilitar os rótulos de dados
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                show: false
-              }
-            }
-          }],
-        },
-        chartOptions2: {
+          labels: ["Landing Zone","Bronze Zone","Silver Zone"],
           chart: {
             width: 380,
             type: 'donut',
@@ -156,10 +138,26 @@
               cnpj: selectedCNPJ
             }),
           })
-            .then((response) => response.json())
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log("Resposta da API:", data);
+             
+              this.series = [
+                data.response.metricas[0].etapas.LZ,
+                data.response.metricas[0].etapas.BZ,
+                data.response.metricas[0].etapas.SZ,
+              ]
+            })
+            .catch(error => {
+              console.error("Erro na solicitação:", error);
+            });
 
-          console.log("Organização selecionada: ", selectedCNPJ);
-          this.series = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
+          console.log("Organização selecionada:", selectedCNPJ);
         }
       }
     });
