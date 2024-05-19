@@ -98,7 +98,7 @@ body {
   justify-content: flex-start;
 }
 
-button {
+select {
   /* Estilos adicionais para o botão, se necessário */
   margin: 25px; /* espaço entre os botões */
   padding: 10px;
