@@ -244,11 +244,11 @@ th {
     font-weight: 600;
     display: flex;
     align-items: center;
+    float: right;
+    margin-right: 12%;
+   
 }
 
-#btnAddMetadado .material-symbols-outlined {
-    margin-right: 8px;
-}
 
 #btnSalvar {
     background-color: #021F4E;
@@ -259,6 +259,7 @@ th {
     cursor: pointer;
     font-size: 15px;
     font-weight: 600;
+    float: right;
 }
 
 #buttons {
