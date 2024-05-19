@@ -51,15 +51,11 @@
                                 <td>
                                     <span>{{ item.metadado }}</span>
                                 </td>
-                                <td>
-                                    <span>{{ item.valorDe }}</span>
-                                </td>
+
                                 <td>
                                     <input type="text" v-model="item.valorDe">
                                 </td>
-                                <td>
-                                    <span>{{ item.igualA }}</span>
-                                </td>
+
                                 <td>
                                     <input type="text" v-model="item.igualA">
                                 </td>
@@ -75,15 +71,20 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <button id="btnAddMetadado" @click="mostrarModalSelecaoMetadado">
+                    <span class="material-symbols-outlined">add</span>
+                    Selecionar outro metadado
+                </button>
+            </div>
+            
             <div id="buttons">
                 
-                <a href="navegation.html">
+                <a href="silver-zone-visualizar-depara.html">
                     <button id="btnVoltar">Voltar</button>
                 </a>
-                <!--btn de salvar = @click="salvar" e adicionar-->>
-                <button id="btnSalvar" >Salvar</button>
-
-                
+                <!--btn de salvar  = e adicionar-->>
+                <button id="btnSalvar" @click="salvar">Salvar</button>               
             </div>
         </main>
     </div>
@@ -92,8 +93,8 @@
         const app = new Vue({
             el: "#app",
             data: {
-                nameFile: "",
-                userFile: "",
+                nameFile: localStorage.getItem('nameFile') || "",
+                userFile: sessionStorage.getItem('usuario') || "",
                 tabelas: [],
                 listaDosMetadados: [],
                 headTabela: [
@@ -117,11 +118,12 @@
                 this.user = sessionStorage.getItem("usuario") || "";
                 this.cnpj = localStorage.getItem("cnpjFile");
                 this.visualizarDeParasCriados();
+                this.visualizarMetadadosAtivos();
                 console.log(this.nameFile, this.user, this.cnpj)
             },
             methods: {
                 visualizarDeParasCriados() {
-                    const objetoParaEnviar = {
+                    const objetoRecebido = {
                         email: this.user,
                         arquivo: this.nameFile,
                         cnpj: this.cnpj,
@@ -133,8 +135,9 @@
                             "Content-Type": "application/json",
                             'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
                         },
-                        body: JSON.stringify(objetoParaEnviar),
+                        body: JSON.stringify(objetoRecebido),
                     })
+                    
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Erro na requisição: " + response.status);
@@ -160,8 +163,205 @@
                         console.error("Erro ao visualizar metadados:", error);
                     });
                 },
+                visualizarMetadadosAtivos() {
+                    const objetoParaEnviar = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: localStorage.getItem("cnpjFile"),
+                        metadados: []
+                    };
+
+                    fetch("http://localhost:8080/silver/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoParaEnviar),
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                console.log(
+                                    Error + " Erro na requisição: " + response.status
+                                );
+                            }
+                            console.log("Requisição feita com sucesso: " + response.status);
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Dados recebidos:", data);
+                            if (data && data.response && data.response.listMetadados) {
+                                this.listaDosMetadados = data.response.listMetadados.map((meta) => ({
+                                    nome: meta.nome,
+                                }));
+                                console.log("Metadados:", this.listaDosMetadados);
+                            } else {
+                                console.log(
+                                    Error + " Resposta da requisição inválida: ",
+                                    data
+                                );
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Erro ao criar DePara:", error);
+                        });
+                },
+                mostrarModalSelecaoMetadado() {
+                    const metadadosSelecionados = this.tabelas.map(tabela => tabela.data[0].metadado);
+                    const metadadosDisponiveis = this.listaDosMetadados.filter(meta => !metadadosSelecionados.includes(meta.nome));
+
+                    const inputOptions = metadadosDisponiveis.reduce((options, meta) => {
+                        options[meta.nome] = meta.nome;
+                        return options;
+                    }, {});
+
+                    Swal.fire({
+                        title: 'Selecionar Metadado',
+                        input: 'select',
+                        inputOptions: inputOptions,
+                        inputPlaceholder: 'Selecione um metadado',
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.value) {
+                            this.adicionarTabela(result.value);
+                            this.atualizarMetadadosDisponiveis(result.value);
+                        }
+                    });
+                },
+                adicionarTabela(metadadoSelecionado) {
+                    const novaTabela = {
+                        data: [{
+                            metadado: metadadoSelecionado,
+                            valorDe: '',
+                            igualA: '',
+                            ativo: true
+                        }],
+                        headTabela: this.headTabela
+                    };
+                    this.tabelas.push(novaTabela);
+                },
+                adicionarLinha(tabela) {
+                    const metadadoSelecionado = tabela.data[0].metadado;
+                    tabela.data.push({
+                        metadado: metadadoSelecionado,
+                        valorDe: '',
+                        igualA: '',
+                        ativo: true
+                    });
+                },
+                removerLinha(tableIndex, itemIndex) {
+                    this.tabelas[tableIndex].data.splice(itemIndex, 1);
+
+                    if (this.tabelas[tableIndex].data.length === 0) {
+                        this.tabelas.splice(tableIndex, 1)
+                    }
+                    this.atualizarMetadadosDisponiveis();
+                },
+                atualizarMetadadosDisponiveis(metadadoSelecionado) {
+                    const metadadosSelecionados = this.tabelas.map(tabela => ({ nome: tabela.data[0].metadado }));
+
+                    const objetoParaEnviar = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: localStorage.getItem("cnpjFile"),
+                        metadados: metadadosSelecionados
+                    };
+
+                    fetch("http://localhost:8080/silver/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoParaEnviar),
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                console.log(
+                                    Error + " Erro na requisição: " + response.status
+                                );
+                            }
+                            console.log("Requisição feita com sucesso: " + response.status);
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Dados recebidos:", data);
+                            if (data && data.response && data.response.listMetadados) {
+                                this.listaDosMetadados = data.response.listMetadados.map((meta) => ({
+                                    nome: meta.nome,
+                                }));
+                                console.log("Metadados:", this.listaDosMetadados);
+                            } else {
+                                console.log(
+                                    Error + " Resposta da requisição inválida: ",
+                                    data
+                                );
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Erro ao atualizar metadados:", error);
+                        });
+                },
+                salvar() {
+                    const metadados = this.tabelas.map(tabela => ({
+                        nome: tabela.data[0].metadado,
+                        deParas: tabela.data.map(item => ({
+                            de: item.valorDe,
+                            para: item.igualA
+                        }))
+                    }));
+
+                    const objetoCompleto = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: localStorage.getItem("cnpjFile"),
+                        metadados: metadados
+                    };
+
+                    console.log(JSON.stringify(objetoCompleto, null, 2));
+
+                    fetch("http://localhost:8080/silver/save", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoCompleto),
+                    })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                console.log(
+                                    Error + " erro na requisição: " + responseJson.critica
+                                );
+
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then((result) => {
+                                    window.location.href = "home.html";
+                                });
+                            }
+                            console.log("Requisição feita com sucesso");
+                        }).catch((error) => {
+                            console.error("Erro ao criar DePara:", error);
+                        });
             }
-        });
+        }});
     </script>
 </body>
 
