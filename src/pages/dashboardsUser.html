@@ -15,7 +15,7 @@
   <script src="/src/utils/vue-apexcharts.js"></script>
   <link rel="stylesheet" href="/src/assets/style/apexcharts.css">
   <!-- Corrija o caminho para o arquivo CSS -->
-  <link rel="stylesheet" href="/src/assets/style/dashboardsHome.css" />
+  <link rel="stylesheet" href="/src/assets/style/dashboardsUser.css" />
   <title>Dashboards</title>
 </head>
 
@@ -30,30 +30,25 @@
     </header>
 
     <div id="container">
-      <div class="left">
-        <div>
-          <div class="chart-wrap">
-            <div id="chart">
-              <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
-            </div>
-          </div>
-          <a href="dashboardsUser.html"><button>Dashboards Usuarios</button></a>
-        </div>
+      
+      <div class="tituloDashHome">
+        Este é o Dashboard de Usuarios
       </div>
 
-      <div class="right">
-        <div>
-          <div class="chart-wrap">
-            <div id="chart">
-              <apexchart type="donut" width="380" :options="chartOptions2" :series="series"></apexchart>
+      <div class="dashs">
+        <div class="left">
+          <div>
+            <div class="chart-wrap">
+              <div id="chart">
+                <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
+              </div>
             </div>
           </div>
-          <a href="dashboardsArchive.html"><button>Dashboards Arquivos</button></a>
         </div>
       </div>
     </div>
   </div>
-  </div>
+  
 
 
   <script>
@@ -66,7 +61,7 @@
         apexchart: VueApexCharts,
       },
       data: {
-        series: [50,50,50,50], visible: false,
+        series: [50, 50, 50, 50], visible: false,
         chartOptions1: {
           chart: {
             width: 380,

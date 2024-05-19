@@ -15,7 +15,7 @@
   <script src="/src/utils/vue-apexcharts.js"></script>
   <link rel="stylesheet" href="/src/assets/style/apexcharts.css">
   <!-- Corrija o caminho para o arquivo CSS -->
-  <link rel="stylesheet" href="/src/assets/style/dashboardsHome.css" />
+  <link rel="stylesheet" href="/src/assets/style/dashboardsArchive.css" />
   <title>Dashboards</title>
 </head>
 
@@ -30,6 +30,12 @@
     </header>
 
     <div id="container">
+
+      <div class="tituloDashHome">
+        Este é o Dashboard de Arquivos
+      </div>
+
+
       <div class="left">
         <div>
           <div class="chart-wrap">
@@ -37,23 +43,18 @@
               <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
             </div>
           </div>
-          <a href="dashboardsUser.html"><button>Dashboards Usuarios</button></a>
+        </div>
+        <div class="actions">
+          <select @change="updateGrafico($event)">
+            <option value="all">Todas as organizações</option>
+            <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
+          </select>
         </div>
       </div>
 
-      <div class="right">
-        <div>
-          <div class="chart-wrap">
-            <div id="chart">
-              <apexchart type="donut" width="380" :options="chartOptions2" :series="series"></apexchart>
-            </div>
-          </div>
-          <a href="dashboardsArchive.html"><button>Dashboards Arquivos</button></a>
-        </div>
-      </div>
     </div>
   </div>
-  </div>
+
 
 
   <script>
@@ -66,7 +67,8 @@
         apexchart: VueApexCharts,
       },
       data: {
-        series: [50,50,50,50], visible: false,
+        organizations: [],
+        series: [50, 50, 50, 50], visible: false,
         chartOptions1: {
           chart: {
             width: 380,
@@ -108,10 +110,56 @@
           }],
         }
       },
+      mounted() {
+        sessionStorage.getItem("usuario");
+        localStorage.getItem("cnpjFile");
+        this.getOrgs();
+      },
       methods: {
         deslogar() {
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
+        },
+        getOrgs() {
+          fetch("http://localhost:8080/analytics/organizations", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              this.organizations = data.response;
+              console.log("GET realizado com sucesso")
+              console.log(data.response)
+            })
+            .catch(error => {
+              console.error('Erro ao buscar organizações:', error);
+            });
+        },
+
+
+        updateGrafico(event) {
+
+          const selectedCNPJ = event.target.value;
+
+
+          fetch("http://localhost:8080/analytics/files", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify({
+              searchType: (selectedCNPJ == "all" ? "all" : "single"),
+              cnpj: selectedCNPJ
+            }),
+          })
+            .then((response) => response.json())
+
+          console.log("Organização selecionada: ", selectedCNPJ);
+          this.series = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100];
         }
       }
     });
