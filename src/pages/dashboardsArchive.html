@@ -32,7 +32,8 @@
     <div id="container">
 
       <div class="tituloDashHome">
-        Este é o Dashboard de Arquivos
+        Este é o Dashboard de Arquivos<br><br>
+        Selecione a Organização 
       </div>
 
 
@@ -45,7 +46,7 @@
           </div>
         </div>
         <div class="actions">
-          <select @change="updateGrafico($event)">
+          <select @change="updateGrafico($event.target.value)">
             <option value="all">Todas as organizações</option>
             <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
           </select>
@@ -96,6 +97,7 @@
         sessionStorage.getItem("usuario");
         localStorage.getItem("cnpjFile");
         this.getOrgs();
+        this.updateGrafico("all");
       },
       methods: {
         deslogar() {
@@ -122,9 +124,7 @@
         },
 
 
-        updateGrafico(event) {
-
-          const selectedCNPJ = event.target.value;
+        updateGrafico(selectedCNPJ) {
 
 
           fetch("http://localhost:8080/analytics/files", {

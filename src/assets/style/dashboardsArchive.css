@@ -83,6 +83,7 @@ body {
 .left {
   align-content: center;
   background-color: rgb(255, 255, 255);
+  margin-bottom: 200px;
 }
 
 .chart-wrap {
@@ -90,7 +91,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-left: 95px;
+  margin-left: 110px;
 }
 
 .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
