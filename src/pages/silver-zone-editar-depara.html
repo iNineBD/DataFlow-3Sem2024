@@ -29,9 +29,8 @@
             <h1 id="h1SilverEditarDePara">Editar DePara - Silver Zone</h1>
             <p id="pSilverEditarDePara">Você está editando os DePara's que foram criados!</p>
             <p id="pSilverEditarDePara">Após editá-los clique em "Salvar".</p>
-
             <div id="alinhamentos">
-                <h2 id="h2SilverEditarDePara">Nome do aquivo:</h2>
+                <h2 id="h2SilverDePara">Nome do arquivo:</h2>
                 <p id="parchive" v-text="nameFile"></p>
             </div>
 
@@ -53,29 +52,41 @@
                                     <span>{{ item.metadado }}</span>
                                 </td>
                                 <td>
-                                    <span>{{ item.metadado }}</span>
+                                    <span>{{ item.valorDe }}</span>
                                 </td>
                                 <td>
-                                    <span>{{ item.valorDe }}</span>
+                                    <input type="text" v-model="item.valorDe">
                                 </td>
                                 <td>
                                     <span>{{ item.igualA }}</span>
                                 </td>
+                                <td>
+                                    <input type="text" v-model="item.igualA">
+                                </td>
+                                <td>
+                                    <span class="material-symbols-outlined" id="iconDelete"
+                                        @click="removerLinha(tableIndex, itemIndex)">delete</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div id="btnLinha">
+                        <button id="btnAddLinha" @click="adicionarLinha(tabela)">+</button>
+                    </div>
                 </div>
-                <div id="buttons">
-                    <a href="navegation.html">
-                        <button id="btnVoltar">Voltar</button>
-                    </a>
-                    <a href="silver-zone-visualizar-depara.html">
-                        <button id="btnSalvar" @click="salvarDeParaEditado">Salvar</button>
-                    </a>
-                </div>       
-            </main>
-        </div>
+            </div>
+            <div id="buttons">
+                
+                <a href="navegation.html">
+                    <button id="btnVoltar">Voltar</button>
+                </a>
+                <!--btn de salvar = @click="salvar" e adicionar-->>
+                <button id="btnSalvar" >Salvar</button>
 
+                
+            </div>
+        </main>
+    </div>
 
     <script>
         const app = new Vue({
@@ -85,77 +96,38 @@
                 userFile: "",
                 tabelas: [],
                 listaDosMetadados: [],
-                headTabela: ["Metadado","O valor de:","É igual a:","Excluir"],
+                headTabela: [
+                    "Metadado",
+                    "O valor de:",
+                    "É igual a:",
+                    "Excluir"
+                ],
             },
-                mounted() {
-                    this.nameFile = localStorage.getItem("fileName") || "";
-                    this.user = sessionStorage.getItem("usuario") || "";
-                    this.cnpj = sessionStorage.getItem("cnpj") || "30284678000104";
-                    this.visualizarDeParasCriados();
-                    console.log(this.nameFile, this.user, this.cnpj) //preciso dessa linha? revisar!!!
+            computed: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "/public/index.html"
                 },
-                methods: {
-                    deslogar() {
-                        sessionStorage.removeItem("usuario")
-                        window.location.href = "../../public/index.html"
-                    },
-                    visualizarDeParasCriados() {
-                        const objetoParaEnviar = {
-                            email: this.user,
-                            arquivo: this.nameFile,
-                            cnpj: this.cnpj,
-                        };
-                        fetch("http://localhost:8080/silver/visualize", {
-                            method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
-                                },
-                                body: JSON.stringify(objetoParaEnviar),
-                            })
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error("Erro na requisição: " + response.status);
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log("Dados recebidos:", JSON.stringify(data, null, 2));
-                            if (data && data.response && Array.isArray(data.response.metadados)) {
-                                this.listaDosMetadados = data.response.metadados;
-                                this.tabelas = this.listaDosMetadados.map(metadado => ({
-                                    data: metadado.dePara.map(dePara => ({
-                                        metadado: metadado.nome,
-                                        valorDe: dePara.de,
-                                        igualA: dePara.para,
-                                    })),
-                                }));
-                            } else {
-                                throw new Error("Resposta da requisição inválida");
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Erro ao visualizar metadados:", error);
-                        });
-                    },
-                    salvarDeParaEditado(){
-                       const DeParaTabela = this.tabelas
-                       .filter(item => item.metadado)
-                       .map(({Metadado,OvalorDe, IgualA, Excluir}) =>({
-                        nome,
-                        OvalorDe: OvalorDe || "",
-                        igualA: igualA || "",
-                        Excluir,
-                        }));
-                    
-                    
-                    
+                dataFiltrada() {
+                    return this.data.filter((item) => item.ativo);
+                },
+            },
+            mounted() {
+                this.nameFile = localStorage.getItem("fileName") || "";
+                this.user = sessionStorage.getItem("usuario") || "";
+                this.cnpj = localStorage.getItem("cnpjFile");
+                this.visualizarDeParasCriados();
+                console.log(this.nameFile, this.user, this.cnpj)
+            },
+            methods: {
+                visualizarDeParasCriados() {
                     const objetoParaEnviar = {
                         email: this.user,
                         arquivo: this.nameFile,
                         cnpj: this.cnpj,
-                    }
-                    fetch("http://localhost:8080/silver/edit", {
+                    };
+
+                    fetch("http://localhost:8080/silver/visualize", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -163,31 +135,34 @@
                         },
                         body: JSON.stringify(objetoParaEnviar),
                     })
-                        .then(response => response.json())
-                        .then(responseJson => {
-                            if (responseJson.critica !== "Processamento efetuado com sucesso") {
-                                Swal.fire({
-                                    title: "Erro",
-                                    text: responseJson.critica,
-                                    icon: "error",
-                                    confirmButtonText: "OK",
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: "Sucesso",
-                                    text: responseJson.critica,
-                                    icon: "success",
-                                    confirmButtonText: "OK",
-                                }).then(result => {
-                                    window.location.href = "home.html";
-                                });
-                            }
-                        })
-                        .catch(error => console.error("Erro ao salvar o DePara:", error));
-                }
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição: " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Dados recebidos:", JSON.stringify(data, null, 2));
+                        if (data && data.response && Array.isArray(data.response.metadados)) {
+                            this.listaDosMetadados = data.response.metadados;
+                            this.tabelas = this.listaDosMetadados.map(metadado => ({
+                                data: metadado.dePara.map(dePara => ({
+                                    metadado: metadado.nome,
+                                    valorDe: dePara.de,
+                                    igualA: dePara.para,
+                                })),
+                            }));
+                        } else {
+                            throw new Error("Resposta da requisição inválida");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao visualizar metadados:", error);
+                    });
+                },
             }
         });
     </script>
 </body>
-                    
+
 </html>

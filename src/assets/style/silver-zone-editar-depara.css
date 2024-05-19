@@ -141,6 +141,18 @@ th {
     font-weight: 600;
 }
 
+#btnEditar {
+    background-color: #021F4E;
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
 #btnSalvar {
     background-color: #021F4E;
     color: #fff;
@@ -191,4 +203,67 @@ th {
 
 .apagado {
     opacity: 0.6;
+}
+#btnLinha {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 900px;
+}
+
+#btnAddLinha{
+    background-color: #e0e0e0;
+    color: #aaaaaa;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+#btnAddLinha:hover{
+    background-color: #cccccc;
+    color: #f2f2f2;
+}
+
+#iconDelete {
+    color: red;
+    cursor: pointer;
+    vertical-align: middle;
+}
+#btnAddMetadado {
+    background-color: #e0e0e0;
+    color: #aaaaaa;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+#btnAddMetadado .material-symbols-outlined {
+    margin-right: 8px;
+}
+
+#btnSalvar {
+    background-color: #021F4E;
+    color: #fff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#buttons {
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 900px;
 }
