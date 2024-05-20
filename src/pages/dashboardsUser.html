@@ -30,7 +30,7 @@
     </header>
 
     <div id="container">
-      
+
       <div class="tituloDashHome">
         Este é o Dashboard de Usuarios
       </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  
+
 
 
   <script>
@@ -61,12 +61,13 @@
         apexchart: VueApexCharts,
       },
       data: {
-        series: [50, 50, 50, 50], visible: false,
+        series: [],
         chartOptions1: {
           chart: {
             width: 380,
             type: 'donut',
           },
+          labels: [],
           dataLabels: {
             enabled: false // Define como false para desabilitar os rótulos de dados
           },
@@ -82,33 +83,40 @@
             }
           }],
         },
-        chartOptions2: {
-          chart: {
-            width: 380,
-            type: 'donut',
-          },
-          dataLabels: {
-            enabled: false // Define como false para desabilitar os rótulos de dados
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                show: false
-              }
-            }
-          }],
-        }
+      },
+      mounted() {
+        sessionStorage.getItem("usuario");
+        localStorage.getItem("cnpjFile");
+        this.getUsers()
       },
       methods: {
         deslogar() {
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
+        },
+        getUsers() {
+          fetch("http://localhost:8080/analytics/users", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+
+              this.series = data.response.metricas.qtd;
+              this.chartOptions1.labels = data.response.metricas.organizacao;
+
+              console.log("GET realizado com sucesso");
+              console.log(data.response);
+              console.log("Data received:", data);
+            })
+            .catch(error => {
+              console.error('Erro ao buscar usuarios:', error);
+            });
         }
-      }
+      },
     });
   </script>
 
