@@ -48,7 +48,7 @@
 <table>
     <tr>
         <th>Requsito</th>
-        <th>Descitivo</th>
+        <th>Descritivo</th>
             </tr>
     <tr>
      <td>1</td>
