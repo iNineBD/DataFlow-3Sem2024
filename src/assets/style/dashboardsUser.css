@@ -63,11 +63,13 @@ body {
   display: flex;
   height: 100%; /* Garante que #container ocupe toda a altura de #app */
   flex-direction: column;
+  background-color: rgb(255, 255, 255);
 }
 
 .dashs {
   flex-direction: row;
-  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .tituloDashHome {
@@ -92,11 +94,6 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-.right {
-  align-content: center;
-  background-color: rgb(255, 255, 255);
-}
-
 .chart-wrap {
   display: flex;
   justify-content: center;
@@ -110,17 +107,16 @@ body {
   justify-content: flex-start;
 }
 
-button {
-  /* Estilos adicionais para o botão, se necessário */
-  margin: 25px; /* espaço entre os botões */
-  padding: 25px;
-  background-color: #021F4E;
+.botaoVoltar {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #ADB5BD;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 20px;
   height: 100%;
-  margin-bottom: 100px;
 }
+
 

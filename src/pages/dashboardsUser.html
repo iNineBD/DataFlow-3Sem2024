@@ -30,9 +30,9 @@
     </header>
 
     <div id="container">
-
       <div class="tituloDashHome">
-        Este é o Dashboard de Usuarios
+        Este é o Dashboard de Usuarios<br><br>
+        Quantidade de usuários por organização
       </div>
 
       <div class="dashs">
@@ -44,12 +44,11 @@
               </div>
             </div>
           </div>
+          <button @click="voltar()" class="botaoVoltar">Voltar</button>
         </div>
       </div>
     </div>
   </div>
-
-
 
   <script>
     // Certifique-se de importar VueApexCharts corretamente
@@ -63,13 +62,13 @@
       data: {
         series: [],
         chartOptions1: {
-          labels: [ ],
+          labels: [],
           chart: {
             width: 380,
             type: 'donut',
           },
           dataLabels: {
-            enabled: false // Define como false para desabilitar os rótulos de dados
+            enabled: true // Define como false para desabilitar os rótulos de dados
           },
           responsive: [{
             breakpoint: 480,
@@ -90,6 +89,9 @@
         this.getUsers()
       },
       methods: {
+        voltar() {
+          window.location.href = "dashboardsHome.html"
+        },
         deslogar() {
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
@@ -120,6 +122,9 @@
             .catch(error => {
               console.error('Erro ao buscar usuarios:', error);
             });
+        },
+        handleButtonClick() {
+          alert("Botão clicado!");
         }
       },
     });
