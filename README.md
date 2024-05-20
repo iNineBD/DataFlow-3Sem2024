@@ -1,7 +1,9 @@
 # DataFlow-3Sem2024
 
-### 🖥️ API REST (BACKEND) - [DataFlow - Server](https://github.com/iNineBD/DataFlowServer-3Sem2024)
-### 📄 DOCUMENTAÇÃO - [Arquivos Documentação](https://github.com/iNineBD/DataFlow-3Sem2024/tree/main/doc)
+### 🖥️ Projeto Destinado à API REST (Backend)
+   - [DataFlow - Server](https://github.com/iNineBD/DataFlowServer-3Sem2024)
+### 📄 Documentação
+   - [Arquivos Documentação](https://github.com/iNineBD/DataFlow-3Sem2024/tree/main/doc)
 <br>
 <p align="center">
     <a href="#equipe">Equipe</a> |

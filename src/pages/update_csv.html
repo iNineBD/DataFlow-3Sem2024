@@ -220,6 +220,7 @@
             body: JSON.stringify({
               usuario: sessionStorage.getItem("usuario"),
               nomeArquivo: localStorage.getItem("fileName"),
+              cnpjFile: localStorage.getItem("cnpjFile"),
             }),
           })
             .then((response) => response.json())

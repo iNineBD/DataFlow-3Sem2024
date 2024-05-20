@@ -105,6 +105,7 @@
           const objetoCompleto = {
             nomeArquivo: this.nameFile,
             usuario: this.userFile,
+            cnpj: localStorage.getItem("cnpjFile")
           };
 
           // Enviar requisição para a criação do hash
@@ -152,6 +153,7 @@
             nomeArquivo: this.nameFile,
             usuario: this.userFile,
             metadados: metadadosSelecionados,
+            cnpj: localStorage.getItem("cnpjFile"),
           };
 
           console.log(objetoParaEnviar);

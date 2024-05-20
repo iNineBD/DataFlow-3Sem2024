@@ -154,6 +154,7 @@
           usuario: sessionStorage.getItem("usuario"),
           aprovado: (this.aprovado = true),
           observacao: this.observacao,
+          cnpjFile: localStorage.getItem("cnpjFile"),
         };
         console.log(objetoCompleto);
         //Enviar dados para o backend
@@ -199,6 +200,7 @@
           usuario: sessionStorage.getItem("usuario"),
           aprovado: (this.aprovado = false),
           observacao: this.observacao,
+          cnpjFile: localStorage.getItem("cnpjFile"),
         };
         console.log(objetoCompleto);
         //Enviar dados para o backend
@@ -258,6 +260,7 @@
           body: JSON.stringify({
             usuario: sessionStorage.getItem("usuario"),
             nomeArquivo: localStorage.getItem("fileName"),
+            fileCnpj: localStorage.getItem("cnpjFile"),
           }),
         })
           .then((response) => response.json())
