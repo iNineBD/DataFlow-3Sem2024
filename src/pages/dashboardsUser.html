@@ -63,11 +63,11 @@
       data: {
         series: [],
         chartOptions1: {
+          labels: [],
           chart: {
             width: 380,
             type: 'donut',
           },
-          labels: [],
           dataLabels: {
             enabled: false // Define como false para desabilitar os rótulos de dados
           },
@@ -105,12 +105,11 @@
             .then(response => response.json())
             .then(data => {
 
-              this.series = data.response.metricas.qtd;
               this.chartOptions1.labels = data.response.metricas.organizacao;
+              this.series = data.response.metricas.qtd;
 
               console.log("GET realizado com sucesso");
               console.log(data.response);
-              console.log("Data received:", data);
             })
             .catch(error => {
               console.error('Erro ao buscar usuarios:', error);
