@@ -63,7 +63,7 @@
       data: {
         series: [],
         chartOptions1: {
-          labels: [],
+          labels: [ ],
           chart: {
             width: 380,
             type: 'donut',
@@ -104,12 +104,18 @@
           })
             .then(response => response.json())
             .then(data => {
+              // transforma os dados recebedidos do GET em labels e series para o grafico reconhecer
+              const labels = data.response.metricas.map(item => item.organizacao);
+              const series = data.response.metricas.map(item => item.qtd);
 
-              this.chartOptions1.labels = data.response.metricas.organizacao;
-              this.series = data.response.metricas.qtd;
+              // Atualizando os dados do gráfico
+              this.chartOptions1.labels = labels;
+              this.series = series;
 
               console.log("GET realizado com sucesso");
               console.log(data.response);
+              console.log('Labels:', labels);
+              console.log('Series:', series);
             })
             .catch(error => {
               console.error('Erro ao buscar usuarios:', error);
