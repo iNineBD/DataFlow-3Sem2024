@@ -98,9 +98,14 @@ body {
   justify-content: flex-start;
 }
 
+.actions {
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+
 select {
-  /* Estilos adicionais para o botão, se necessário */
-  margin: 25px; /* espaço entre os botões */
   padding: 10px;
   background-color: #021F4E;
   color: #fff;
@@ -109,6 +114,16 @@ select {
   cursor: pointer;
   font-size: 20px;
   height: 100%;
-  margin-bottom: 100px;
+  margin-left: 350px;
 }
 
+.botaoVoltar {
+  padding: 10px;
+  background-color: #ADB5BD;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  height: 100%;
+}

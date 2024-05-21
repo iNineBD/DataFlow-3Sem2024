@@ -40,7 +40,8 @@
           <div>
             <div class="chart-wrap">
               <div id="chart">
-                <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
+                <apexchart type="donut" :width="chartWidth" :height="chartHeight" :options="chartOptions1"
+                  :series="series"></apexchart>
               </div>
             </div>
           </div>
@@ -61,6 +62,8 @@
       },
       data: {
         series: [],
+        chartWidth: 500,
+        chartHeight: 500,
         chartOptions1: {
           labels: [],
           chart: {
@@ -68,7 +71,13 @@
             type: 'donut',
           },
           dataLabels: {
-            enabled: true // Define como false para desabilitar os rótulos de dados
+            enabled: true, // Define como false para desabilitar os rótulos de dados
+            style: {
+              fontSize: '18px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: 'bold',
+              colors: ['#FFFFFF'] 
+            },
           },
           responsive: [{
             breakpoint: 480,
@@ -107,11 +116,10 @@
             .then(response => response.json())
             .then(data => {
               // transforma os dados recebedidos do GET em labels e series para o grafico reconhecer
-              const labels = data.response.metricas.map(item => item.organizacao);
+              const labels = data.response.metricas.map(item => this.chartOptions1.labels.push(item.organizacao));
               const series = data.response.metricas.map(item => item.qtd);
 
               // Atualizando os dados do gráfico
-              this.chartOptions1.labels = labels;
               this.series = series;
 
               console.log("GET realizado com sucesso");

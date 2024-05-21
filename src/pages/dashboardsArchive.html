@@ -41,7 +41,7 @@
         <div>
           <div class="chart-wrap">
             <div id="chart">
-              <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
+              <apexchart type="donut" :width="chartWidth" :height="chartHeight" :options="chartOptions1" :series="series"></apexchart>
             </div>
           </div>
         </div>
@@ -50,6 +50,7 @@
             <option value="all">Todas as organizações</option>
             <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
           </select>
+          <button @click="voltar()" class="botaoVoltar">Voltar</button>
         </div>
       </div>
 
@@ -70,7 +71,8 @@
       data: {
         organizations: [],
         series: [1, 1, 1],
-
+        chartWidth: 500, // Defina a largura desejada
+        chartHeight: 500, // Defina a altura desejada
         chartOptions1: {
           labels: ["Landing Zone", "Bronze Zone", "Silver Zone"],
           chart: {
@@ -100,6 +102,9 @@
         this.updateGrafico("all");
       },
       methods: {
+        voltar() {
+          window.location.href = "dashboardsHome.html"
+        },
         deslogar() {
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
