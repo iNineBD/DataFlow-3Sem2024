@@ -97,6 +97,7 @@
                 userFile: sessionStorage.getItem('usuario') || "",
                 tabelas: [],
                 listaDosMetadados: [],
+                listaDosMetadados2: [],
                 headTabela: [
                     "Metadado",
                     "O valor de:",
@@ -147,6 +148,8 @@
                     .then(data => {
                         console.log("Dados recebidos:", JSON.stringify(data, null, 2));
                         if (data && data.response && Array.isArray(data.response.metadados)) {
+                            
+
                             this.listaDosMetadados = data.response.metadados;
                             this.tabelas = this.listaDosMetadados.map(metadado => ({
                                 data: metadado.dePara.map(dePara => ({
@@ -191,10 +194,9 @@
                         .then(data => {
                             console.log("Dados recebidos:", data);
                             if (data && data.response && data.response.listMetadados) {
-                                this.listaDosMetadados = data.response.listMetadados.map((meta) => ({
+                                this.listaDosMetadados2 = data.response.listMetadados.map((meta) => ({
                                     nome: meta.nome,
                                 }));
-                                console.log("Metadados:", this.listaDosMetadados);
                             } else {
                                 console.log(
                                     Error + " Resposta da requisição inválida: ",
@@ -208,7 +210,11 @@
                 },
                 mostrarModalSelecaoMetadado() {
                     const metadadosSelecionados = this.tabelas.map(tabela => tabela.data[0].metadado);
-                    const metadadosDisponiveis = this.listaDosMetadados.filter(meta => !metadadosSelecionados.includes(meta.nome));
+                    console.log("Metadados:", this.listaDosMetadados2);
+
+                    const metadadosDisponiveis = this.listaDosMetadados2.filter(meta => !metadadosSelecionados.includes(meta.nome));
+
+                    
 
                     const inputOptions = metadadosDisponiveis.reduce((options, meta) => {
                         options[meta.nome] = meta.nome;
@@ -320,7 +326,7 @@
 
                     console.log(JSON.stringify(objetoCompleto, null, 2));
 
-                    fetch("http://localhost:8080/silver/save", {
+                    fetch("http://localhost:8080/silver/edit", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
