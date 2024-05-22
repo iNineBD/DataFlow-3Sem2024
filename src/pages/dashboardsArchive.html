@@ -75,6 +75,21 @@
         chartHeight: 500,
         chartOptions1: {
           labels: ["Landing Zone", "Bronze Zone", "Silver Zone"],
+          plotOptions: {
+            pie: {
+              expandOnClick: false,
+              donut: {
+                labels: {
+                  show: true,
+                  total: {
+                    show: true,
+                    showAlways: true,
+                    label: 'Total de Arquivos',
+                  }
+                }
+              }
+            }
+          },
           chart: {
             width: 380,
             type: 'donut',
