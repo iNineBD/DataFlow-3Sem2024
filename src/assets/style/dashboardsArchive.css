@@ -76,11 +76,7 @@ body {
 
 .left {
   flex-grow: 1;
-  text-align: center;
   width: 100%;
-}
-
-.left {
   align-content: center;
   background-color: rgb(255, 255, 255);
   margin-bottom: 200px;

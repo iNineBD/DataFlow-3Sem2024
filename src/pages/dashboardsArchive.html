@@ -71,8 +71,8 @@
       data: {
         organizations: [],
         series: [1, 1, 1],
-        chartWidth: 500, // Defina a largura desejada
-        chartHeight: 500, // Defina a altura desejada
+        chartWidth: 500,
+        chartHeight: 500,
         chartOptions1: {
           labels: ["Landing Zone", "Bronze Zone", "Silver Zone"],
           chart: {
@@ -80,7 +80,13 @@
             type: 'donut',
           },
           dataLabels: {
-            enabled: true // Define como false para desabilitar os rótulos de dados
+            enabled: true, // Define como false para desabilitar os rótulos de dados
+            style: {
+              fontSize: '18px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: 'bold',
+              colors: ['#FFFFFF'] 
+            }
           },
           responsive: [{
             breakpoint: 480,
@@ -88,7 +94,7 @@
               chart: {
                 width: 200
               },
-              legend: {
+              legend: {   
                 show: false
               }
             }

@@ -45,7 +45,9 @@
               </div>
             </div>
           </div>
-          <button @click="voltar()" class="botaoVoltar">Voltar</button>
+          <div id="btnVoltar">
+            <button @click="voltar()" class="botaoVoltar">Voltar</button>
+          </div>
         </div>
       </div>
     </div>
@@ -76,8 +78,16 @@
               fontSize: '18px',
               fontFamily: 'Inter, sans-serif',
               fontWeight: 'bold',
-              colors: ['#FFFFFF'] 
-            },
+              colors: ['#FFFFFF']
+            }
+          },
+          plotOptions: {
+            donut: {
+              labels: {
+                show: true,
+                showAlways: true,
+              }
+            }
           },
           responsive: [{
             breakpoint: 480,

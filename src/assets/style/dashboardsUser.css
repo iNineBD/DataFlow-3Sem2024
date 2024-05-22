@@ -82,16 +82,16 @@ body {
   background-color: rgb(255, 255, 255); 
 }
 
-.left,
-.right {
+.left {
   flex-grow: 1;
-  text-align: center;
   width: 100%;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 200px;
 }
 
-.left {
-  align-content: center;
-  background-color: rgb(255, 255, 255);
+#btnVoltar {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .chart-wrap {
@@ -99,8 +99,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-left: 95px;
-  margin-top: 20px;
+  margin-left: 110px;
 }
 
 .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
