@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- Importe o Vue.js antes do VueApexCharts -->
+  <script src="/src/utils/vue.js"></script>
+  <!-- Importe o ApexCharts antes do VueApexCharts -->
+  <script src="/src/utils/apexcharts.min.js"></script>
+  <script src="/src/utils/vue-apexcharts.js"></script>
+  <link rel="stylesheet" href="/src/assets/style/apexcharts.css">
+  <!-- Corrija o caminho para o arquivo CSS -->
+  <link rel="stylesheet" href="/src/assets/style/dashboardsArchive.css" />
+  <title>Dashboards</title>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <img src="/src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a @click="deslogar()"><span class="material-symbols-outlined">logout</span></a>
+      </nav>
+    </header>
+
+    <div id="container">
+
+      <div class="tituloDashHome">
+        Este é o Dashboard de Arquivos<br><br>
+        Selecione a Organização
+      </div>
+
+
+      <div class="left">
+        <div>
+          <div class="chart-wrap">
+            <div id="chart">
+              <apexchart type="donut" :width="chartWidth" :height="chartHeight" :options="chartOptions1" :series="series"></apexchart>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <select @change="updateGrafico($event.target.value)">
+            <option value="all">Todas as organizações</option>
+            <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
+          </select>
+          <button @click="voltar()" class="botaoVoltar">Voltar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    // Certifique-se de importar VueApexCharts corretamente
+    Vue.use(VueApexCharts);
+
+    new Vue({
+      el: '#app',
+      components: {
+        apexchart: VueApexCharts,
+      },
+      data: {
+        organizations: [],
+        series: [1, 1, 1],
+        chartWidth: 500,
+        chartHeight: 500,
+        chartOptions1: {
+          labels: ["Landing Zone", "Bronze Zone", "Silver Zone"],
+          plotOptions: {
+            pie: {
+              expandOnClick: false,
+              donut: {
+                labels: {
+                  show: true,
+                  total: {
+                    show: true,
+                    showAlways: true,
+                    label: 'Total de Arquivos',
+                  }
+                }
+              }
+            }
+          },
+          chart: {
+            width: 380,
+            type: 'donut',
+          },
+          dataLabels: {
+            enabled: true, // Define como false para desabilitar os rótulos de dados
+            style: {
+              fontSize: '18px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: 'bold',
+              colors: ['#FFFFFF'] 
+            }
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {   
+                show: false
+              }
+            }
+          }],
+        }
+      },
+      mounted() {
+        sessionStorage.getItem("usuario");
+        localStorage.getItem("cnpjFile");
+        this.getOrgs();
+        this.updateGrafico("all");
+      },
+      methods: {
+        voltar() {
+          window.location.href = "dashboardsHome.html"
+        },
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
+        getOrgs() {
+          fetch("http://localhost:8080/analytics/organizations", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken")
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              this.organizations = data.response;
+              console.log("GET realizado com sucesso")
+              console.log(data.response)
+            })
+            .catch(error => {
+              console.error('Erro ao buscar organizações:', error);
+            });
+        },
+
+
+        updateGrafico(selectedCNPJ) {
+
+
+          fetch("http://localhost:8080/analytics/files", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify({
+              searchType: (selectedCNPJ == "all" ? "all" : "single"),
+              cnpj: selectedCNPJ
+            }),
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log("Resposta da API:", data);
+
+              this.series = [
+                data.response.metricas[0].etapas.LZ,
+                data.response.metricas[0].etapas.BZ,
+                data.response.metricas[0].etapas.SZ,
+              ]
+            })
+            .catch(error => {
+              console.error("Erro na solicitação:", error);
+            });
+
+          console.log("Organização selecionada:", selectedCNPJ);
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>
