@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../utils/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../assets/style/silver-zone-visualizar-depara.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+    <title>Silver Zone - Visualizar DePara</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+            <nav>
+                <a href="../pages/home.html">Home</a>
+                <a @click="deslogar()">
+                    <span class="material-symbols-outlined">logout</span>
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 id="h1SilverDePara">Visualizar DePara - Silver Zone</h1>
+
+            <p id="pSilverDePara">
+                Você está visualizando os DePara's criados, clique em editar para modificá-los.
+            </p>
+
+            <div id="alinhamentos">
+                <h2 id="h2SilverDePara">Nome do arquivo:</h2>
+                <p id="parchive" v-text="nameFile"></p>
+            </div>
+
+            <div v-if="tabelas.length > 0">
+                <div v-for="(tabela, tableIndex) in tabelas" :key="tableIndex" id="table-container"
+                    style="overflow-x: auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th v-for="(head, index) in headTabela" :key="index">
+                                    {{ head }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, itemIndex) in tabela.data" :key="itemIndex"
+                                :class="{ 'even-row': itemIndex % 2 === 0, 'odd-row': itemIndex % 2 !== 0 }">
+                                <td>
+                                    <span>{{ item.metadado }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.valorDe }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.igualA }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="buttons">
+                <a href="navegation.html">
+                    <button id="btnVoltar">Voltar</button>
+                </a>
+                <a href="silver-zone-editar-depara.html">
+                    <button id="btnEditar">Editar</button>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                nameFile: "",
+                userFile: "",
+                tabelas: [],
+                listaDosMetadados: [],
+                headTabela: [
+                    "Metadado",
+                    "O valor de:",
+                    "É igual a:",
+                ],
+            },
+            computed: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "/public/index.html"
+                },
+                dataFiltrada() {
+                    return this.data.filter((item) => item.ativo);
+                },
+            },
+            mounted() {
+                this.nameFile = localStorage.getItem("fileName") || "";
+                this.user = sessionStorage.getItem("usuario") || "";
+                this.cnpj = localStorage.getItem("cnpjFile");
+                this.visualizarDeParasCriados();
+                console.log(this.nameFile, this.user, this.cnpj)
+            },
+            methods: {
+                visualizarDeParasCriados() {
+                    const objetoParaEnviar = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: this.cnpj,
+                    };
+
+                    fetch("http://localhost:8080/silver/visualize", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoParaEnviar),
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Erro na requisição: " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Dados recebidos:", JSON.stringify(data, null, 2));
+                        if (data && data.response && Array.isArray(data.response.metadados)) {
+                            this.listaDosMetadados = data.response.metadados;
+                            this.tabelas = this.listaDosMetadados.map(metadado => ({
+                                data: metadado.dePara.map(dePara => ({
+                                    metadado: metadado.nome,
+                                    valorDe: dePara.de,
+                                    igualA: dePara.para,
+                                })),
+                            }));
+                        } else {
+                            throw new Error("Resposta da requisição inválida");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao visualizar metadados:", error);
+                    });
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>
