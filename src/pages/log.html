@@ -117,7 +117,9 @@
                   text: 'Não foi possível carregar os dados do log.',
                   confirmButtonText: 'OK'
                 });
+                window.location.href = "../public/home.html"; 
                 return
+
               } else {
                 this.logs = data.response.map(item => ({
                   usuario: item.nomeUsuario,
@@ -127,8 +129,6 @@
                   dataHora: item.dataHora
                 }));
               }
-
-
             })
         }
       }
