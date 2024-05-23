@@ -7,7 +7,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="stylesheet" href="../assets/style/log.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <title>Histórico Log</title>
 </head>
 
@@ -87,11 +88,13 @@
           window.location.href = "../public/home.html";
         },
         visualizarDadosDoLog() {
+          console.log(localStorage.getItem("fileName"))
           const requestData = {
-            nomeArquivo: localStorage.getItem("nomeArquivo"),
+            nomeArquivo: localStorage.getItem("fileName"),
             organizacao: localStorage.getItem("cnpjFile")
           };
 
+          console.log(requestData)
           fetch("http://localhost:8080/log/visualizar", {
             method: "POST",
             headers: {
@@ -101,28 +104,32 @@
             body: JSON.stringify(requestData),
           })
             .then(response => {
-              if (!response.ok) {
-                throw new Error("Erro ao buscar dados do log");
-              }
               return response.json();
             })
+
             .then(data => {
-              this.item = data.map(item => ({
-                usuario: item.usuario,
-                estagio: item.estagio,
-                acao: item.acao,
-                observacao: item.observacao,
-                dataHora: item.dataHora
-              }));
+              console.log(data)
+
+              if (data.critica != "Processamento efetuado com sucesso") {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erro',
+                  text: 'Não foi possível carregar os dados do log.',
+                  confirmButtonText: 'OK'
+                });
+                return
+              } else {
+                this.logs = data.response.map(item => ({
+                  usuario: item.nomeUsuario,
+                  estagio: item.estagio,
+                  acao: item.acao,
+                  observacao: item.observacao,
+                  dataHora: item.dataHora
+                }));
+              }
+
+
             })
-            .catch(error => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: 'Não foi possível carregar os dados do log.',
-                confirmButtonText: 'OK'
-              });
-            });
         }
       }
     });
