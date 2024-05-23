@@ -91,7 +91,8 @@
           console.log(localStorage.getItem("fileName"))
           const requestData = {
             nomeArquivo: localStorage.getItem("fileName"),
-            organizacao: localStorage.getItem("cnpjFile")
+            organizacao: localStorage.getItem("cnpjFile"),
+            usuario: sessionStorage.getItem("usuario")
           };
 
           console.log(requestData)
