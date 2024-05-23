@@ -115,10 +115,13 @@
                 Swal.fire({
                   icon: 'error',
                   title: 'Erro',
-                  text: 'Não foi possível carregar os dados do log.',
+                  text: data.critica,
                   confirmButtonText: 'OK'
+                }).then((result) => {
+                  window.location.href = "home.html";
                 });
-                window.location.href = "../public/home.html"; 
+
+
                 return
 
               } else {
