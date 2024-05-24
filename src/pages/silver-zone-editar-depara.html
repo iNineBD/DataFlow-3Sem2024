@@ -17,13 +17,13 @@
         <header>
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
             <nav>
-              <a href="home.html">Home</a>
-              <a href="upload-csv.html">Importar Arquivo</a>
-              <a @click="deslogar()"><span class="material-symbols-outlined">
-                  logout
-                </span></a>
+                <a href="home.html">Home</a>
+                <a href="upload-csv.html">Importar Arquivo</a>
+                <a @click="deslogar()"><span class="material-symbols-outlined">
+                        logout
+                    </span></a>
             </nav>
-        </header>  
+        </header>
 
         <main>
             <h1 id="h1SilverEditarDePara">Editar DePara - Silver Zone</h1>
@@ -72,19 +72,29 @@
                 </div>
             </div>
             <div id="buttons">
+
                 <button id="btnAddMetadado" @click="mostrarModalSelecaoMetadado">
                     <span class="material-symbols-outlined">add</span>
                     Selecionar outro metadado
                 </button>
             </div>
-            
-            <div id="buttons">
-                
-                <a href="silver-zone-visualizar-depara.html">
-                    <button id="btnVoltar">Voltar</button>
-                </a>
-                <!--btn de salvar  = e adicionar-->
-                <button id="btnSalvar" @click="salvar">Salvar</button>               
+
+            <div id="buttons2">
+
+                <div >
+                    <button class="btnExcluirTudo">Excluir Tudo</button>
+                </div>
+
+                <div>
+
+                    <a href="silver-zone-visualizar-depara.html">
+                        <button id="btnVoltar">Voltar</button>
+                    </a>
+                    <!--btn de salvar  = e adicionar-->
+                    <button id="btnSalvar" @click="salvar">Salvar</button>
+
+                </div>
+
             </div>
         </main>
     </div>
@@ -138,33 +148,33 @@
                         },
                         body: JSON.stringify(objetoRecebido),
                     })
-                    
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Erro na requisição: " + response.status);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log("Dados recebidos:", JSON.stringify(data, null, 2));
-                        if (data && data.response && Array.isArray(data.response.metadados)) {
-                            
 
-                            this.listaDosMetadados = data.response.metadados;
-                            this.tabelas = this.listaDosMetadados.map(metadado => ({
-                                data: metadado.dePara.map(dePara => ({
-                                    metadado: metadado.nome,
-                                    valorDe: dePara.de,
-                                    igualA: dePara.para,
-                                })),
-                            }));
-                        } else {
-                            throw new Error("Resposta da requisição inválida");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao visualizar metadados:", error);
-                    });
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Erro na requisição: " + response.status);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Dados recebidos:", JSON.stringify(data, null, 2));
+                            if (data && data.response && Array.isArray(data.response.metadados)) {
+
+
+                                this.listaDosMetadados = data.response.metadados;
+                                this.tabelas = this.listaDosMetadados.map(metadado => ({
+                                    data: metadado.dePara.map(dePara => ({
+                                        metadado: metadado.nome,
+                                        valorDe: dePara.de,
+                                        igualA: dePara.para,
+                                    })),
+                                }));
+                            } else {
+                                throw new Error("Resposta da requisição inválida");
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Erro ao visualizar metadados:", error);
+                        });
                 },
                 visualizarMetadadosAtivos() {
                     const objetoParaEnviar = {
@@ -214,7 +224,7 @@
 
                     const metadadosDisponiveis = this.listaDosMetadados2.filter(meta => !metadadosSelecionados.includes(meta.nome));
 
-                    
+
 
                     const inputOptions = metadadosDisponiveis.reduce((options, meta) => {
                         options[meta.nome] = meta.nome;
@@ -366,8 +376,9 @@
                         }).catch((error) => {
                             console.error("Erro ao criar DePara:", error);
                         });
+                }
             }
-        }});
+        });
     </script>
 </body>
 

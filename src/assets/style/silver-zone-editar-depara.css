@@ -230,3 +230,35 @@ td:last-child {
     justify-content: flex-end;
     max-width: 900px;
 }
+
+.btnExcluirTudo {
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#buttons2 {
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+}
+
+#buttons3 {
+    margin: 20px auto;
+    ;
+    justify-content: flex-start;
+    max-width: 900px;
+}
+
+#buttons4 {
+    margin: 20px auto;
+    
+    justify-content: flex-end;
+    max-width: 900px;
+}
