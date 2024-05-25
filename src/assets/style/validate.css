@@ -134,6 +134,7 @@ tbody > tr > td > div > abbr > img:hover {
   display: flex;
   align-items: center;
   font-size: 20px;
+  padding-top: 4px;
 }
 
 #alinhamentos {
@@ -148,7 +149,7 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 15px 10px 20px;
+  margin: 15px 10px 10px 0px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -160,7 +161,7 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 15px 10px 20px;
+  margin: 15px 10px 10px 10px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -172,7 +173,7 @@ tbody > tr > td > div > abbr > img:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 35px 10px 20px;
+  margin: 15px 35px 10px 10px;
   font-size: 15px;
   font-weight: 600;
 }

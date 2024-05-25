@@ -120,6 +120,12 @@ tbody > tr > td > div > abbr > img:hover {
   vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
 }
 
+#table td:nth-child(5) {
+  align-items: center;
+  text-align: center; /* Alinha o texto horizontalmente no centro */
+  vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
+}
+
 .dropdown {
   position: relative;
   display: flex; /* Usando flexbox */
