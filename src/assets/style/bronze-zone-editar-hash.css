@@ -175,6 +175,13 @@ th {
     font-weight: 600;
 }
 
+#buttons {
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 1000px;
+}
+
 #alinhamentos {
     display: flex;
     align-items: baseline;
