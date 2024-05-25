@@ -136,7 +136,8 @@
               });
               return;
             } else {
-              Swal.fire({
+              if(responseJson.aprovado === true){
+                Swal.fire({
                 title: "Aprovado com Sucesso",
                 text: responseJson.critica,
                 icon: "success", // Ícone personalizado (success, error, warning, info)
@@ -145,6 +146,17 @@
                 localStorage.removeItem("arquivoCSV");
                 window.location.href = "home.html";
               });
+              }else{
+                Swal.fire({
+                title: "Reprovado com Sucesso",
+                text: responseJson.critica,
+                icon: "success", // Ícone personalizado (success, error, warning, info)
+                confirmButtonText: "OK", // Texto do botão de confirmação
+              }).then((result) => {
+                localStorage.removeItem("arquivoCSV");
+                window.location.href = "home.html";
+              });
+              }
             }
           });
       },

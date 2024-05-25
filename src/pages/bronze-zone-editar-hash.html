@@ -173,6 +173,7 @@
                         nomeArquivo: this.nameFile,
                         usuario: this.userFile,
                         metadados: metadadosSelecionados,
+                        cnpj: localStorage.getItem("cnpjFile")
                     };
                     fetch("http://localhost:8080/bronze/editHash", {
                         method: "POST",
