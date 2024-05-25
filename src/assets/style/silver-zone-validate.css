@@ -103,9 +103,10 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table-container {
-  max-height: 520px;
+  max-height: 400px;
   overflow-y: auto;
-  margin: 0px 35px;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .even-row {
@@ -123,7 +124,6 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #h2SilverValidate {
-  margin-left: 35px;
   padding: 20px 10px 20px 0px;
   display: flex;
   align-items: center;
@@ -137,7 +137,9 @@ tbody > tr > td > div > abbr > img:hover {
 
 #alinhamentos {
   display: flex;
-  flex-direction: row;
+  align-items: baseline;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 #btnCancelar {

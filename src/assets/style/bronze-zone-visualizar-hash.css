@@ -105,11 +105,10 @@ th {
 }
 
 #alinhamentos {
-    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
-    align-items: baseline; /* Alinhar os elementos pela linha de base */
-    margin: 0 auto; /* Centralizar */
-    max-width: 800px; /* Largura máxima */
-    margin-left: 268px;
+    display: flex;
+    align-items: baseline;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 #table-container {
@@ -154,10 +153,10 @@ th {
 }
 
 #buttons {
+    margin: 20px auto;
     display: flex;
-    justify-content: right;
-    margin-top: 20px;
-    margin-right: 260px;
+    justify-content: flex-end;
+    max-width: 1000px;
 }
 
 .apagado {
