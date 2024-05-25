@@ -58,11 +58,18 @@
                     </tbody>
                 </table>
             </div>
-            <div id="buttons">
-                <a href="navegation.html">
-                    <button id="btnVoltar">Voltar</button>
-                </a>
-                <button id="btnSalvar" @click="salvarHashEditado">Salvar</button>
+
+            <div class="container">
+                <div class="left-section">
+                    Observações:
+                    <input type="text" id="inputObs" v-model="observacao" disabled />
+                </div>
+                <div id="right-section">
+                    <a href="../pages/navegation.html">
+                        <button id="btnVoltar">Voltar</button>
+                    </a>
+                    <button id="btnSalvar" @click="salvarHashEditado">Salvar</button>
+                </div>
             </div>
         </main>
     </div>
