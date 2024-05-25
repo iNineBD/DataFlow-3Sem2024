@@ -81,8 +81,8 @@
 
             <div id="buttons2">
 
-                <div >
-                    <button class="btnExcluirTudo">Excluir Tudo</button>
+                <div>
+                    <button class="btnExcluirTudo" @click="excluirTudo()">Excluir Tudo</button>
                 </div>
 
                 <div>
@@ -133,6 +133,63 @@
                 console.log(this.nameFile, this.user, this.cnpj)
             },
             methods: {
+                excluirTudo() {
+                    const objetoExcluir = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: this.cnpj,
+                        metadados: this.listaDosMetadados
+                    };
+
+                    console.log("Objeto para excluir: "+  JSON.stringify(objetoExcluir));
+
+
+                    fetch("http://localhost:8080/silver/excluir", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoExcluir),
+
+                    })
+                        .then((response) => {
+                            console.log(sessionStorage.getItem("authToken"))
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (responseJson.critica !== "Processamento efetuado com sucesso") {
+                                console.log("Erro na requisição: " + responseJson.critica);
+
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then((result) => {
+                                    window.location.href = "home.html";
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Erro na requisição:", error);
+                            Swal.fire({
+                                title: "Erro",
+                                text: "Ocorreu um erro ao processar a requisição.",
+                                icon: "error",
+                                confirmButtonText: "OK",
+                            });
+                        });
+                },
+
                 visualizarDeParasCriados() {
                     const objetoRecebido = {
                         email: this.user,
