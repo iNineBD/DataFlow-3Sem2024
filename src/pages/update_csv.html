@@ -205,6 +205,7 @@
             });
         },
         importarDadosHome() {
+          console.log(localStorage.getItem("cnpjFile"))
           fetch("http://localhost:8080/landing/search", {
             method: "POST",
             headers: {
@@ -219,29 +220,40 @@
           })
             .then((response) => response.json())
             .then((responseData) => {
-              const response = responseData.response.aboutMetadados;
               console.log(responseData);
+              if (responseData.critica !== "Processamento efetuado com sucesso"){
+                Swal.fire({
+                  title: "Erro",
+                  text: responseData.critica,
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+                return
+              } else {
+                const response = responseData.response.aboutMetadados;
+  
+                this.nameFile = response.nomeArquivo;
+                this.userFile = response.usuario;
+                this.observacao = responseData.response.lastObs;
+                this.data = response.metadados.map((coluna) => {
+                  return {
+                    nome: coluna.nome,
+                    ativo: coluna.ativo,
+                    tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
+                    obrigatorio: coluna.restricoes.some(
+                      (r) => r.nome === "obrigatorio" && r.valor === "true"
+                    ), // Verifica se há restrições obrigatórias
+                    tamanhoMaximo:
+                      coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
+                        ?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                    valorPadrao: coluna.valorPadrao || "",
+                    descricao: coluna.descricao || "",
+                    exemplo: coluna.sampleValue || "",
+                  };
+                });
+                return response;
+              }
 
-              this.nameFile = response.nomeArquivo;
-              this.userFile = response.usuario;
-              this.observacao = responseData.response.lastObs;
-              this.data = response.metadados.map((coluna) => {
-                return {
-                  nome: coluna.nome,
-                  ativo: coluna.ativo,
-                  tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
-                  obrigatorio: coluna.restricoes.some(
-                    (r) => r.nome === "obrigatorio" && r.valor === "true"
-                  ), // Verifica se há restrições obrigatórias
-                  tamanhoMaximo:
-                    coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
-                      ?.valor || "", // Encontra o valor da restrição de tamanho máximo
-                  valorPadrao: coluna.valorPadrao || "",
-                  descricao: coluna.descricao || "",
-                  exemplo: coluna.sampleValue || "",
-                };
-              });
-              return response;
             });
         },
       },

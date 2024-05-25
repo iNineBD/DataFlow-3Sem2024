@@ -250,33 +250,43 @@
           body: JSON.stringify({
             usuario: sessionStorage.getItem("usuario"),
             nomeArquivo: localStorage.getItem("fileName"),
-            fileCnpj: localStorage.getItem("cnpjFile"),
+            cnpjFile: localStorage.getItem("cnpjFile"),
           }),
         })
           .then((response) => response.json())
           .then((responseData) => {
-            const response = responseData.response.aboutMetadados;
-            console.log(response);
-
-            this.nameFile = response.nomeArquivo;
-            this.userFile = response.usuario;
-            this.data = response.metadados.map((coluna) => {
-              return {
-                nome: coluna.nome,
-                ativo: coluna.ativo,
-                tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
-                obrigatorio: coluna.restricoes.some(
-                  (r) => r.nome === "obrigatorio" && r.valor === "true"
-                ), // Verifica se há restrições obrigatórias
-                tamanhoMaximo:
-                  coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
-                    ?.valor || "", // Encontra o valor da restrição de tamanho máximo
-                valorPadrao: coluna.valorPadrao || "",
-                descricao: coluna.descricao || "",
-                exemplo: coluna.sampleValue || "",
-              };
-            });
-            return response;
+            if (responseData.critica !== "Processamento efetuado com sucesso"){
+              Swal.fire({
+                title: "Erro",
+                text: responseData.critica,
+                icon: "error",
+                confirmButtonText: "OK",
+              });
+              return
+            } else {
+              const response = responseData.response.aboutMetadados;
+              console.log(response);
+  
+              this.nameFile = response.nomeArquivo;
+              this.userFile = response.usuario;
+              this.data = response.metadados.map((coluna) => {
+                return {
+                  nome: coluna.nome,
+                  ativo: coluna.ativo,
+                  tipo: coluna.nomeTipo, // Ajuste para nomeTipo conforme definido no objeto metadados
+                  obrigatorio: coluna.restricoes.some(
+                    (r) => r.nome === "obrigatorio" && r.valor === "true"
+                  ), // Verifica se há restrições obrigatórias
+                  tamanhoMaximo:
+                    coluna.restricoes.find((r) => r.nome === "tamanhoMaximo")
+                      ?.valor || "", // Encontra o valor da restrição de tamanho máximo
+                  valorPadrao: coluna.valorPadrao || "",
+                  descricao: coluna.descricao || "",
+                  exemplo: coluna.sampleValue || "",
+                };
+              });
+              return response;
+            }
           });
       },
     },
