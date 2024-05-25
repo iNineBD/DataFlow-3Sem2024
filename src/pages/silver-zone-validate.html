@@ -22,43 +22,36 @@
       <nav>
         <a href="home.html">Home</a>
         <a href="upload-csv.html">Importar Arquivo</a>
-        <a @click="deslogar()"><span class="material-symbols-outlined">
-            logout
-          </span></a>
+        <a @click="deslogar()">
+          <span class="material-symbols-outlined">logout</span>
+        </a>
       </nav>
     </header>
-    <!--alterar apartir daqui-->
+
     <h1 id="h1SilverValidate">Silver Zone: Validação do Hash</h1>
 
     <div id="alinhamentos">
       <h2 id="h2SilverValidate">Nome do arquivo:</h2>
-      <h2 id="parchive" v-text="nameFile"></h2>
+      <p id="parchive" v-text="nameFile"></p>
     </div>
+
     <div id="table-container" style="overflow-x: auto">
       <table>
         <thead>
           <tr>
-            <!--cabeçalho da tabela-->
             <th v-for="(head, index) in headTabela" :key="index">
               {{ head }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <!--coluna nome-->
-
           <tr v-for="(item, index) in metadadosNoHash" :key="index">
-            <!--coluna nome-->
             <td><input type="text" v-model="item.nome" disabled></td>
-            <!--coluna valor padrão-->
             <td><input type="text" v-model="item.valorPadrao" disabled></td>
-            <!--coluna agrupar-->
             <td><input type="checkbox" v-model="item.agrupar" checked="true" disabled /></td>
         </tbody>
       </table>
 
-
-      <!--Botões de cancelar, aprovar e reprovar-->
       <div class="container">
         <div class="left-section">
           Observações:
@@ -68,9 +61,7 @@
           <a href="navegation.html">
             <button id="btnCancelar">Voltar</button>
           </a>
-          <button id="btnReprovado" @click="alteraSituacao(false)">
-            Reprovado
-          </button>
+          <button id="btnReprovado" @click="alteraSituacao(false)">Reprovado</button>
           <button id="btnSalvar" @click="alteraSituacao(true)">Aprovado</button>
         </div>
       </div>
@@ -78,8 +69,6 @@
   </div>
 </body>
 
-<!--ALTERAR MEU LOCALHOST-->
-<!-- script Vue.js -->
 <script>
   const app = new Vue({
     el: "#app",
@@ -206,7 +195,5 @@
     }
   });
 </script>
-<script src="../utils/hover-icon-change-upload-csv.js"></script>
-
 
 </html>

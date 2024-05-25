@@ -18,9 +18,9 @@
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
             <nav>
                 <a href="home.html">Home</a>
-                <a @click="deslogar()"><span class="material-symbols-outlined">
-                        logout
-                    </span></a>
+                <a @click="deslogar()">
+                    <span class="material-symbols-outlined">logout</span>
+                </a>
             </nav>
         </header>
         <main>
@@ -57,16 +57,18 @@
                         </tr>
                     </tbody>
                 </table>
-                
-                <div class="centraliza">
-                    <div class="left-section">
-                        Observações:
-                        <input type="text" id="inputObs" v-model="observacao" disabled />
-                    </div>
-                    <div id="buttons">
-                        <button id="btnVoltar" @click="voltaEmergencialFeitoPeloLamao">Voltar</button>
-                        <button id="btnSalvar" @click="salvarHashEditado">Salvar</button>
-                    </div>
+            </div>
+
+            <div class="container">
+                <div class="left-section">
+                    Observações:
+                    <input type="text" id="inputObs" v-model="observacao" disabled />
+                </div>
+                <div id="right-section">
+                    <a href="../pages/navegation.html">
+                        <button id="btnVoltar">Voltar</button>
+                    </a>
+                    <button id="btnSalvar" @click="salvarHashEditado">Salvar</button>
                 </div>
             </div>
         </main>
@@ -90,10 +92,6 @@
                 this.visualizarMetadadosDoHash();
             },
             methods: {
-                voltaEmergencialFeitoPeloLamao(){
-                    window.location.href = "navegation.html";
-
-                },
                 deslogar() {
                     sessionStorage.removeItem("usuario")
                     window.location.href = "../../public/index.html"

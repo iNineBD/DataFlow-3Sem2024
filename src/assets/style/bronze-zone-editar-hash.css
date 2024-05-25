@@ -129,13 +129,27 @@ th {
     /* Cor de fundo para linhas ímpares */
 }
 
-.centraliza{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 5%;
+.left-section {
+    flex: 1; /* Ocupa todo o espaço disponível */
+    margin-left: 0px; /* Adiciona margem à esquerda */
 }
 
+.right-section {
+    display: flex;
+    justify-content: flex-end; /* Alinha os itens à direita */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin: 10px 0px 15px 35px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    max-width: 1000px;
+    justify-content: center;
+    overflow-y: auto;
+    margin: 0 auto;
+    padding-top: 20px;
+}
 
 #btnVoltar {
     background-color: #ADB5BD;
@@ -162,23 +176,17 @@ th {
 }
 
 #buttons {
-    margin-top: 20px;
+    margin: 20px auto;
     display: flex;
+    justify-content: flex-end;
+    max-width: 1000px;
 }
 
 #alinhamentos {
-    display: flex; /* Adicionando display flex para alinhar os elementos horizontalmente */
-    align-items: baseline; /* Alinhar os elementos pela linha de base */
-    margin: 0 auto; /* Centralizar */
-    max-width: 800px; /* Largura máxima */
-    margin-left: 267px;
-}
-
-#container {
     display: flex;
-    align-items: center;
-    padding-top: 20px;
-    margin: 0px 450px;
+    align-items: baseline;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 #sectionObs {
