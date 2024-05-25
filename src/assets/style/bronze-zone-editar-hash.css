@@ -129,6 +129,14 @@ th {
     /* Cor de fundo para linhas ímpares */
 }
 
+.centraliza{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+
 #btnVoltar {
     background-color: #ADB5BD;
     color: #fff;
@@ -156,8 +164,6 @@ th {
 #buttons {
     margin-top: 20px;
     display: flex;
-    justify-content: right;
-    margin-right: 260px;
 }
 
 #alinhamentos {
