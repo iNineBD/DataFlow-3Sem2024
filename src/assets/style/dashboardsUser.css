@@ -75,10 +75,10 @@ body {
 .tituloDashHome {
   width: 100%; 
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
   font-size: 24px;
   font-weight: bold; 
-  padding: 20px; 
+  
   background-color: rgb(255, 255, 255); 
 }
 
@@ -93,6 +93,7 @@ body {
   align-items: center;
   height: 100%;
   margin-left: 110px;
+  margin-top: 10px ;
 }
 
 .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
