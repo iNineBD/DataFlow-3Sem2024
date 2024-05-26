@@ -93,16 +93,6 @@ tbody > tr > td > div > abbr > img:hover {
   cursor: pointer;
 }
 
-.checkboxAtivo {
-  margin: 0px 0px 0px 12px;
-  display: block;
-}
-
-.checkboxObrigatorio {
-  margin: 0px 0px 0px 32px;
-  display: block;
-}
-
 #table-container {
   max-height: 520px;
   overflow-y: auto;
@@ -117,13 +107,13 @@ tbody > tr > td > div > abbr > img:hover {
   background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
 }
 
-#h1Landing {
+#h1Log {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
-#h2Landing {
+#h2Log {
   margin-left: 35px;
   padding: 20px 10px 20px 0px;
   display: flex;
@@ -134,7 +124,6 @@ tbody > tr > td > div > abbr > img:hover {
   display: flex;
   align-items: center;
   font-size: 20px;
-  padding-top: 4px;
 }
 
 #alinhamentos {
@@ -142,65 +131,25 @@ tbody > tr > td > div > abbr > img:hover {
   flex-direction: row;
 }
 
-#btnCancelar {
+#btnVoltar {
   background-color: #adb5bd;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 15px 10px 10px 0px;
+  margin: 15px 35px 10px 20px;
   font-size: 15px;
   font-weight: 600;
-}
-
-#btnReprovado {
-  background-color: #ff0000;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 15px 10px 10px 10px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-#btnSalvar {
-  background-color: #0bad2e;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 15px 35px 10px 10px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.observacoes {
-  display: flex;
-  justify-content: left;
-  margin: 10px 20px 15px 35px;
 }
 
 .container {
   display: flex;
   align-items: center; /* Alinha os itens verticalmente */
-}
-
-.left-section {
-  flex: 1; /* Ocupa todo o espaço disponível */
-  margin-left: 35px; /* Adiciona margem à esquerda */
+  justify-content: flex-end;
 }
 
 .right-section {
   display: flex;
   justify-content: flex-end; /* Alinha os itens à direita */
-  gap: 10px; /* Espaçamento entre os botões */
-}
-
-#inputObs {
-  width: 300px; /* Define a largura da caixa de entrada para 300 pixels */
-  height: 40px; /* Define a altura da caixa de entrada para 40 pixels */
 }

@@ -18,9 +18,9 @@
             <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
             <nav>
                 <a href="home.html">Home</a>
-                <a @click="deslogar()"><span class="material-symbols-outlined">
-                        logout
-                    </span></a>
+                <a @click="deslogar()">
+                    <span class="material-symbols-outlined">logout</span>
+                </a>
             </nav>
         </header>
 
@@ -59,9 +59,7 @@
                 <a href="navegation.html">
                     <button id="btnCancelar">Voltar</button>
                 </a>
-                <a href="bronze-zone-editar-hash.html">
-                    <button id="btnEditar">Editar</button>
-                </a>
+               
             </div>
         </main>
     </div>
@@ -90,6 +88,7 @@
                     const objetoParaEnviar = {
                         nomeArquivo: this.nameFile,
                         usuario: this.userFile,
+                        cnpj: localStorage.getItem("cnpjFile"),
                     };
 
                     fetch("http://localhost:8080/bronze/visualize", {

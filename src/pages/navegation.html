@@ -74,6 +74,8 @@
           const objetoNav = {
             email: sessionStorage.getItem("usuario"),
             arquivo: localStorage.getItem("fileName"),
+            cnpjFile: localStorage.getItem("cnpjFile"),
+
           };
 
           console.log(objetoNav);
@@ -108,7 +110,7 @@
               window.location.href = "validate.html";
             } else if (this.status == "BRONZE ZONE") {
               window.location.href = "bronze-zone-criar-hash.html";
-            } else if (this.status == "NÂO APROVADO PELA SILVER") {
+            } else if (this.status == "NÃO APROVADO PELA SILVER") {
               window.location.href = "bronze-zone-editar-hash.html";
             } else {
               window.location.href = "bronze-zone-visualizar-hash.html";
@@ -116,16 +118,17 @@
           }
           if (etapa == "Silver") {
             if (this.status == "AGUARDANDO APROVAÇÃO DA SILVER") {
-              window.location.href = "#";
+              window.location.href = "silver-zone-validate.html";
             } else if (this.status == "SILVER ZONE") {
-              window.location.href = "#";
+              window.location.href = "silver-zone-criar-depara.html";
+            } else if (this.status == "FINALIZADO") {
+              window.location.href = "silver-zone-visualizar-depara.html"
             }
           }
         },
       },
     });
   </script>
-  <script src="/src/utils/hover-icon-change-upload-csv.js"></script>
 </body>
 
 </html>

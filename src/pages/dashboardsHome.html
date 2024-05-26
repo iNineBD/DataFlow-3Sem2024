@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- Importe o Vue.js antes do VueApexCharts -->
+  <script src="/src/utils/vue.js"></script>
+  <!-- Importe o ApexCharts antes do VueApexCharts -->
+  <script src="/src/utils/apexcharts.min.js"></script>
+  <script src="/src/utils/vue-apexcharts.js"></script>
+  <link rel="stylesheet" href="/src/assets/style/apexcharts.css">
+  <!-- Corrija o caminho para o arquivo CSS -->
+  <link rel="stylesheet" href="/src/assets/style/dashboardsHome.css" />
+  <title>Dashboards</title>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <img src="/src/assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a @click="deslogar()">
+          <span class="material-symbols-outlined">logout</span>
+        </a>
+      </nav>
+    </header>
+
+    <div id="container">
+      
+      <div class="tituloDashHome">
+        Olá, Administrador<br>
+        Escolha o Dashboard desejado
+      </div>
+
+      <div class="dashs">
+        <div class="left">
+          <div>
+            <div class="chart-wrap">
+              <div id="chart">
+                <apexchart type="donut" width="380" :options="chartOptions1" :series="series"></apexchart>
+              </div>
+            </div>
+            <a href="dashboardsUser.html"><button>Dashboards Usuarios</button></a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div>
+            <div class="chart-wrap">
+              <div id="chart">
+                <apexchart type="donut" width="380" :options="chartOptions2" :series="series"></apexchart>
+              </div>
+            </div>
+            <a href="dashboardsArchive.html"><button>Dashboards Arquivos</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <script>
+    // Certifique-se de importar VueApexCharts corretamente
+    Vue.use(VueApexCharts);
+
+    new Vue({
+      el: '#app',
+      components: {
+        apexchart: VueApexCharts,
+      },
+      data: {
+        series: [50, 50, 50, 50], visible: false,
+        chartOptions1: {
+          chart: {
+            width: 380,
+            type: 'donut',
+          },
+          dataLabels: {
+            enabled: false // Define como false para desabilitar os rótulos de dados
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                show: false
+              }
+            }
+          }],
+        },
+        chartOptions2: {
+          chart: {
+            width: 380,
+            type: 'donut',
+          },
+          dataLabels: {
+            enabled: false // Define como false para desabilitar os rótulos de dados
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                show: false
+              }
+            }
+          }],
+        }
+      },
+      methods: {
+        deslogar() {
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -9,7 +9,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <link rel="stylesheet" href="/src/assets/style/index-home.css" />
+  <link rel="stylesheet" href="/src/assets/style/home.css" />
   <title>Home</title>
 </head>
 
@@ -21,8 +21,9 @@
         <a href="home.html">Home</a>
         <a href="upload-csv.html">Importar Arquivo</a>
         <a href="cadastro_master.html" v-if="emailbtn === 'master@gmail.com'">Cadastrar Usuario</a>
+        <a href="dashboardsHome.html" v-if="emailbtn === 'master@gmail.com'">Dashboards</a>
         <a @click="deslogar()"><span class="material-symbols-outlined">
-          logout
+            logout
           </span></a>
       </nav>
     </header>
@@ -37,6 +38,7 @@
             <th>Nome do Arquivo</th>
             <th>Organização</th>
             <th>Status</th>
+            <th>Histórico</th>
             <th>Excluir</th>
           </tr>
         </thead>
@@ -56,9 +58,16 @@
             </td>
             <td class="status-cell">
               <div id="centralizar">
-                <img src="/src/assets/images/status-amarelo.png" alt="status-amarelo" id="img-table" />
+                <img :src="getStatusIcon(file.status)" alt="status-amarelo" id="img-table" />
                 {{ file.status }}
               </div>
+            </td>
+            <td>
+              <a href="#" @click="viewLog(file)">
+                <span class="material-symbols-outlined" style="color: rgb(0, 0, 0)">
+                  history
+                </span>
+              </a>
             </td>
             <td>
               <a href="#" @click="checkExclud(file)">
@@ -116,6 +125,7 @@
                   return {
                     nomeArquivo: arquivo.nome,
                     organizacao: arquivo.organizacao,
+                    cnpj: arquivo.cnpj,
                     status: arquivo.status,
                   };
                 });
@@ -125,11 +135,28 @@
               console.error("Erro ao carregar os dados do usuário:", error);
             });
         },
+        getStatusIcon(status) {
+          if (status === "FINALIZADO") {
+            return "/src/assets/images/status-verde.png";
+          } else if (status === "NÃO APROVADO PELA SILVER" || status === "NÃO APROVADO PELA BRONZE") {
+            return "/src/assets/images/status-vermelho.png";
+          }
+          return "/src/assets/images/status-amarelo.png";
+        },
         viewFileDetails(file) {
           localStorage.setItem("fileName", file.nomeArquivo);
           localStorage.setItem("status", file.status);
+          localStorage.setItem("cnpjFile", file.cnpj);
 
           window.location.href = "navegation.html";
+        },
+        viewLog(file) {
+          localStorage.setItem("fileName", file.nomeArquivo);
+          localStorage.setItem("status", file.status);
+          localStorage.setItem("cnpjFile", file.cnpj);
+
+          window.location.href = "log.html";
+
         },
         checkExclud(file) {
           Swal.fire({
@@ -148,13 +175,12 @@
           });
         },
         excludeFile(file) {
-          console.log(file);
 
           // Construindo o objeto completo
           const objetoCompleto = {
             nomeArquivo: file.nomeArquivo,
             usuario: sessionStorage.getItem("usuario"),
-            usuarioOrg: file.organizacao,
+            usuarioOrg: file.cnpj,
           };
 
           //Enviar dados para o backend
@@ -196,7 +222,6 @@
       },
     });
   </script>
-  <script src="/src/utils/hover-icon-change-home.js"></script>
 </body>
 
 </html>

@@ -23,9 +23,9 @@
       <nav>
         <a href="home.html">Home</a>
         <a href="upload-csv.html">Importar Arquivo</a>
-        <a @click="deslogar()"><span class="material-symbols-outlined">
-            logout
-          </span></a>
+        <a @click="deslogar()">
+          <span class="material-symbols-outlined">logout</span>
+        </a>
       </nav>
     </header>
 
@@ -33,31 +33,26 @@
 
     <div id="alinhamentos">
       <h2 id="h2Landing">Nome do arquivo:</h2>
-      <h2 id="parchive" v-text="nameFile"></h2>
+      <p id="parchive" v-text="nameFile"></p>
     </div>
 
     <div id="table-container" style="overflow-x: auto">
       <table>
         <thead>
           <tr>
-            <!--cabeçalho da tabela-->
             <th v-for="(head, index) in headTabela" :key="index">
               {{ head }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <!--coluna nome-->
           <tr v-for="(item, index) in data" :key="index">
             <td>
-              <!--campo ativo-->
               <input class="checkboxAtivo" type="checkbox" value="true" checked v-model="item.ativo" disabled />
             </td>
-            <!--campo exemplo-->
             <td><input type="text" v-model="item.nome" disabled /></td>
             <td>{{ item.exemplo }}</td>
             <td>
-              <!--coluna tipo-->
               <select v-model="item.tipo" disabled>
                 <option value="">Selecione um Tipo</option>
                 <option v-for="(tipo, index) in tipoDadoTabela" :key="index" disabled>
@@ -65,17 +60,13 @@
                 </option>
               </select>
             </td>
-            <!--coluna obrigatoprio-->
             <td>
               <input type="checkbox" value="" v-model="item.obrigatorio" disabled class="checkboxObrigatorio" />
             </td>
-            <!--coluna tamanho maximo-->
             <td>
               <input type="text" v-model="item.tamanhoMaximo" disabled />
             </td>
-            <!--coluna valor padrão-->
             <td><input type="text" v-model="item.valorPadrao" disabled /></td>
-            <!--coluna descrição-->
             <td><input type="text" v-model="item.descricao" disabled /></td>
           </tr>
         </tbody>
@@ -146,6 +137,7 @@
           body: JSON.stringify({
             usuario: sessionStorage.getItem("usuario"),
             nomeArquivo: localStorage.getItem("fileName"),
+            cnpjFile: localStorage.getItem("cnpjFile"),
           }),
         })
           .then((response) => response.json())
@@ -177,6 +169,5 @@
     },
   });
 </script>
-<script src="../utils/hover-icon-change-upload-csv.js"></script>
 
 </html>
