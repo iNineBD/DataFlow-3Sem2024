@@ -96,8 +96,8 @@ body {
 
 .actions {
   display: flex;
-  text-align: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  margin-right: 100px;
   margin-top: 50px;
 }
 
@@ -110,7 +110,7 @@ select {
   cursor: pointer;
   font-size: 20px;
   height: 100%;
-  margin-left: 350px;
+  margin-right: 350px;
 }
 
 .botaoVoltar {

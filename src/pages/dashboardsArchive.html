@@ -43,15 +43,18 @@
         <div>
           <div class="chart-wrap">
             <div id="chart">
-              <apexchart type="donut" :width="chartWidth" :height="chartHeight" :options="chartOptions1" :series="series"></apexchart>
+              <apexchart type="donut" :width="chartWidth" :height="chartHeight" :options="chartOptions1"
+                :series="series"></apexchart>
             </div>
           </div>
         </div>
         <div class="actions">
-          <select @change="updateGrafico($event.target.value)">
-            <option value="all">Todas as organizações</option>
-            <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
-          </select>
+          <div>
+            <select @change="updateGrafico($event.target.value)">
+              <option value="all">Todas as organizações</option>
+              <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
+            </select>
+          </div>
           <button @click="voltar()" class="botaoVoltar">Voltar</button>
         </div>
       </div>
@@ -102,7 +105,7 @@
               fontSize: '18px',
               fontFamily: 'Inter, sans-serif',
               fontWeight: 'bold',
-              colors: ['#FFFFFF'] 
+              colors: ['#FFFFFF']
             }
           },
           responsive: [{
@@ -111,7 +114,7 @@
               chart: {
                 width: 200
               },
-              legend: {   
+              legend: {
                 show: false
               }
             }

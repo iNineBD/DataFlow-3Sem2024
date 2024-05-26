@@ -66,27 +66,14 @@
       },
       data: {
         series: [],
-        chartWidth: 500,
-        chartHeight: 500,
+        chartWidth: 750,
+        chartHeight: 750,
         chartOptions1: {
-          labels: [],
-          chart: {
-            width: 380,
-            type: 'donut',
-          },
-          dataLabels: {
-            enabled: true, // Define como false para desabilitar os rótulos de dados
-            style: {
-              fontSize: '18px',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 'bold',
-              colors: ['#FFFFFF']
-            }
-          },
           plotOptions: {
             pie: {
-              expandOnClick: false,
+              expandOnClick: true,
               donut: {
+                size: '65%',
                 labels: {
                   show: true,
                   total: {
@@ -98,8 +85,21 @@
               }
             }
           },
+          labels: [],
+          chart: {
+            type: 'donut',
+          },
+          dataLabels: {
+            enabled: true, // Define como false para desabilitar os rótulos de dados
+            style: {
+              fontSize: '18px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: 'bold',
+              colors: ['#FFFFFF']
+            }
+          },
           responsive: [{
-            breakpoint: 480,
+            breakpoint: undefined,
             options: {
               chart: {
                 width: 200

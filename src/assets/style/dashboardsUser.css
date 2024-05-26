@@ -82,13 +82,6 @@ body {
   background-color: rgb(255, 255, 255); 
 }
 
-.left {
-  flex-grow: 1;
-  width: 100%;
-  background-color: rgb(255, 255, 255);
-  margin-bottom: 200px;
-}
-
 #btnVoltar {
   flex-grow: 1;
   text-align: center;
