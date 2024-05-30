@@ -170,7 +170,7 @@
           console.log(objetoCompleto);
           //Enviar dados para o backend
           fetch("http://localhost:8080/landing/upsert", {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
               'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
