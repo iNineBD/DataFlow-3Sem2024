@@ -49,27 +49,32 @@ nav > a:hover {
 }
 
 body {
-    background: white;
+    background: rgb(255, 255, 255);
 }
 
+.containerButton1 {
+    display: flex;
+    flex-direction: column; /* exibir botões um abaixo do outro */
+    align-items: center; /* centralizar os botões horizontalmente */
+    margin-top: 40px; /* espaço entre o título e os botões */
+}
 .container {
     display: flex;
     justify-content: center; /* centraliza horizontalmente */
     align-items: center; /* centraliza verticalmente */
-    height: 100%; /* altura total da página */
+}
+
+.Yamlsexception {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 40px;
 }
 
 .content {
     margin-top: 20px;
     text-align: center;
-    font-size: 24px; /* centraliza o conteúdo dentro da div */
-}
-
-.containerButton {
-    display: flex;
-    flex-direction: column; /* exibir botões um abaixo do outro */
-    align-items: center; /* centralizar os botões horizontalmente */
-    margin-top: 40px; /* espaço entre o título e os botões */
+    font-size: 24px;
 }
 
 button {
@@ -86,4 +91,16 @@ button {
     width: 100%;
 }
 
-  
+.btnyml {
+     
+    margin-left: 50px; /* espaço entre os botões */
+    padding: 4px;
+    background-color: #021F4E;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    height: 50%;
+    width: 50%;
+}
