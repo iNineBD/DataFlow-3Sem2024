@@ -40,8 +40,8 @@
           <tbody>
             <tr v-for="(item, index) in logs" :key="index">
               <td>{{ item.usuario }}</td>
-              <td>{{ item.Organização }}</td>
-              <td>{{ item.observacao }}</td>
+              <td>{{ item.organizacao }}</td>
+              <td>{{ item.acao }}</td>
               <td>{{ item.dataHora }}</td>
             </tr>
           </tbody>
@@ -67,7 +67,7 @@
         headTabela: [
           "Usuário",
           "Organização",
-          "Observação",
+          "Ação",
           "Data/Hora"
         ],
       },
@@ -121,7 +121,7 @@
                 this.logs = data.response.map(item => ({
                   usuario: item.nomeUsuario,
                   organizacao: item.organizacao,
-                  observacao: item.observacao,
+                  acao: item.acao,
                   dataHora: item.dataHora
                 }));
               }
