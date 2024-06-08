@@ -46,13 +46,13 @@
             </button>
           </div>
           <div class="Yamlsexception">
-            <button @click="gerarYaml()" class="btnyml"><span class="material-symbols-outlined">
+            <button @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span class="material-symbols-outlined">
               download
               </span> Download Yaml</button>
-            <button @click="gerarYaml()" class="btnyml"><span class="material-symbols-outlined">
+            <button @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span class="material-symbols-outlined">
               download
               </span> Download Yaml</button>
-            <button @click="gerarYaml()" class="btnyml"><span class="material-symbols-outlined">
+            <button @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span class="material-symbols-outlined">
               download
               </span> Download Yaml</button>
           </div>
@@ -139,13 +139,15 @@
             }
           }
         },
-        gerarYaml() {
+        gerarYaml(zones) {
           const objetoYaml = {
             nomeArquivo: localStorage.getItem("fileName"),
             organizacao: localStorage.getItem("cnpjFile"),
           };
 
-          fetch("http://localhost:8080/mapper/yaml/landing", {
+          const btnYaml = zones;
+
+          fetch(`http://localhost:8080/mapper/yaml/${btnYaml}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -153,9 +155,16 @@
             },
             body: JSON.stringify(objetoYaml),
           })
-          .then((response) => response.json())
-            .then((data) => {
-              console.log(data);
+            .then((response) => response.blob())
+            .then((blob) => {
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${btnYaml}-zone.yaml`;
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
             });
         }
       },
