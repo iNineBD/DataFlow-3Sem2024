@@ -28,6 +28,14 @@
     <main>
       <h1 id="h1Log">Histórico de Acesso</h1>
 
+      <div id="alinhamentos">
+        <h2 id="h2Log">Usuário</h2>
+        <!-- <h2 id="parchive" v-text="nomeArquivo"></h2> -->
+        <h2 id="h2Log">-</h2>
+        <h2 id="h2Log">Organização</h2>
+        <!-- <h2 id="parchive" v-text="nomeArquivo"></h2> -->
+      </div>
+
       <div id="table-container" style="overflow-x: auto">
         <table>
           <thead>
@@ -39,10 +47,8 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in logs" :key="index">
-              <td>{{ item.usuario }}</td>
-              <td>{{ item.organizacao }}</td>
+              <td>{{ item.data }}</td>
               <td>{{ item.acao }}</td>
-              <td>{{ item.dataHora }}</td>
             </tr>
           </tbody>
         </table>
@@ -50,7 +56,7 @@
 
       <div class="container">
         <div class="right-section">
-          <a href="home.html">
+          <a href="lista-log-user.html">
             <button id="btnVoltar">Voltar</button>
           </a>
         </div>
@@ -62,17 +68,15 @@
     const app = new Vue({
       el: "#app",
       data: {
-        nomeArquivo: "",
+        nomeUsuario: "",
         logs: [],
         headTabela: [
-          "Usuário",
-          "Organização",
-          "Ação",
-          "Data/Hora"
+          "Data/Hora",
+          "Ação"
         ],
       },
       mounted() {
-        this.nomeArquivo = localStorage.getItem("fileName") || "";
+        this.email = sessionStorage.getItem("usuario");
         this.visualizarDadosDoLog();
       },
       methods: {
@@ -81,15 +85,14 @@
           window.location.href = "../public/home.html";
         },
         visualizarDadosDoLog() {
-          console.log(localStorage.getItem("fileName"))
+          console.log(sessionStorage.getItem("usuario"))
           const requestData = {
-            nomeArquivo: localStorage.getItem("fileName"),
             organizacao: localStorage.getItem("cnpjFile"),
             usuario: sessionStorage.getItem("usuario")
           };
 
           console.log(requestData)
-          fetch("http://localhost:8080/log/visualizar", {
+          fetch("http://localhost:8080/log/usuario", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -122,7 +125,7 @@
                   usuario: item.nomeUsuario,
                   organizacao: item.organizacao,
                   acao: item.acao,
-                  dataHora: item.dataHora
+                  data: item.data
                 }));
               }
             })

@@ -126,6 +126,11 @@ tbody > tr > td > div > abbr > img:hover {
   font-size: 20px;
 }
 
+#alinhamentos {
+  display: flex;
+  flex-direction: row;
+}
+
 #btnVoltar {
   background-color: #adb5bd;
   color: #fff;
