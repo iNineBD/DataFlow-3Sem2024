@@ -37,7 +37,7 @@ nav a {
   margin-right: 20px;
   font-weight: 600;
   font-size: large;
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 nav a img {
@@ -52,17 +52,20 @@ body {
   background: white;
 }
 
-main > h1,
-h2,
-h3 {
+main > h1 {
   margin: 20px 35px 20px 35px;
 }
 
 table {
-  width: calc(100% - 70px);
+  width: 100%;
   border-collapse: collapse;
-  margin: 0 35px;
   overflow-x: auto;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 th,
@@ -74,12 +77,7 @@ td {
 }
 
 th {
-  background-color: #f2f2f2;
-}
-
-#img-table {
-  height: 16px;
-  margin: 0 6px 0 0;
+  background-color: #cdcdcd;
 }
 
 #centralizar {
@@ -95,63 +93,63 @@ tbody > tr > td > div > abbr > img:hover {
   cursor: pointer;
 }
 
-.status-cell {
-  font-size: 14px;
+#table-container {
+  max-height: 520px;
+  overflow-y: auto;
+  margin: 0px 35px;
 }
 
-#table th:nth-child(1),
-#table td:nth-child(1) {
-  width: 30%; /* Defina a largura desejada para a primeira coluna */
+.even-row {
+  background-color: #ffffff; /* Cor de fundo para linhas pares */
 }
 
-#table th:nth-child(2),
-#table td:nth-child(2) {
-  width: 35%; /* Defina a largura desejada para a segunda coluna */
+.odd-row {
+  background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
 }
 
-#table th:nth-child(3),
-#table td:nth-child(3) {
-  width: 35%; /* Defina a largura desejada para a terceira coluna */
+#h1Log {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-#table td:nth-child(4) {
+#h2Log {
+  margin-left: 35px;
+  padding: 20px 10px 20px 0px;
+  display: flex;
   align-items: center;
-  text-align: center; /* Alinha o texto horizontalmente no centro */
-  vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
 }
 
-#table td:nth-child(5) {
+#parchive {
+  display: flex;
   align-items: center;
-  text-align: center; /* Alinha o texto horizontalmente no centro */
-  vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
+  font-size: 20px;
 }
 
-.dropdown {
-  position: relative;
-  display: flex; /* Usando flexbox */
-  align-items: center; /* Centralizando verticalmente */
+#alinhamentos {
+  display: flex;
+  flex-direction: row;
 }
 
-.dropdown-menu {
-    width: 100px;
-    height: auto;
-    position: absolute;
-    top: 50px;
-    left: -50px;
-    border-radius: 5px;
-    box-shadow: 0 0 2px black;
-    background-color: white;
-    padding: 5px;
-    display: flex; /* Usando flexbox para centralizar verticalmente */
-    justify-content: center; /* Centralizando horizontalmente */
-    align-items: center; /* Centralizando verticalmente */
-}
-
-.dropdown-menu a {
+#btnVoltar {
+  background-color: #adb5bd;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px 35px 10px 20px;
   font-size: 15px;
-  display: block;
-  color: black;
-  padding: 5px 10px;
-  text-decoration: none;
-  width: 10px;
+  font-weight: 600;
+}
+
+.container {
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente */
+  justify-content: flex-end;
+}
+
+.right-section {
+  display: flex;
+  justify-content: flex-end; /* Alinha os itens à direita */
 }
