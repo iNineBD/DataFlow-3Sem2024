@@ -415,36 +415,59 @@
                 },
                 submitForm() {
                     const fileInput = document.getElementById('fileInput');
+                    const file = fileInput.files[0];
                     const formData = new FormData();
-                    formData.append('file', fileInput.files[0]);
-                    formData.append('cabecalho', this.cabecalho);
-                    formData.append('delimiter', this.delimiter);
+                    formData.append("multipartFile", file);
+                    localStorage.setItem('nameFileUpload', this.fileName);
 
-                    // Construção da URL
-                    const url = new URL("http://localhost:8080/silver/upload");
-                    url.searchParams.append('delimiter', this.delimiter);
-                    url.searchParams.append('header', this.cabecalho);
-                    url.searchParams.append('email', this.user);
-                    url.searchParams.append('cnpj', this.cnpj);
-                    url.searchParams.append('nomeArquivo', this.fileName);
+                    console.log("Arquivo upload: ", this.fileName)
+                    console.log("Token: ", sessionStorage.getItem("authToken"))
 
-                    console.log("Generated URL: ", url.toString());
+                    // Verificar a extensão do arquivo
+                    const fileExtension = file.name.split(".").pop().toLowerCase();
+                    let contentType = "";
+                    if (fileExtension === "csv") {
+                        contentType = "text/csv";
+                    } else if (fileExtension === "xlsx") {
+                        contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    } else {
+                        console.error("Unsupported file type");
+                        return;
+                    }
 
-                    // fetch(url.toString(), {
-                    //     method: "POST",
-                    //     headers: {
-                    //         'Authorization': `Bearer ${sessionStorage.getItem("authToken")}`,
-                    //     },
-                    //     body: formData,
-                    // })
-                    //     .then(response => response.json())
-                    //     .then(data => {
-                    //         console.log('Upload successful:', data);
-                    //         document.getElementById('uploadModal').style.display = 'none';
-                    //     })
-                    //     .catch(error => {
-                    //         console.error('Error uploading file:', error);
-                    //     });
+                    fetch("http://localhost:8080/silver/upload?delimiter=" +
+                        this.delimiter + "&header=" + this.cabecalho + "&email=" + this.user + "&cnpj=" + this.cnpj + "&nomeArquivo=" + this.nameFile, {
+                        method: "POST",
+                        headers: {
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: formData,
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.critica != "Processamento efetuado com sucesso") {
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: data.critica,
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                                console.log(data.critica);
+                                return;
+                            }
+                            console.log('Upload successful:', data.critica);
+                            console.log('Upload successful:', data);
+                            localStorage.setItem('uploadResponse', JSON.stringify(data.response));
+                            window.location.href = "silver-zone-upload-arquivo.html";
+                        })
+                        .catch(error => {
+                            console.error('Error uploading file:', error);
+                        });
                 }
             },
         });
