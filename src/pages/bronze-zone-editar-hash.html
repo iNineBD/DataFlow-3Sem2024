@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../utils/vue.js"></script>
+    <script src="../utils/logout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../assets/style/bronze-zone-editar-hash.css" />
     <link rel="stylesheet"
@@ -93,6 +94,7 @@
             },
             methods: {
                 deslogar() {
+                    logoutUser(sessionStorage.getItem("usuario"))
                     sessionStorage.removeItem("usuario")
                     window.location.href = "../../public/index.html"
                 },

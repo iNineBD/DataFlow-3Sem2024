@@ -121,6 +121,7 @@
           window.location.href = "dashboardsHome.html"
         },
         deslogar() {
+          logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
         },
