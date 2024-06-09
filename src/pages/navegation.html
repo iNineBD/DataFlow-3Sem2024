@@ -146,6 +146,7 @@
           };
 
           const btnYaml = zones;
+          let fileNameToDonwload = "";
 
           fetch(`http://localhost:8080/mapper/yaml/${btnYaml}`, {
             method: "POST",
@@ -155,12 +156,16 @@
             },
             body: JSON.stringify(objetoYaml),
           })
-            .then((response) => response.blob())
+            .then((response) => {
+              fileNameToDonwload = response.headers.get("fileName");
+              console.log(fileNameToDonwload);
+              return response.blob();
+            })
             .then((blob) => {
               const url = window.URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
-              a.download = `${btnYaml}-zone.yaml`;
+              a.download = fileNameToDonwload;
               document.body.appendChild(a);
               a.click();
               window.URL.revokeObjectURL(url);
