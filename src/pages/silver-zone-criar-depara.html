@@ -443,27 +443,35 @@
                         },
                         body: formData,
                     })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
+                        .then((response) => {
                             return response.json();
                         })
-                        .then(data => {
-                            if (data.critica != "Processamento efetuado com sucesso") {
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                console.log(
+                                    Error + " erro na requisição: " + responseJson.critica
+                                );
                                 Swal.fire({
                                     title: "Erro",
-                                    text: data.critica,
+                                    text: responseJson.critica,
                                     icon: "error",
                                     confirmButtonText: "OK",
                                 });
-                                console.log(data.critica);
                                 return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then((result) => {
+                                    window.location.href = "silver-zone-upload-arquivo.html";
+                                });
                             }
-                            console.log('Upload successful:', data.critica);
-                            console.log('Upload successful:', data);
-                            localStorage.setItem('uploadResponse', JSON.stringify(data.response));
-                            window.location.href = "silver-zone-upload-arquivo.html";
+                            console.log("Requisição feita com sucesso");
+                            console.log(JSON.stringify(responseJson, null, 2));
                         })
                         .catch(error => {
                             console.error('Error uploading file:', error);

@@ -132,8 +132,7 @@
                 }
                 console.log("Dados Upload:", JSON.stringify(uploadResponse, null, 2));
 
-                this.fileClick = localStorage.getItem("fileName") || "";
-                this.nameFile = localStorage.getItem("nameFileUpload") || "";
+                this.nameFile = localStorage.getItem("fileName") || "";
                 this.user = sessionStorage.getItem("usuario") || "";
                 this.cnpj = localStorage.getItem("cnpjFile");
                 console.log(this.nameFile, this.user, this.cnpj);
@@ -272,7 +271,7 @@
 
                     const objetoCompleto = {
                         email: this.user,
-                        arquivo: this.fileClick,
+                        arquivo: this.nameFile,
                         cnpj: this.cnpj,
                         metadados: metadados
                     };
