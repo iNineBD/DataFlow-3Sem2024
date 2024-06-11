@@ -407,11 +407,38 @@
                     const file = event.target.files[0];
                     if (file) {
                         this.fileName = file.name;
+                        this.processFile(file);
                         this.paragraph = `Clique novamente para alterar o arquivo ou arraste e solte aqui`;
                     } else {
                         this.fileName = '';
                         this.paragraph = '';
                     }
+                },
+                processFile(file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const fileContent = event.target.result;
+                        this.parseCSV(fileContent);
+                    };
+                    reader.readAsText(file, 'ISO-8859-1');
+                },
+                parseCSV(data) {
+                    const rows = data.split('\n');
+                    const headers = rows[0].split(';');
+                    const result = [];
+
+                    for (let i = 1; i < rows.length; i++) {
+                        const values = rows[i].split(';');
+                        if (values.length === headers.length) {
+                            const obj = {};
+                            for (let j = 0; j < headers.length; j++) {
+                                obj[headers[j]] = values[j];
+                            }
+                            result.push(obj);
+                        }
+                    }
+                    this.uploadedData = result;
+                    console.log("Resultado do parseCSV:", result)
                 },
                 submitForm() {
                     const fileInput = document.getElementById('fileInput');
@@ -445,6 +472,7 @@
                     })
                         .then((response) => {
                             return response.json();
+                            localStorage.setItem('uploadResponse', JSON.stringify(response));
                         })
                         .then((responseJson) => {
                             if (

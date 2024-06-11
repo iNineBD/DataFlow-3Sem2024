@@ -126,9 +126,13 @@
             },
             mounted() {
                 const uploadResponse = JSON.parse(localStorage.getItem('uploadResponse'));
-                if (uploadResponse) {
-                    this.nameFile = uploadResponse.arquivo;
-                    this.populateTables(uploadResponse.metadados);
+                if (uploadResponse && uploadResponse.response) {
+                    this.nameFile = uploadResponse.response.arquivo;
+                    if (uploadResponse.response.metadados) {
+                        this.populateTables(uploadResponse.response.metadados);
+                        this.listaDosMetadados = uploadResponse.response.metadados.map(meta => ({ nome: meta.nome }));
+                        this.listaDosMetadados2 = [...this.listaDosMetadados];  // Clonar a lista inicial
+                    }
                 }
                 console.log("Dados Upload:", JSON.stringify(uploadResponse, null, 2));
 
@@ -138,8 +142,8 @@
                 console.log(this.nameFile, this.user, this.cnpj);
 
                 // Carregar lista de metadados do localStorage
-                if (uploadResponse && uploadResponse.metadados) {
-                    this.listaDosMetadados = uploadResponse.metadados.map(meta => ({ nome: meta.nome }));
+                if (uploadResponse && uploadResponse.response.metadados) {
+                    this.listaDosMetadados = uploadResponse.response.metadados.map(meta => ({ nome: meta.nome }));
                     this.listaDosMetadados2 = [...this.listaDosMetadados];  // Clonar a lista inicial
                 }
             },
