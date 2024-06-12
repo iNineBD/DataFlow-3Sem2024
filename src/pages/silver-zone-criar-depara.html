@@ -420,7 +420,7 @@
                         const fileContent = event.target.result;
                         this.parseCSV(fileContent);
                     };
-                    reader.readAsText(file, 'ISO-8859-1');
+                    reader.readAsText(file, 'UTF-8');
                 },
                 parseCSV(data) {
                     const rows = data.split('\n');
@@ -432,13 +432,13 @@
                         if (values.length === headers.length) {
                             const obj = {};
                             for (let j = 0; j < headers.length; j++) {
-                                obj[headers[j]] = values[j];
+                                obj[headers[j].trim()] = values[j].trim();
                             }
                             result.push(obj);
                         }
                     }
                     this.uploadedData = result;
-                    console.log("Resultado do parseCSV:", result)
+                    console.log("Resultado do parseCSV:", result);
                 },
                 submitForm() {
                     const fileInput = document.getElementById('fileInput');
@@ -472,7 +472,6 @@
                     })
                         .then((response) => {
                             return response.json();
-                            localStorage.setItem('uploadResponse', JSON.stringify(response));
                         })
                         .then((responseJson) => {
                             if (
@@ -499,7 +498,9 @@
                                 });
                             }
                             console.log("Requisição feita com sucesso");
-                            console.log(JSON.stringify(responseJson, null, 2));
+                            localStorage.setItem('uploadResponse', JSON.stringify(responseJson));
+                            const uploadResponse = JSON.parse(localStorage.getItem('uploadResponse'));
+                            console.log(JSON.stringify(uploadResponse, null, 2));
                         })
                         .catch(error => {
                             console.error('Error uploading file:', error);

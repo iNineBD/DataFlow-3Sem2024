@@ -87,7 +87,7 @@
 
                 <div>
 
-                    <a href="silver-zone-visualizar-depara.html">
+                    <a href="silver-zone-criar-depara.html">
                         <button id="btnVoltar">Voltar</button>
                     </a>
                     <!--btn de salvar  = e adicionar-->
@@ -140,12 +140,6 @@
                 this.user = sessionStorage.getItem("usuario") || "";
                 this.cnpj = localStorage.getItem("cnpjFile");
                 console.log(this.nameFile, this.user, this.cnpj);
-
-                // Carregar lista de metadados do localStorage
-                if (uploadResponse && uploadResponse.response.metadados) {
-                    this.listaDosMetadados = uploadResponse.response.metadados.map(meta => ({ nome: meta.nome }));
-                    this.listaDosMetadados2 = [...this.listaDosMetadados];  // Clonar a lista inicial
-                }
             },
             methods: {
                 excluirTudo() {
