@@ -183,6 +183,13 @@
         <td>2, 3 e 4</td>
         <td>7</td>
     </tr>
+       <tr>
+        <td>14</td>
+        <td>Extra</td>
+        <td>Como parceiro Silver, desejo ter a capacidade de receber um arquivo .csv com dados de "de" e "para" afim de facilitar a atribuição de significados para os metadados</td>
+        <td>4</td>
+        <td>-</td>
+    </tr>
 </table>
 
 <div align="left"><hr width=70%></div>
