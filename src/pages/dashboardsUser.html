@@ -17,6 +17,8 @@
   <!-- Corrija o caminho para o arquivo CSS -->
   <link rel="stylesheet" href="/src/assets/style/dashboardsUser.css" />
   <title>Dashboards</title>
+  <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
 </head>
 
 <body>
@@ -121,6 +123,7 @@
           window.location.href = "dashboardsHome.html"
         },
         deslogar() {
+          logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
           window.location.href = "../../public/index.html"
         },

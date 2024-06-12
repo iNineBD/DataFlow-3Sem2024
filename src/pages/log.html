@@ -7,9 +7,12 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="stylesheet" href="../assets/style/log.css" />
+  <script src="../utils/logout.js"></script>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <title>Histórico Log</title>
+  <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
 </head>
 
 <body>
@@ -84,6 +87,7 @@
       },
       methods: {
         deslogar() {
+          logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario");
           window.location.href = "../public/home.html";
         },
