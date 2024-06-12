@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <link rel="stylesheet" href="../assets/style/log.css" />
+  <link rel="stylesheet" href="../assets/style/lista-log-user.css" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <title>Lista de Usuários</title>
@@ -39,7 +39,6 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in logs" :key="index">
-              <!-- <td>{{ item.usuario }}</td> -->
               <td>
                 <div id="centralizar">
                   <a href="#" @click="viewUserDetails(item)">{{ item.usuario }}</a>
@@ -74,14 +73,14 @@
       },
       mounted() {
         this.nomeUsuario = sessionStorage.getItem("usuario");
-        this.visualizarDadosDoLog();
+        this.getLog();
       },
       methods: {
         deslogar() {
           sessionStorage.removeItem("usuario");
           window.location.href = "../public/home.html";
         },
-        visualizarDadosDoLog() {
+        getLog() {
           console.log(sessionStorage.getItem("usuario"))
           const requestData = {
             organizacao: localStorage.getItem("cnpjFile"),
@@ -89,18 +88,16 @@
           };
 
           console.log(requestData)
-          fetch("http://localhost:8080/log/usuario", {
-            method: "POST",
+          const params = new URLSearchParams(requestData).toString();
+          fetch(`http://localhost:8080/log/allUsers?${params}`, {
+            method: "GET",
             headers: {
-              "Content-Type": "application/json",
               'Authorization': `Bearer ${sessionStorage.getItem("authToken")}`,
-            },
-            body: JSON.stringify(requestData),
+            }
           })
             .then(response => {
               return response.json();
             })
-
             .then(data => {
               console.log(data)
 
@@ -113,14 +110,11 @@
                 }).then((result) => {
                   window.location.href = "home.html";
                 });
-
-
-                return
-
+                return;
               } else {
                 this.logs = data.response.map(item => ({
                   email: item.emailUsuario,
-                  usuario: item.nomeUsuario,
+                  usuario: item.nome,
                   organizacao: item.organizacao
                 }));
               }
@@ -129,7 +123,6 @@
         viewUserDetails(item) {
           localStorage.setItem("usuario", item.emailUsuario);
           localStorage.setItem("organizacao", item.organizacao);
-
           window.location.href = "log-user.html";
         }
       }
