@@ -45,6 +45,7 @@
                 </div>
               </td>
               <td>{{ item.organizacao }}</td>
+              <td>{{ item.nivel }}</td>
             </tr>
           </tbody>
         </table>
@@ -68,7 +69,8 @@
         logs: [],
         headTabela: [
           "Nome do Usuário",
-          "Organização"
+          "Organização",
+          "Nivel de Acesso"
         ],
       },
       mounted() {
@@ -115,13 +117,15 @@
                 this.logs = data.response.map(item => ({
                   email: item.emailUsuario,
                   usuario: item.nome,
-                  organizacao: item.organizacao
+                  organizacao: item.organizacao,
+                  nivel: item.nivel
                 }));
               }
             })
         },
         viewUserDetails(item) {
-          localStorage.setItem("usuario", item.emailUsuario);
+          localStorage.setItem("email", item.emailUsuario);
+          localStorage.setItem("nome", item.nomeUsuario);
           localStorage.setItem("organizacao", item.organizacao);
           window.location.href = "log-user.html";
         }
