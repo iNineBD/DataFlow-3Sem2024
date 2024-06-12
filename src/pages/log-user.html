@@ -29,11 +29,8 @@
       <h1 id="h1Log">Histórico de Acesso</h1>
 
       <div id="alinhamentos">
-        <h2 id="h2Log">Usuário</h2>
-        <!-- <h2 id="parchive" v-text="nomeArquivo"></h2> -->
-        <h2 id="h2Log">-</h2>
-        <h2 id="h2Log">Organização</h2>
-        <!-- <h2 id="parchive" v-text="nomeArquivo"></h2> -->
+        <h2 id="h2Log">Usuário:</h2>
+        <h2 id="parchive" v-text="userName"></h2>
       </div>
 
       <div id="table-container" style="overflow-x: auto">
@@ -68,7 +65,7 @@
     const app = new Vue({
       el: "#app",
       data: {
-        nomeUsuario: "",
+        userName: sessionStorage.getItem("nomeUsuarioSessao"),
         logs: [],
         headTabela: [
           "Data/Hora",
@@ -76,7 +73,7 @@
         ],
       },
       mounted() {
-        this.email = sessionStorage.getItem("usuario");
+        this.nomeUsuario = sessionStorage.getItem("usuario");
         this.visualizarDadosDoLog();
       },
       methods: {
@@ -88,7 +85,7 @@
           console.log(sessionStorage.getItem("usuario"))
           const requestData = {
             organizacao: localStorage.getItem("cnpjFile"),
-            usuario: sessionStorage.getItem("usuario")
+            email: sessionStorage.getItem("usuario")
           };
 
           console.log(requestData)
@@ -122,10 +119,11 @@
 
               } else {
                 this.logs = data.response.map(item => ({
-                  usuario: item.nomeUsuario,
+                  email: item.emailUsuario,
+                  usuario:item.nomeUsuario,
                   organizacao: item.organizacao,
                   acao: item.acao,
-                  data: item.data
+                  data: item.dataHora
                 }));
               }
             })
