@@ -39,7 +39,12 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in logs" :key="index">
-              <td>{{ item.usuario }}</td>
+              <!-- <td>{{ item.usuario }}</td> -->
+              <td>
+                <div id="centralizar">
+                  <a href="#" @click="viewUserDetails(item)">{{ item.usuario }}</a>
+                </div>
+              </td>
               <td>{{ item.organizacao }}</td>
             </tr>
           </tbody>
@@ -68,7 +73,7 @@
         ],
       },
       mounted() {
-        this.email = sessionStorage.getItem("usuario");
+        this.nomeUsuario = sessionStorage.getItem("usuario");
         this.visualizarDadosDoLog();
       },
       methods: {
@@ -80,7 +85,7 @@
           console.log(sessionStorage.getItem("usuario"))
           const requestData = {
             organizacao: localStorage.getItem("cnpjFile"),
-            usuario: sessionStorage.getItem("usuario")
+            email: sessionStorage.getItem("usuario")
           };
 
           console.log(requestData)
@@ -114,14 +119,18 @@
 
               } else {
                 this.logs = data.response.map(item => ({
+                  email: item.emailUsuario,
                   usuario: item.nomeUsuario,
-                  estagio: item.estagio,
-                  acao: item.acao,
-                  observacao: item.observacao,
-                  dataHora: item.dataHora
+                  organizacao: item.organizacao
                 }));
               }
             })
+        },
+        viewUserDetails(item) {
+          localStorage.setItem("usuario", item.emailUsuario);
+          localStorage.setItem("organizacao", item.organizacao);
+
+          window.location.href = "log-user.html";
         }
       }
     });
