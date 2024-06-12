@@ -65,7 +65,7 @@
     const app = new Vue({
       el: "#app",
       data: {
-        userName: sessionStorage.getItem("nomeUsuarioSessao"),
+        userName: localStorage.getItem("nome"),
         logs: [],
         headTabela: [
           "Data/Hora",
@@ -73,7 +73,7 @@
         ],
       },
       mounted() {
-        this.nomeUsuario = sessionStorage.getItem("usuario");
+        this.nomeUsuario = sessionStorage.getItem("nome");
         this.visualizarDadosDoLog();
       },
       methods: {
@@ -82,10 +82,11 @@
           window.location.href = "../public/home.html";
         },
         visualizarDadosDoLog() {
-          console.log(sessionStorage.getItem("usuario"))
+          console.log(localStorage.getItem("email"))
           const requestData = {
-            organizacao: localStorage.getItem("cnpjFile"),
-            email: sessionStorage.getItem("usuario")
+            organizacao: localStorage.getItem("organizacao"),
+            email: localStorage.getItem("email"),
+            nome: localStorage.getItem("nome")
           };
 
           console.log(requestData)
@@ -111,7 +112,7 @@
                   text: data.critica,
                   confirmButtonText: 'OK'
                 }).then((result) => {
-                  window.location.href = "home.html";
+                  window.location.href = "lista-log-user.html";
                 });
 
 
@@ -120,7 +121,7 @@
               } else {
                 this.logs = data.response.map(item => ({
                   email: item.emailUsuario,
-                  usuario:item.nomeUsuario,
+                  usuario: item.nomeUsuario,
                   organizacao: item.organizacao,
                   acao: item.acao,
                   data: item.dataHora
