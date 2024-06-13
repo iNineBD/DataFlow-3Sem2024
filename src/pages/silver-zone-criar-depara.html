@@ -74,7 +74,61 @@
                     </div>
                 </div>
             </div>
+
+            <dialog id="uploadModal" class="modal">
+                <form class="modal-content" @submit.prevent="submitForm" enctype="multipart/form-data" @dragover.prevent
+                    @drop="handleDrop">
+                    <div class="alinhar">
+                        <span id="closeUploadModal" class="close">&times;</span>
+                        <h1>Upload de Arquivo</h1>
+                    </div>
+                    <div class="camposInput">
+                        <div class="inputGroup">
+                            <label for="cabecalhoDropdown">
+                                O Arquivo tem cabeçalho?
+                            </label>
+                            <br />
+                            <select id="cabecalhoDropdown" v-model="cabecalho">
+                                <option value="true">Sim</option>
+                                <option value="false">Não</option>
+                            </select>
+                        </div>
+                        <div class="inputGroup">
+                            <label for="delimitadorDropdown">
+                                Delimitador das Colunas:
+                            </label>
+                            <br />
+                            <select id="delimitadorDropdown" v-model="delimiter">
+                                <option value=",">Vírgula (,)</option>
+                                <option value=".">Ponto (.)</option>
+                                <option value="/">Barra (/)</option>
+                                <option value=";">Ponto e Vírgula (;)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="file" name="csvfile" accept=".csv, .xlsx" hidden id="fileInput"
+                        @change="updateUploadArea" />
+                    <div id="campoUpload">
+                        <label for="fileInput">
+                            <div id="uploadArea">
+                                <img src="../assets/images/csv-azul.png" alt="csv-azul" />
+                                <h2>{{ fileName || 'Clique para selecionar um arquivo' }}</h2>
+                                <p>{{ paragraph || 'ou arraste e solte aqui' }}</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div id="buttonsModal">
+                        <button type="submit" id="btnUpload">
+                            Fazer Upload
+                        </button>
+                    </div>
+                </form>
+            </dialog>
+
             <div id="buttons">
+                <button id="btnUploadArquivo">
+                    Upload Arquivo
+                </button>
                 <button id="btnAddMetadado" @click="mostrarModalSelecaoMetadado">
                     <span class="material-symbols-outlined">add</span>
                     Selecionar outro metadado
@@ -103,6 +157,10 @@
                     "É igual a:",
                     "Excluir"
                 ],
+                cabecalho: 'true',
+                delimiter: ',',
+                fileName: '',
+                paragraph: ''
             },
             computed: {
                 deslogar() {
@@ -127,9 +185,26 @@
             mounted() {
                 this.nameFile = localStorage.getItem("fileName") || "";
                 this.user = sessionStorage.getItem("usuario") || "";
-                this.cnpj = sessionStorage.getItem("cnpjFile");
+                this.cnpj = localStorage.getItem("cnpjFile");
                 this.visualizarMetadadosAtivos();
                 console.log(this.nameFile, this.user, this.cnpj)
+
+                // Event listener para abrir o modal de upload
+                document.getElementById('btnUploadArquivo').addEventListener('click', () => {
+                    document.getElementById('uploadModal').style.display = 'block';
+                });
+
+                // Event listener para fechar o modal de upload
+                document.getElementById('closeUploadModal').addEventListener('click', () => {
+                    document.getElementById('uploadModal').style.display = 'none';
+                });
+
+                window.addEventListener('click', (event) => {
+                    const modal = document.getElementById('uploadModal');
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
             },
             methods: {
                 visualizarMetadadosAtivos() {
@@ -329,8 +404,123 @@
                         }).catch((error) => {
                             console.error("Erro ao criar DePara:", error);
                         });
+                },
+                handleDrop(event) {
+                    event.preventDefault();
+                    const file = event.dataTransfer.files[0];
+                    const textParagraphElement = uploadArea.querySelector("p");
+                    if (file) {
+                        this.fileName = file.name;
+                        this.file = file;
+                        textParagraphElement.textContent =
+                            this.paragraph ||
+                            "Clique para selecionar outro ou arraste aqui";
+                    }
+                },
+                updateUploadArea(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.fileName = file.name;
+                        this.processFile(file);
+                        this.paragraph = `Clique novamente para alterar o arquivo ou arraste e solte aqui`;
+                    } else {
+                        this.fileName = '';
+                        this.paragraph = '';
+                    }
+                },
+                processFile(file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const fileContent = event.target.result;
+                        this.parseCSV(fileContent);
+                    };
+                    reader.readAsText(file, 'UTF-8');
+                },
+                parseCSV(data) {
+                    const rows = data.split('\n');
+                    const headers = rows[0].split(';');
+                    const result = [];
+
+                    for (let i = 1; i < rows.length; i++) {
+                        const values = rows[i].split(';');
+                        if (values.length === headers.length) {
+                            const obj = {};
+                            for (let j = 0; j < headers.length; j++) {
+                                obj[headers[j].trim()] = values[j].trim();
+                            }
+                            result.push(obj);
+                        }
+                    }
+                    this.uploadedData = result;
+                    console.log("Resultado do parseCSV:", result);
+                },
+                submitForm() {
+                    const fileInput = document.getElementById('fileInput');
+                    const file = fileInput.files[0];
+                    const formData = new FormData();
+                    formData.append("multipartFile", file);
+                    localStorage.setItem('nameFileUpload', this.fileName);
+
+                    console.log("Arquivo upload: ", this.fileName)
+                    console.log("Token: ", sessionStorage.getItem("authToken"))
+
+                    // Verificar a extensão do arquivo
+                    const fileExtension = file.name.split(".").pop().toLowerCase();
+                    let contentType = "";
+                    if (fileExtension === "csv") {
+                        contentType = "text/csv";
+                    } else if (fileExtension === "xlsx") {
+                        contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    } else {
+                        console.error("Unsupported file type");
+                        return;
+                    }
+
+                    fetch("http://localhost:8080/silver/upload?delimiter=" +
+                        this.delimiter + "&header=" + this.cabecalho + "&email=" + this.user + "&cnpj=" + this.cnpj + "&nomeArquivo=" + this.nameFile, {
+                        method: "POST",
+                        headers: {
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: formData,
+                    })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                console.log(
+                                    Error + " erro na requisição: " + responseJson.critica
+                                );
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then((result) => {
+                                    window.location.href = "silver-zone-upload-arquivo.html";
+                                });
+                            }
+                            console.log("Requisição feita com sucesso");
+                            localStorage.setItem('uploadResponse', JSON.stringify(responseJson));
+                            const uploadResponse = JSON.parse(localStorage.getItem('uploadResponse'));
+                            console.log(JSON.stringify(uploadResponse, null, 2));
+                        })
+                        .catch(error => {
+                            console.error('Error uploading file:', error);
+                        });
                 }
-            }
+            },
         });
     </script>
 </body>

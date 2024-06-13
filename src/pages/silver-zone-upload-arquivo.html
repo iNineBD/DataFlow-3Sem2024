@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../utils/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../assets/style/silver-zone-editar-depara.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Editar DePara do Upload - Silver Zone</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+            <nav>
+                <a href="home.html">Home</a>
+                <a href="upload-csv.html">Importar Arquivo</a>
+                <a @click="deslogar()">
+                    <span class="material-symbols-outlined">logout</span>
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <h1 id="h1SilverEditarDePara">Editar DePara do Upload - Silver Zone</h1>
+            <p id="pSilverEditarDePara">Você está editando os DePara's do arquivo que fez upload!</p>
+            <p id="pSilverEditarDePara">Após editá-los clique em "Salvar".</p>
+            <div id="alinhamentos">
+                <h2 id="h2SilverDePara">Nome do arquivo:</h2>
+                <p id="parchive" v-text="nameFile"></p>
+            </div>
+
+            <div v-if="tabelas.length > 0">
+                <div v-for="(tabela, tableIndex) in tabelas" :key="tableIndex" id="table-container"
+                    style="overflow-x: auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th v-for="(head, index) in headTabela" :key="index">
+                                    {{ head }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, itemIndex) in tabela.data" :key="itemIndex"
+                                :class="{ 'even-row': itemIndex % 2 === 0, 'odd-row': itemIndex % 2 !== 0 }">
+                                <td>
+                                    <span>{{ item.metadado }}</span>
+                                </td>
+
+                                <td>
+                                    <input type="text" v-model="item.valorDe">
+                                </td>
+
+                                <td>
+                                    <input type="text" v-model="item.igualA">
+                                </td>
+                                <td>
+                                    <span class="material-symbols-outlined" id="iconDelete"
+                                        @click="removerLinha(tableIndex, itemIndex)">delete</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="btnLinha">
+                        <button id="btnAddLinha" @click="adicionarLinha(tabela)">+</button>
+                    </div>
+                </div>
+            </div>
+            <div id="buttons">
+
+                <button id="btnAddMetadado" @click="mostrarModalSelecaoMetadado">
+                    <span class="material-symbols-outlined">add</span>
+                    Selecionar outro metadado
+                </button>
+            </div>
+
+            <div id="buttons2">
+
+                <div>
+                    <button class="btnExcluirTudo" @click="excluirTudo()">Excluir Tudo</button>
+                </div>
+
+                <div>
+
+                    <a href="silver-zone-criar-depara.html">
+                        <button id="btnVoltar">Voltar</button>
+                    </a>
+                    <!--btn de salvar  = e adicionar-->
+                    <button id="btnSalvar" @click="salvar">Salvar</button>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                nameFile: "",
+                userFile: sessionStorage.getItem('usuario') || "",
+                tabelas: [],
+                listaDosMetadados: [],
+                listaDosMetadados2: [],
+                headTabela: [
+                    "Metadado",
+                    "O valor de:",
+                    "É igual a:",
+                    "Excluir"
+                ],
+            },
+            computed: {
+                deslogar() {
+                    sessionStorage.removeItem("usuario")
+                    window.location.href = "/public/index.html"
+                },
+                dataFiltrada() {
+                    return this.data.filter((item) => item.ativo);
+                },
+            },
+            mounted() {
+                const uploadResponse = JSON.parse(localStorage.getItem('uploadResponse'));
+                if (uploadResponse && uploadResponse.response) {
+                    this.nameFile = uploadResponse.response.arquivo;
+                    if (uploadResponse.response.metadados) {
+                        this.populateTables(uploadResponse.response.metadados);
+                        this.listaDosMetadados = uploadResponse.response.metadados.map(meta => ({ nome: meta.nome }));
+                        this.listaDosMetadados2 = [...this.listaDosMetadados];  // Clonar a lista inicial
+                    }
+                }
+                console.log("Dados Upload:", JSON.stringify(uploadResponse, null, 2));
+
+                this.nameFile = localStorage.getItem("fileName") || "";
+                this.user = sessionStorage.getItem("usuario") || "";
+                this.cnpj = localStorage.getItem("cnpjFile");
+                console.log(this.nameFile, this.user, this.cnpj);
+            },
+            methods: {
+                excluirTudo() {
+                    const objetoExcluir = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: this.cnpj,
+                        metadados: this.listaDosMetadados
+                    };
+
+                    console.log("Objeto para excluir: " + JSON.stringify(objetoExcluir));
+
+
+                    fetch("http://localhost:8080/silver/excluir", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoExcluir),
+
+                    })
+                        .then((response) => {
+                            console.log(sessionStorage.getItem("authToken"))
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (responseJson.critica !== "Processamento efetuado com sucesso") {
+                                console.log("Erro na requisição: " + responseJson.critica);
+
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then((result) => {
+                                    window.location.href = "home.html";
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Erro na requisição:", error);
+                            Swal.fire({
+                                title: "Erro",
+                                text: "Ocorreu um erro ao processar a requisição.",
+                                icon: "error",
+                                confirmButtonText: "OK",
+                            });
+                        });
+                },
+                mostrarModalSelecaoMetadado() {
+                    const metadadosSelecionados = this.tabelas.map(tabela => tabela.data[0].metadado);
+                    console.log("Metadados:", this.listaDosMetadados2);
+
+                    const metadadosDisponiveis = this.listaDosMetadados2.filter(meta => !metadadosSelecionados.includes(meta.nome));
+
+                    const inputOptions = metadadosDisponiveis.reduce((options, meta) => {
+                        options[meta.nome] = meta.nome;
+                        return options;
+                    }, {});
+
+                    Swal.fire({
+                        title: 'Selecionar Metadado',
+                        input: 'select',
+                        inputOptions: inputOptions,
+                        inputPlaceholder: 'Selecione um metadado',
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.value) {
+                            this.adicionarTabela(result.value);
+                        }
+                    });
+                },
+                adicionarTabela(metadadoSelecionado) {
+                    const novaTabela = {
+                        data: [{
+                            metadado: metadadoSelecionado,
+                            valorDe: '',
+                            igualA: '',
+                            ativo: true
+                        }],
+                        headTabela: this.headTabela
+                    };
+                    this.tabelas.push(novaTabela);
+                },
+                adicionarLinha(tabela) {
+                    const metadadoSelecionado = tabela.data[0].metadado;
+                    tabela.data.push({
+                        metadado: metadadoSelecionado,
+                        valorDe: '',
+                        igualA: '',
+                        ativo: true
+                    });
+                },
+                removerLinha(tableIndex, itemIndex) {
+                    this.tabelas[tableIndex].data.splice(itemIndex, 1);
+
+                    if (this.tabelas[tableIndex].data.length === 0) {
+                        this.tabelas.splice(tableIndex, 1)
+                    }
+                },
+                populateTables(metadados) {
+                    this.tabelas = metadados.map(metadado => ({
+                        data: metadado.dePara.map(dePara => ({
+                            metadado: metadado.nome,
+                            valorDe: dePara.de,
+                            igualA: dePara.para,
+                        })),
+                    }));
+                },
+                salvar() {
+                    const metadados = this.tabelas.map(tabela => ({
+                        nome: tabela.data[0].metadado,
+                        deParas: tabela.data.map(item => ({
+                            de: item.valorDe,
+                            para: item.igualA
+                        }))
+                    }));
+
+                    const objetoCompleto = {
+                        email: this.user,
+                        arquivo: this.nameFile,
+                        cnpj: this.cnpj,
+                        metadados: metadados
+                    };
+
+                    console.log("Objeto para enviar: ", JSON.stringify(objetoCompleto, null, 2));
+
+                    fetch("http://localhost:8080/silver/save", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+                        },
+                        body: JSON.stringify(objetoCompleto),
+                    })
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((responseJson) => {
+                            if (
+                                responseJson.critica !== "Processamento efetuado com sucesso"
+                            ) {
+                                console.log(
+                                    Error + " erro na requisição: " + responseJson.critica
+                                );
+
+                                Swal.fire({
+                                    title: "Erro",
+                                    text: responseJson.critica,
+                                    icon: "error",
+                                    confirmButtonText: "OK",
+                                });
+                                return;
+                            } else {
+                                Swal.fire({
+                                    title: "Sucesso",
+                                    text: responseJson.critica,
+                                    icon: "success",
+                                    confirmButtonText: "OK",
+                                }).then((result) => {
+                                    window.location.href = "home.html";
+                                });
+                            }
+                            console.log("Requisição feita com sucesso");
+                        }).catch((error) => {
+                            console.error("Erro ao criar DePara:", error);
+                        });
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>
