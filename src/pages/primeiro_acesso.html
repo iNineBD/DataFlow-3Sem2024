@@ -112,7 +112,17 @@
                 deslogar() {
                     logoutUser(sessionStorage.getItem("usuario"))
                     sessionStorage.removeItem("usuario")
-                    window.location.href = "../../public/index.html"
+
+                    Swal.fire({
+                        title: "Deseja realmente sair?",
+                        showDenyButton: true,
+                        confirmButtonText: `Sim`,
+                        denyButtonText: `Não`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../../public/index.html";
+                        }
+                    });
                 },
                 adicionarDados() {
                     // Criar um objeto para armazenar os dados do usuário

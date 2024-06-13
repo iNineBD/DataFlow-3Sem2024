@@ -122,7 +122,17 @@
                 deslogar() {
                     logoutUser(sessionStorage.getItem("usuario"))
                     sessionStorage.removeItem("usuario")
-                    window.location.href = "/public/index.html"
+
+                    Swal.fire({
+                        title: "Deseja realmente sair?",
+                        showDenyButton: true,
+                        confirmButtonText: `Sim`,
+                        denyButtonText: `Não`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../../public/index.html";
+                        }
+                    });
                 },
                 dataFiltrada() {
                     return this.data.filter((item) => item.ativo);
@@ -145,7 +155,7 @@
                         metadados: this.listaDosMetadados
                     };
 
-                    console.log("Objeto para excluir: "+  JSON.stringify(objetoExcluir));
+                    console.log("Objeto para excluir: " + JSON.stringify(objetoExcluir));
 
 
                     fetch("http://localhost:8080/silver/excluir", {

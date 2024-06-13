@@ -13,6 +13,7 @@
   <!-- Importe o ApexCharts antes do VueApexCharts -->
   <script src="/src/utils/apexcharts.min.js"></script>
   <script src="/src/utils/vue-apexcharts.js"></script>
+  <script src="../utils/logout.js"></script>
   <link rel="stylesheet" href="/src/assets/style/apexcharts.css">
   <!-- Corrija o caminho para o arquivo CSS -->
   <link rel="stylesheet" href="/src/assets/style/dashboardsUser.css" />
@@ -125,7 +126,17 @@
         deslogar() {
           logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
+
+          Swal.fire({
+            title: "Deseja realmente sair?",
+            showDenyButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../../public/index.html";
+            }
+          });
         },
         getUsers() {
           fetch("http://localhost:8080/analytics/users", {

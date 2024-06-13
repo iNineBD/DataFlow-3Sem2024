@@ -96,7 +96,17 @@
                 deslogar() {
                     logoutUser(sessionStorage.getItem("usuario"))
                     sessionStorage.removeItem("usuario")
-                    window.location.href = "/public/index.html"
+
+                    Swal.fire({
+                        title: "Deseja realmente sair?",
+                        showDenyButton: true,
+                        confirmButtonText: `Sim`,
+                        denyButtonText: `Não`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../../public/index.html";
+                        }
+                    });
                 },
                 dataFiltrada() {
                     return this.data.filter((item) => item.ativo);
@@ -125,30 +135,30 @@
                         },
                         body: JSON.stringify(objetoParaEnviar),
                     })
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Erro na requisição: " + response.status);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log("Dados recebidos:", JSON.stringify(data, null, 2));
-                        if (data && data.response && Array.isArray(data.response.metadados)) {
-                            this.listaDosMetadados = data.response.metadados;
-                            this.tabelas = this.listaDosMetadados.map(metadado => ({
-                                data: metadado.dePara.map(dePara => ({
-                                    metadado: metadado.nome,
-                                    valorDe: dePara.de,
-                                    igualA: dePara.para,
-                                })),
-                            }));
-                        } else {
-                            throw new Error("Resposta da requisição inválida");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao visualizar metadados:", error);
-                    });
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Erro na requisição: " + response.status);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Dados recebidos:", JSON.stringify(data, null, 2));
+                            if (data && data.response && Array.isArray(data.response.metadados)) {
+                                this.listaDosMetadados = data.response.metadados;
+                                this.tabelas = this.listaDosMetadados.map(metadado => ({
+                                    data: metadado.dePara.map(dePara => ({
+                                        metadado: metadado.nome,
+                                        valorDe: dePara.de,
+                                        igualA: dePara.para,
+                                    })),
+                                }));
+                            } else {
+                                throw new Error("Resposta da requisição inválida");
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Erro ao visualizar metadados:", error);
+                        });
                 },
             }
         });

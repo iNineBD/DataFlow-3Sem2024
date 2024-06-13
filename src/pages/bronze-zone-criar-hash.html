@@ -38,7 +38,7 @@
         <h2 id="h2BronzeHash">Nome do arquivo:</h2>
         <p id="parchive" v-text="nameFile"></p>
       </div>
-      <div id="table-container" style="overflow-x: auto">        
+      <div id="table-container" style="overflow-x: auto">
         <table>
           <thead>
             <tr>
@@ -91,7 +91,17 @@
         deslogar() {
           logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
+
+          Swal.fire({
+            title: "Deseja realmente sair?",
+            showDenyButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../../public/index.html";
+            }
+          });
         },
         dataFiltrada() {
           return this.data.filter((item) => item.ativo);

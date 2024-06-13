@@ -33,36 +33,39 @@
     <main>
       <div class="content">
         <h1>Olá, <span v-text="dadosLocalStorage.usuario"></span></h1>
-        <br/>
+        <br />
         <h3>Escolha a etapa ou Selecione para Baixar Arquivo Yaml</h3>
       </div>
       <div class="container">
-          <div class="containerButton1">
-            <button v-if="btnLandingZone" @click="changePathButtons('Landing')">
-              Acessar Landing Zone
-            </button>
-            <button style="background-color: #cd7f32" v-if="btnBronzeZone" @click="changePathButtons('Bronze')">
-              Acessar Bronze Zone
-            </button>
-            <button style="background-color: #c0c0c0" v-if="btnSilverZone" @click="changePathButtons('Silver')">
-              Acessar Silver Zone
-            </button>
-          </div>
-          <div class="Yamlsexception">
-            <button @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span class="material-symbols-outlined">
-              download
-              </span> Download Yaml</button>
-            <button @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span class="material-symbols-outlined">
-              download
-              </span> Download Yaml</button>
-            <button @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span class="material-symbols-outlined">
-              download
-              </span> Download Yaml</button>
-          </div>
+        <div class="containerButton1">
+          <button v-if="btnLandingZone" @click="changePathButtons('Landing')">
+            Acessar Landing Zone
+          </button>
+          <button style="background-color: #cd7f32" v-if="btnBronzeZone" @click="changePathButtons('Bronze')">
+            Acessar Bronze Zone
+          </button>
+          <button style="background-color: #c0c0c0" v-if="btnSilverZone" @click="changePathButtons('Silver')">
+            Acessar Silver Zone
+          </button>
         </div>
-        
+        <div class="Yamlsexception">
+          <button @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span
+              class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
+          <button @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span
+              class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
+          <button @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span
+              class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
+        </div>
       </div>
-    </main>
+
+  </div>
+  </main>
   </div>
   <script>
     const app = new Vue({
@@ -85,7 +88,17 @@
         deslogar() {
           logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
+
+          Swal.fire({
+            title: "Deseja realmente sair?",
+            showDenyButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../../public/index.html";
+            }
+          });
         },
         importScreenNavegation() {
           const objetoNav = {

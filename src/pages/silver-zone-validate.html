@@ -92,7 +92,17 @@
       deslogar() {
         logoutUser(sessionStorage.getItem("usuario"))
         sessionStorage.removeItem("usuario")
-        window.location.href = "../../public/index.html"
+
+        Swal.fire({
+          title: "Deseja realmente sair?",
+          showDenyButton: true,
+          confirmButtonText: `Sim`,
+          denyButtonText: `Não`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "../../public/index.html";
+          }
+        });
       },
       alteraSituacao(situacao) {
         // Construindo o objeto completo
@@ -129,26 +139,26 @@
               });
               return;
             } else {
-              if(situacao === true){
+              if (situacao === true) {
                 Swal.fire({
-                title: "Aprovado com Sucesso",
-                text: responseJson.critica,
-                icon: "success", // Ícone personalizado (success, error, warning, info)
-                confirmButtonText: "OK", // Texto do botão de confirmação
-              }).then((result) => {
-                localStorage.removeItem("arquivoCSV");
-                window.location.href = "home.html";
-              });
-              }else{
+                  title: "Aprovado com Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
+                });
+              } else {
                 Swal.fire({
-                title: "Reprovado com Sucesso",
-                text: responseJson.critica,
-                icon: "success", // Ícone personalizado (success, error, warning, info)
-                confirmButtonText: "OK", // Texto do botão de confirmação
-              }).then((result) => {
-                localStorage.removeItem("arquivoCSV");
-                window.location.href = "home.html";
-              });
+                  title: "Reprovado com Sucesso",
+                  text: responseJson.critica,
+                  icon: "success", // Ícone personalizado (success, error, warning, info)
+                  confirmButtonText: "OK", // Texto do botão de confirmação
+                }).then((result) => {
+                  localStorage.removeItem("arquivoCSV");
+                  window.location.href = "home.html";
+                });
               }
             }
           });

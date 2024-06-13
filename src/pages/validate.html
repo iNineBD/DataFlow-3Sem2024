@@ -138,7 +138,17 @@
       deslogar() {
         logoutUser(sessionStorage.getItem("usuario"))
         sessionStorage.removeItem("usuario")
-        window.location.href = "../../public/index.html"
+
+        Swal.fire({
+          title: "Deseja realmente sair?",
+          showDenyButton: true,
+          confirmButtonText: `Sim`,
+          denyButtonText: `Não`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "../../public/index.html";
+          }
+        });
       },
       //função para acionar a extrasão de dados
       aprovarArquivo() {
@@ -259,7 +269,7 @@
         })
           .then((response) => response.json())
           .then((responseData) => {
-            if (responseData.critica !== "Processamento efetuado com sucesso"){
+            if (responseData.critica !== "Processamento efetuado com sucesso") {
               Swal.fire({
                 title: "Erro",
                 text: responseData.critica,
@@ -270,7 +280,7 @@
             } else {
               const response = responseData.response.aboutMetadados;
               console.log(response);
-  
+
               this.nameFile = response.nomeArquivo;
               this.userFile = response.usuario;
               this.data = response.metadados.map((coluna) => {

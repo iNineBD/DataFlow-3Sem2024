@@ -78,9 +78,19 @@
       mounted: console.log(sessionStorage.getItem("usuario")),
       methods: {
         deslogar() {
-          logoutUser(sessionStorage.getItem("usuario"))          
+          logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
+
+          Swal.fire({
+            title: "Deseja realmente sair?",
+            showDenyButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../../public/index.html";
+            }
+          });
         },
         submitForm() {
           const formData = new FormData();

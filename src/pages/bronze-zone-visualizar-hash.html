@@ -62,7 +62,7 @@
                 <a href="navegation.html">
                     <button id="btnCancelar">Voltar</button>
                 </a>
-               
+
             </div>
         </main>
     </div>
@@ -86,7 +86,17 @@
                 deslogar() {
                     logoutUser(sessionStorage.getItem("usuario"))
                     sessionStorage.removeItem("usuario")
-                    window.location.href = "../../public/index.html"
+
+                    Swal.fire({
+                        title: "Deseja realmente sair?",
+                        showDenyButton: true,
+                        confirmButtonText: `Sim`,
+                        denyButtonText: `Não`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../../public/index.html";
+                        }
+                    });
                 },
                 visualizarMetadadosDoHash() {
                     const objetoParaEnviar = {
