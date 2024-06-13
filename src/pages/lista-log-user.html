@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="../utils/logout.js"></script>
+  <link rel="stylesheet" href="../assets/style/lista-log-user.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <title>Lista de Usuários</title>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <img src="../assets/images/logo-dom-rock.png" alt="logo-dom-rock" id="logo" />
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="upload-csv.html">Importar Arquivo</a>
+        <a @click="deslogar()">
+          <span class="material-symbols-outlined">logout</span>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <h1 id="h1Log">Lista de Usuários</h1>
+
+      <div id="table-container" style="overflow-x: auto">
+        <table>
+          <thead>
+            <tr>
+              <th v-for="(head, index) in headTabela" :key="index">
+                {{ head }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in logs" :key="index">
+              <td>
+                <div id="centralizar">
+                  <a href="#" @click="viewUserDetails(item)">{{ item.usuario }}</a>
+                </div>
+              </td>
+              <td>{{ item.organizacao }}</td>
+              <td>{{ item.nivel }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container">
+        <div class="right-section">
+          <a href="home.html">
+            <button id="btnVoltar">Voltar</button>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        nomeArquivo: "",
+        logs: [],
+        headTabela: [
+          "Nome do Usuário",
+          "Organização",
+          "Nivel de Acesso"
+        ],
+      },
+      mounted() {
+        this.nomeUsuario = sessionStorage.getItem("usuario");
+        this.getLog();
+      },
+      methods: {
+        deslogar() {
+          logoutUser(sessionStorage.getItem("usuario"))
+          sessionStorage.removeItem("usuario")
+          window.location.href = "../../public/index.html"
+        },
+        getLog() {
+          console.log(sessionStorage.getItem("usuario"))
+          const requestData = {
+            organizacao: localStorage.getItem("cnpjFile"),
+            email: sessionStorage.getItem("usuario")
+          };
+
+          console.log(requestData)
+          const params = new URLSearchParams(requestData).toString();
+          fetch(`http://localhost:8080/log/allUsers?${params}`, {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${sessionStorage.getItem("authToken")}`,
+            }
+          })
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              console.log(data)
+
+              if (data.critica != "Processamento efetuado com sucesso") {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erro',
+                  text: data.critica,
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  window.location.href = "home.html";
+                });
+                return;
+              } else {
+                this.logs = data.response.map(item => ({
+                  email: item.email,
+                  usuario: item.nome,
+                  organizacao: item.organizacao,
+                  nivel: item.nivel
+                }));
+              }
+            })
+        },
+        viewUserDetails(item) {
+          localStorage.setItem("email", item.email);
+          localStorage.setItem("nome", item.usuario);
+          localStorage.setItem("organizacao", item.organizacao);
+          window.location.href = "log-user.html";
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
