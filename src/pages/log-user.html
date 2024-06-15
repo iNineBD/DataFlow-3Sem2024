@@ -119,8 +119,8 @@
 
               if (data.critica != "Processamento efetuado com sucesso") {
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Erro',
+                  icon: 'warning',
+                  title: 'Ops...',
                   text: data.critica,
                   confirmButtonText: 'OK'
                 }).then((result) => {
