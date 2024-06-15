@@ -126,15 +126,16 @@
             },
             mounted() {
                 const uploadResponse = JSON.parse(localStorage.getItem('uploadResponse'));
+                console.log("Dados Upload:", JSON.stringify(uploadResponse, null, 2));
+        
                 if (uploadResponse && uploadResponse.response) {
                     this.nameFile = uploadResponse.response.arquivo;
                     if (uploadResponse.response.metadados) {
                         this.populateTables(uploadResponse.response.metadados);
                         this.listaDosMetadados = uploadResponse.response.metadados.map(meta => ({ nome: meta.nome }));
-                        this.listaDosMetadados2 = [...this.listaDosMetadados];  // Clonar a lista inicial
+                        this.listaDosMetadados2 = uploadResponse.response.allMetadados.map(meta => ({ nome: meta }));  // Clonar a lista inicial
                     }
                 }
-                console.log("Dados Upload:", JSON.stringify(uploadResponse, null, 2));
 
                 this.nameFile = localStorage.getItem("fileName") || "";
                 this.user = sessionStorage.getItem("usuario") || "";
@@ -200,9 +201,10 @@
                 },
                 mostrarModalSelecaoMetadado() {
                     const metadadosSelecionados = this.tabelas.map(tabela => tabela.data[0].metadado);
-                    console.log("Metadados:", this.listaDosMetadados2);
-
+                    
                     const metadadosDisponiveis = this.listaDosMetadados2.filter(meta => !metadadosSelecionados.includes(meta.nome));
+
+                    console.log("HAHAHAHAHAHHAHA:", this.listaDosMetadados2);
 
                     const inputOptions = metadadosDisponiveis.reduce((options, meta) => {
                         options[meta.nome] = meta.nome;
