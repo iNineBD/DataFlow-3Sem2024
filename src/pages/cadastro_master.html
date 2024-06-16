@@ -129,6 +129,21 @@
           // Aqui você pode fazer o que quiser com os dados, como enviar para um servidor, exibir em algum lugar, etc.
           console.log("Novo usuário:", novoUsuario);
 
+          let timerInterval;
+          Swal.fire({
+            title: "Aguarde um momento...",
+            html: "Cadastrando usuário.",
+            timer: 5000,
+            timerProgressBar: true,allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            }
+          })
+
           //Enviar dados para o backend
           fetch("http://localhost:8080/register/cadastro", {
             method: "POST",
