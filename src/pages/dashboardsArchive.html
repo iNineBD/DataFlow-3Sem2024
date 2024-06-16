@@ -53,10 +53,11 @@
         </div>
         <div class="actions">
           <div>
-            <select @change="updateGrafico($event.target.value)">
-              <option value="all">Todas as organizações</option>
-              <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
-            </select>
+            <div class="select-wrapper" > <select @change="updateGrafico($event.target.value)">
+                <option value="all">Todas as organizações</option>
+                <option v-for="org in organizations" :value="org.cnpj" :key="org.id">{{ org.name }}</option>
+              </select>
+            </div>
           </div>
           <button @click="voltar()" class="botaoVoltar">Voltar</button>
         </div>

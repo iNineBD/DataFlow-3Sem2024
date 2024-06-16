@@ -96,9 +96,15 @@ body {
 
 .actions {
   display: flex;
-  justify-content: flex-end;
-  margin-right: 100px;
   margin-top: 50px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.select-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Centraliza o select horizontalmente */
 }
 
 select {
@@ -109,8 +115,6 @@ select {
   border-radius: 5px;
   cursor: pointer;
   font-size: 20px;
-  height: 100%;
-  margin-right: 350px;
 }
 
 .botaoVoltar {
@@ -121,5 +125,6 @@ select {
   border-radius: 5px;
   cursor: pointer;
   font-size: 20px;
-  height: 100%;
+  margin-left: 385px;
+  margin-right: 50px;
 }
