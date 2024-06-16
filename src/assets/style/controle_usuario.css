@@ -49,32 +49,25 @@ nav > a:hover {
 }
 
 body {
-    background: rgb(255, 255, 255);
+    background: white;
 }
 
-.containerButton1 {
-    display: flex;
-    flex-direction: column; /* exibir botões um abaixo do outro */
-    align-items: center; /* centralizar os botões horizontalmente */
-    margin-top: 40px; /* espaço entre o título e os botões */
-}
 .container {
     display: flex;
     justify-content: center; /* centraliza horizontalmente */
     align-items: center; /* centraliza verticalmente */
-}
-
-.Yamlsexception {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    margin-top: 40px;
-}
-
-.content {
+    height: 100%; /* altura total da página */
+}.content {
     margin-top: 20px;
     text-align: center;
-    font-size: 24px;
+    font-size: 24px; /* centraliza o conteúdo dentro da div */
+}
+
+.containerButton {
+    display: flex;
+    flex-direction: column; /* exibir botões um abaixo do outro */
+    align-items: center; /* centralizar os botões horizontalmente */
+    margin-top: 40px; /* espaço entre o título e os botões */
 }
 
 button {
@@ -87,20 +80,20 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
-    height: 100%;
-    width: 100%;
+    height: 80px;
+    width: 320px;
 }
 
-.btnyml {
-     
-    margin-left: 50px; /* espaço entre os botões */
-    padding: 4px;
-    background-color: #021F4E;
+button:hover {
+    /* Estilos adicionais para o botão, se necessário */
+    margin: 30px; /* espaço entre os botões */
+    padding: 30px;
+    background-color: #032d70;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
-    height: 50%;
-    width: 50%;
+    height: 80px;
+    width: 320px;
 }

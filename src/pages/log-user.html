@@ -6,13 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <link rel="stylesheet" href="../assets/style/log.css" />
   <script src="../utils/logout.js"></script>
+  <link rel="stylesheet" href="../assets/style/log-user.css" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <title>Histórico Log</title>
-  <link rel="shortcut icon" href="../assets/images/favicon.ico">
-
+  <title>Histórico Log do Usuário</title>
 </head>
 
 <body>
@@ -29,11 +27,11 @@
     </header>
 
     <main>
-      <h1 id="h1Log">Histórico de Modificações</h1>
+      <h1 id="h1Log">Histórico de Acesso</h1>
 
       <div id="alinhamentos">
-        <h2 id="h2Log">Nome do arquivo:</h2>
-        <h2 id="parchive" v-text="nomeArquivo"></h2>
+        <h2 id="h2Log">Usuário:</h2>
+        <h2 id="parchive" v-text="userName"></h2>
       </div>
 
       <div id="table-container" style="overflow-x: auto">
@@ -47,11 +45,8 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in logs" :key="index">
-              <td>{{ item.usuario }}</td>
-              <td>{{ item.estagio }}</td>
+              <td>{{ item.data }}</td>
               <td>{{ item.acao }}</td>
-              <td>{{ item.observacao }}</td>
-              <td>{{ item.dataHora }}</td>
             </tr>
           </tbody>
         </table>
@@ -59,7 +54,7 @@
 
       <div class="container">
         <div class="right-section">
-          <a href="home.html">
+          <a href="lista-log-user.html">
             <button id="btnVoltar">Voltar</button>
           </a>
         </div>
@@ -71,18 +66,15 @@
     const app = new Vue({
       el: "#app",
       data: {
-        nomeArquivo: "",
+        userName: localStorage.getItem("nome"),
         logs: [],
         headTabela: [
-          "Usuário",
-          "Estágio",
-          "Ação",
-          "Observação",
-          "Data/Hora"
+          "Data/Hora",
+          "Ação"
         ],
       },
       mounted() {
-        this.nomeArquivo = localStorage.getItem("fileName") || "";
+        this.nomeUsuario = sessionStorage.getItem("nome");
         this.visualizarDadosDoLog();
       },
       methods: {
@@ -102,15 +94,15 @@
           });
         },
         visualizarDadosDoLog() {
-          console.log(localStorage.getItem("fileName"))
+          console.log(localStorage.getItem("email"))
           const requestData = {
-            nomeArquivo: localStorage.getItem("fileName"),
-            organizacao: localStorage.getItem("cnpjFile"),
-            usuario: sessionStorage.getItem("usuario")
+            organizacao: localStorage.getItem("organizacao"),
+            email: localStorage.getItem("email"),
+            nome: localStorage.getItem("nome")
           };
 
           console.log(requestData)
-          fetch("http://localhost:8080/log/visualizar", {
+          fetch("http://localhost:8080/log/usuario", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -127,12 +119,12 @@
 
               if (data.critica != "Processamento efetuado com sucesso") {
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Erro',
+                  icon: 'warning',
+                  title: 'Ops...',
                   text: data.critica,
                   confirmButtonText: 'OK'
                 }).then((result) => {
-                  window.location.href = "home.html";
+                  window.location.href = "lista-log-user.html";
                 });
 
 
@@ -140,11 +132,11 @@
 
               } else {
                 this.logs = data.response.map(item => ({
+                  email: item.emailUsuario,
                   usuario: item.nomeUsuario,
-                  estagio: item.estagio,
+                  organizacao: item.organizacao,
                   acao: item.acao,
-                  observacao: item.observacao,
-                  dataHora: item.dataHora
+                  data: item.dataHora
                 }));
               }
             })

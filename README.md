@@ -201,9 +201,9 @@
 | SPRINTS | PERÍODOS | DESCRIÇÃO |
 |:-------:|:-----:|:---------:|
 | [Sprint 1](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-1)| 25/03/2024 à 14/04/2024 | Landing Zone |
-| [Sprint 2](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-2) | 15/04/2024 à 05/05/2024 | Bronze Zone |
-| [Sprint 3](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-3) | 06/05/2024 à 26/05/2024 | Silver Zone |
-| [Sprint 4](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-4) | 27/05/2024 à 16/06/2024 | Dashboard e controle de usuários |
+| [Sprint 2](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-2) | 15/04/2024 à 05/05/2024 | Bronze Zone, Cadastro e Login |
+| [Sprint 3](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-3) | 06/05/2024 à 26/05/2024 | Silver Zone e Dashboards |
+| [Sprint 4](https://github.com/iNineBD/DataFlow-3Sem2024/wiki/Sprint-4) | 27/05/2024 à 16/06/2024 | Logs, YAML e Upload DePara |
 
 <div align="left"><hr width=70%></div>
 

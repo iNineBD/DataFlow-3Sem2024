@@ -6,13 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <link rel="stylesheet" href="../assets/style/log.css" />
   <script src="../utils/logout.js"></script>
+  <link rel="stylesheet" href="../assets/style/lista-log-user.css" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <title>Histórico Log</title>
-  <link rel="shortcut icon" href="../assets/images/favicon.ico">
-
+  <title>Lista de Usuários</title>
 </head>
 
 <body>
@@ -29,12 +27,7 @@
     </header>
 
     <main>
-      <h1 id="h1Log">Histórico de Modificações</h1>
-
-      <div id="alinhamentos">
-        <h2 id="h2Log">Nome do arquivo:</h2>
-        <h2 id="parchive" v-text="nomeArquivo"></h2>
-      </div>
+      <h1 id="h1Log">Lista de Usuários</h1>
 
       <div id="table-container" style="overflow-x: auto">
         <table>
@@ -47,11 +40,13 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in logs" :key="index">
-              <td>{{ item.usuario }}</td>
-              <td>{{ item.estagio }}</td>
-              <td>{{ item.acao }}</td>
-              <td>{{ item.observacao }}</td>
-              <td>{{ item.dataHora }}</td>
+              <td>
+                <div id="centralizar">
+                  <a href="#" @click="viewUserDetails(item)">{{ item.usuario }}</a>
+                </div>
+              </td>
+              <td>{{ item.organizacao }}</td>
+              <td>{{ item.nivel }}</td>
             </tr>
           </tbody>
         </table>
@@ -74,16 +69,14 @@
         nomeArquivo: "",
         logs: [],
         headTabela: [
-          "Usuário",
-          "Estágio",
-          "Ação",
-          "Observação",
-          "Data/Hora"
+          "Nome do Usuário",
+          "Organização",
+          "Nivel de Acesso"
         ],
       },
       mounted() {
-        this.nomeArquivo = localStorage.getItem("fileName") || "";
-        this.visualizarDadosDoLog();
+        this.nomeUsuario = sessionStorage.getItem("usuario");
+        this.getLog();
       },
       methods: {
         deslogar() {
@@ -101,27 +94,24 @@
             }
           });
         },
-        visualizarDadosDoLog() {
-          console.log(localStorage.getItem("fileName"))
+        getLog() {
+          console.log(sessionStorage.getItem("usuario"))
           const requestData = {
-            nomeArquivo: localStorage.getItem("fileName"),
             organizacao: localStorage.getItem("cnpjFile"),
-            usuario: sessionStorage.getItem("usuario")
+            email: sessionStorage.getItem("usuario")
           };
 
           console.log(requestData)
-          fetch("http://localhost:8080/log/visualizar", {
-            method: "POST",
+          const params = new URLSearchParams(requestData).toString();
+          fetch(`http://localhost:8080/log/allUsers?${params}`, {
+            method: "GET",
             headers: {
-              "Content-Type": "application/json",
               'Authorization': `Bearer ${sessionStorage.getItem("authToken")}`,
-            },
-            body: JSON.stringify(requestData),
+            }
           })
             .then(response => {
               return response.json();
             })
-
             .then(data => {
               console.log(data)
 
@@ -134,20 +124,22 @@
                 }).then((result) => {
                   window.location.href = "home.html";
                 });
-
-
-                return
-
+                return;
               } else {
                 this.logs = data.response.map(item => ({
-                  usuario: item.nomeUsuario,
-                  estagio: item.estagio,
-                  acao: item.acao,
-                  observacao: item.observacao,
-                  dataHora: item.dataHora
+                  email: item.email,
+                  usuario: item.nome,
+                  organizacao: item.organizacao,
+                  nivel: item.nivel
                 }));
               }
             })
+        },
+        viewUserDetails(item) {
+          localStorage.setItem("email", item.email);
+          localStorage.setItem("nome", item.usuario);
+          localStorage.setItem("organizacao", item.organizacao);
+          window.location.href = "log-user.html";
         }
       }
     });

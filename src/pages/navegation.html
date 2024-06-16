@@ -10,9 +10,12 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="../utils/logout.js"></script>
   <!-- Corrija o caminho para o arquivo CSS -->
   <link rel="stylesheet" href="/src/assets/style/navegation.css" />
   <title>Navegação</title>
+  <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
 </head>
 
 <body>
@@ -28,25 +31,41 @@
     </header>
 
     <main>
+      <div class="content">
+        <h1>Olá, <span v-text="dadosLocalStorage.usuario"></span></h1>
+        <br />
+        <h3> <span> Escolha a etapa </span> <span v-if="emailYaml === 'master@gmail.com'">ou Selecione para Baixar Arquivo Yaml</span></h3>
+      </div>
       <div class="container">
-        <div class="content">
-          <h1>Olá, <span v-text="dadosLocalStorage.usuario"></span></h1>
-          <br />
-          <h3>Escolha a etapa</h3>
-          <div class="containerButton">
-            <button v-if="btnLandingZone" @click="changePathButtons('Landing')">
-              Acessar Landing Zone
-            </button>
-            <button style="background-color: #cd7f32" v-if="btnBronzeZone" @click="changePathButtons('Bronze')">
-              Acessar Bronze Zone
-            </button>
-            <button style="background-color: #c0c0c0" v-if="btnSilverZone" @click="changePathButtons('Silver')">
-              Acessar Silver Zone
-            </button>
-          </div>
+        <div class="containerButton1">
+          <button v-if="btnLandingZone" @click="changePathButtons('Landing')">
+            Acessar Landing Zone
+          </button>
+          <button style="background-color: #cd7f32" v-if="btnBronzeZone" @click="changePathButtons('Bronze')">
+            Acessar Bronze Zone
+          </button>
+          <button style="background-color: #c0c0c0" v-if="btnSilverZone" @click="changePathButtons('Silver')">
+            Acessar Silver Zone
+          </button>
+        </div>
+        <div class="Yamlsexception">
+          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span
+              class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
+          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span
+              class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
+          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span
+              class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
         </div>
       </div>
-    </main>
+
+  </div>
+  </main>
   </div>
   <script>
     const app = new Vue({
@@ -61,14 +80,26 @@
         btnBronzeZone: false,
         btnSilverZone: false,
         status: localStorage.getItem("status"),
+        emailYaml: sessionStorage.getItem("usuario"),
       },
       mounted() {
         this.importScreenNavegation();
       },
       methods: {
         deslogar() {
+          logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
+
+          Swal.fire({
+            title: "Deseja realmente sair?",
+            showDenyButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../../public/index.html";
+            }
+          });
         },
         importScreenNavegation() {
           const objetoNav = {
@@ -126,6 +157,39 @@
             }
           }
         },
+        gerarYaml(zones) {
+          const objetoYaml = {
+            nomeArquivo: localStorage.getItem("fileName"),
+            organizacao: localStorage.getItem("cnpjFile"),
+          };
+
+          const btnYaml = zones;
+          let fileNameToDonwload = "";
+
+          fetch(`http://localhost:8080/mapper/yaml/${btnYaml}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ` + sessionStorage.getItem("authToken"),
+            },
+            body: JSON.stringify(objetoYaml),
+          })
+            .then((response) => {
+              fileNameToDonwload = response.headers.get("fileName");
+              console.log(fileNameToDonwload);
+              return response.blob();
+            })
+            .then((blob) => {
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = fileNameToDonwload;
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+            });
+        }
       },
     });
   </script>

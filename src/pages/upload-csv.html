@@ -7,9 +7,12 @@
   <script src="../utils/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <link rel="stylesheet" href="../assets/style/upload-csv.css" />
+  <script src="../utils/logout.js"></script>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <title>Upload Arquivo - Landing Zone</title>
+  <link rel="shortcut icon" href="../assets/images/favicon.ico">
+
 </head>
 
 <body>
@@ -75,8 +78,19 @@
       mounted: console.log(sessionStorage.getItem("usuario")),
       methods: {
         deslogar() {
+          logoutUser(sessionStorage.getItem("usuario"))
           sessionStorage.removeItem("usuario")
-          window.location.href = "../../public/index.html"
+
+          Swal.fire({
+            title: "Deseja realmente sair?",
+            showDenyButton: true,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../../public/index.html";
+            }
+          });
         },
         submitForm() {
           const formData = new FormData();

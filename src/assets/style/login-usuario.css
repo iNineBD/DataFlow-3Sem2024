@@ -96,6 +96,19 @@
     width: 100%;
 }
 
+#senha{
+  position: relative; /* Adiciona posição relativa para o elemento pai */
+
+}
+
+.eyeSenha{
+    height: 25px;
+    position: absolute; /* Posicionamento absoluto dentro do campo */
+    right: 25px; /* Ajuste a posição horizontal conforme necessário */
+    top:50%;
+    transform: translateY(-50%); /* Centralização vertical */
+    cursor: pointer;
+}
 
 .content-box .form-box .input-box input {
     width: 90%;
@@ -105,6 +118,7 @@
     font-size: 12px;
     border-radius: 0.15cm;
     padding: 14px 12px;
+    position: relative;
 
 
 }
