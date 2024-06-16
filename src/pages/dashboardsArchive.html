@@ -78,11 +78,11 @@
       },
       data: {
         organizations: [],
-        series: [1, 1, 1],
+        series: [1, 1, 1, 1],
         chartWidth: 500,
         chartHeight: 500,
         chartOptions1: {
-          labels: ["Landing Zone", "Bronze Zone", "Silver Zone"],
+          labels: ["Landing Zone", "Bronze Zone", "Silver Zone", "Finalizado"],
           plotOptions: {
             pie: {
               expandOnClick: false,
@@ -196,6 +196,7 @@
                 data.response.metricas[0].etapas.LZ,
                 data.response.metricas[0].etapas.BZ,
                 data.response.metricas[0].etapas.SZ,
+                data.response.metricas[0].etapas.F,
               ]
             })
             .catch(error => {
