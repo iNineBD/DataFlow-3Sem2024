@@ -96,15 +96,17 @@ body {
 
 .actions {
   display: flex;
+  justify-content: center; 
+  
   margin-top: 50px;
-  justify-content: flex-end;
-  align-items: center;
+  flex-wrap: wrap;
 }
 
 .select-wrapper {
-  flex: 1;
+  flex-grow: 1;
   display: flex;
-  justify-content: center; /* Centraliza o select horizontalmente */
+  justify-content: center;
+  margin-bottom: 10px; 
 }
 
 select {
@@ -118,13 +120,26 @@ select {
 }
 
 .botaoVoltar {
-  padding: 10px;
+  padding: 10px 20px 10px 20px; 
   background-color: #ADB5BD;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 20px;
-  margin-left: 385px;
-  margin-right: 50px;
+  margin-left: 20px; /* Adiciona um espaço entre o select e o botão */
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column; 
+    align-items: center; 
+  }
+  .select-wrapper {
+    margin-bottom: 20px; 
+    flex-grow: 0; 
+  }
+  .botaoVoltar {
+    margin-left: 0; 
+  }
 }
