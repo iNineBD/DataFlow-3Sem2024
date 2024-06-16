@@ -49,15 +49,15 @@
           </button>
         </div>
         <div class="Yamlsexception">
-          <button @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span
+          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span
               class="material-symbols-outlined">
               download
             </span> Download Yaml</button>
-          <button @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span
+          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span
               class="material-symbols-outlined">
               download
             </span> Download Yaml</button>
-          <button @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span
+          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span
               class="material-symbols-outlined">
               download
             </span> Download Yaml</button>
@@ -80,6 +80,7 @@
         btnBronzeZone: false,
         btnSilverZone: false,
         status: localStorage.getItem("status"),
+        emailYaml: sessionStorage.getItem("usuario"),
       },
       mounted() {
         this.importScreenNavegation();
