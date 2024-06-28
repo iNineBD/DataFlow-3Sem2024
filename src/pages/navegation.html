@@ -49,15 +49,14 @@
           </button>
         </div>
         <div class="Yamlsexception">
-          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('landing')" v-if="btnLandingZone" class="btnyml"><span
+          <button v-if="emailYaml === 'master@gmail.com' && btnLandingZone" @click="gerarYaml('landing')" class="btnyml"><span class="material-symbols-outlined">
+              download
+            </span> Download Yaml</button>
+          <button v-if="emailYaml === 'master@gmail.com' && btnBronzeZone" @click="gerarYaml('bronze')" class="btnyml"><span
               class="material-symbols-outlined">
               download
             </span> Download Yaml</button>
-          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('bronze')" v-if="btnBronzeZone" class="btnyml"><span
-              class="material-symbols-outlined">
-              download
-            </span> Download Yaml</button>
-          <button v-if="emailYaml === 'master@gmail.com'" @click="gerarYaml('silver')" v-if="btnSilverZone" class="btnyml"><span
+          <button v-if="emailYaml === 'master@gmail.com' && btnSilverZone" @click="gerarYaml('silver')"  class="btnyml"><span
               class="material-symbols-outlined">
               download
             </span> Download Yaml</button>
