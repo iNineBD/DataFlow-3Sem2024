@@ -92,14 +92,14 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 .checkboxAtivo {
-  margin: 0px 0px 0px 12px;
+  margin: 0px 0px 0px 70px;
   display: block;
 }
 
 .checkboxObrigatorio {
   margin: 0px 0px 0px 32px;
   display: block;
-  
+
 }
 
 #table-container {
