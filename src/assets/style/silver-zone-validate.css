@@ -103,10 +103,10 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table-container {
-  max-height: 400px;
+  max-height: 100%;
   overflow-y: auto;
-  margin: 0 auto;
-  max-width: 1000px;
+  margin: 0 35px;
+  max-width: 100%;
 }
 
 .even-row {
@@ -138,8 +138,7 @@ tbody > tr > td > div > abbr > img:hover {
 #alinhamentos {
   display: flex;
   align-items: baseline;
-  margin: 0 auto;
-  max-width: 1000px;
+  margin: 0 35px;
 }
 
 #btnCancelar {

@@ -113,10 +113,10 @@ th {
 }
 
 #table-container {
-    max-height: 400px; /* altura máxima */
+    max-height: 100%; /* altura máxima */
     overflow-y: auto;
-    margin: 0 auto; /* centralizar */
-    max-width: 1000px; /* largura máxima */
+    margin: 0 35PX; /* centralizar */
+    max-width: 100%; /* largura máxima */
 }
 
 .even-row {
@@ -144,10 +144,10 @@ th {
 .container {
     display: flex;
     align-items: center;
-    max-width: 1000px;
+    max-width: 100%;
     justify-content: center;
     overflow-y: auto;
-    margin: 0 auto;
+    margin: 0 35px;
     padding-top: 20px;
 }
 
@@ -185,8 +185,8 @@ th {
 #alinhamentos {
     display: flex;
     align-items: baseline;
-    margin: 0 auto;
-    max-width: 1000px;
+    margin: 0 35px;
+    max-width: 100%;
 }
 
 #sectionObs {

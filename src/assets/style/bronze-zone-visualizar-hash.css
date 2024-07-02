@@ -107,15 +107,14 @@ th {
 #alinhamentos {
     display: flex;
     align-items: baseline;
-    margin: 0 auto;
-    max-width: 1000px;
+    margin: 0 35px;
 }
 
 #table-container {
-    max-height: 400px; /* altura máxima */
+    max-height: 100%;
     overflow-y: auto;
-    margin: 0 auto; /* centralizar */
-    max-width: 1000px; /* largura máxima */
+    margin: 0 35px;
+    max-width: 100%;
 }
 
 .even-row {
@@ -135,9 +134,9 @@ th {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 10px 10px 10px auto; /* ajuste de margens */
     font-size: 15px;
     font-weight: 600;
+    margin-right: 35px;
 }
 
 #btnEditar {
@@ -156,9 +155,8 @@ th {
     margin: 20px auto;
     display: flex;
     justify-content: flex-end;
-    max-width: 1000px;
 }
 
 .apagado {
-    opacity: 0.6;
+    opacity: 0.9;
 }

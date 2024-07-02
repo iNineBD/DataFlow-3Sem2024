@@ -94,7 +94,7 @@ tbody > tr > td > div > abbr > img:hover {
 }
 
 #table-container {
-  max-height: 520px;
+  max-height: 100%;
   overflow-y: auto;
   margin: 0px 35px;
 }

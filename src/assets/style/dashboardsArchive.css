@@ -52,7 +52,6 @@ html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
 }
 
 #app {
@@ -120,14 +119,15 @@ select {
 }
 
 .botaoVoltar {
-  padding: 10px 20px 10px 20px; 
+  padding: 10px 20px 10px 20px;
   background-color: #ADB5BD;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 20px;
-  margin-left: 20px; /* Adiciona um espaço entre o select e o botão */
+  margin-left: 20px;
+  margin-bottom: 9px; /* Adiciona um espaço entre o select e o botão */
 }
 
 @media (max-width: 768px) {
