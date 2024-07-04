@@ -7,11 +7,12 @@
 }
 
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   font-family: var(--fonte-padrao);
 }
 
+/* Header */
 header {
   background-color: #021f4e;
   display: flex;
@@ -37,7 +38,7 @@ nav a {
   margin-right: 20px;
   font-weight: 600;
   font-size: large;
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 nav a img {
@@ -48,6 +49,7 @@ nav > a:hover {
   color: #02bbca;
 }
 
+/* Body */
 body {
   background: white;
 }
@@ -55,9 +57,10 @@ body {
 main > h1,
 h2,
 h3 {
-  margin: 20px 35px 20px 35px;
+  margin: 20px 35px;
 }
 
+/* Table */
 table {
   width: calc(100% - 70px);
   border-collapse: collapse;
@@ -77,6 +80,11 @@ th {
   background-color: #f2f2f2;
 }
 
+tbody tr:hover {
+  background-color: #dad4d4;
+}
+
+/* Table Images */
 #img-table {
   height: 16px;
   margin: 0 6px 0 0;
@@ -95,56 +103,54 @@ tbody > tr > td > div > abbr > img:hover {
   cursor: pointer;
 }
 
+/* Status Cell */
 .status-cell {
   font-size: 14px;
 }
 
+/* Column Widths */
 #table th:nth-child(1),
 #table td:nth-child(1) {
-  width: 30%; /* Defina a largura desejada para a primeira coluna */
+  width: 30%;
 }
 
 #table th:nth-child(2),
 #table td:nth-child(2) {
-  width: 35%; /* Defina a largura desejada para a segunda coluna */
+  width: 35%;
 }
 
 #table th:nth-child(3),
 #table td:nth-child(3) {
-  width: 35%; /* Defina a largura desejada para a terceira coluna */
+  width: 35%;
 }
 
-#table td:nth-child(4) {
-  align-items: center;
-  text-align: center; /* Alinha o texto horizontalmente no centro */
-  vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
-}
-
+/* Center Text in Specific Columns */
+#table td:nth-child(4),
 #table td:nth-child(5) {
-  align-items: center;
-  text-align: center; /* Alinha o texto horizontalmente no centro */
-  vertical-align: middle; /* Alinha o conteúdo verticalmente no centro */
+  text-align: center;
+  vertical-align: middle;
 }
 
+/* Dropdown */
 .dropdown {
   position: relative;
-  display: flex; /* Usando flexbox */
-  align-items: center; /* Centralizando verticalmente */
+  display: flex;
+  align-items: center;
 }
 
 .dropdown-menu {
-    width: 100px;
-    height: auto;
-    position: absolute;
-    top: 50px;
-    left: -50px;
-    border-radius: 5px;
-    box-shadow: 0 0 2px black;
-    background-color: white;
-    padding: 5px;
-    display: flex; /* Usando flexbox para centralizar verticalmente */
-    justify-content: center; /* Centralizando horizontalmente */
-    align-items: center; /* Centralizando verticalmente */
+  width: 100px;
+  height: auto;
+  position: absolute;
+  top: 50px;
+  left: -50px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px black;
+  background-color: white;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dropdown-menu a {
